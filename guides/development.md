@@ -4,7 +4,7 @@ Seabee have a split infrastructure with compute and storage on [NIRD](https://do
 
 # Access to seabee project space
 
-For access to the Seabee project create an issue on this repository explaining your use case.
+For access to the Seabee project create an issue on this repository explaining your use case. We can then give access to Seabee on Dataporten. Additionally to deploy new apps, as described below, an account on [MAS](https://www.metacenter.no/user/application/form/norstore/) is also needed.
 
 ## Deploying applications
 
