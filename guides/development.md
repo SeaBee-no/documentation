@@ -15,4 +15,4 @@ Applications on the NIRD toolkit can be found [here](https://documentation.sigma
 To deploy applications that are not available on [apps.sigma2.no](https://apps.sigma2.no/) we need access to the nird kubernetes api. For this we need two tools:
 
 1. [kubectl](https://kubernetes.io/docs/tasks/tools/#kubectl) - for deploying and controlling the applications
-2. [kubed](https://github.com/UNINETTSigma2/kubed) - for authentication and kubectl configuration
+2. [nird-toolkit-auth-helper](https://github.com/UNINETTSigma2/nird-toolkit-auth-helper) - for authentication and kubectl configuration
