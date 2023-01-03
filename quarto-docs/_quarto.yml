@@ -1,0 +1,46 @@
+project:
+  type: website
+
+website:
+  title: "SeaBee Documentation"
+  navbar:
+    left:
+      - text: "Home"
+        file: index.qmd
+      - login.qmd
+      - storage.qmd
+      - text: "Processing"
+        menu:
+          - orthorectification.qmd
+          - jupyterhub.qmd 
+      - annotation.qmd
+      - data-products.qmd
+
+  sidebar:
+    style: "docked"
+    search: true
+    tools:
+      - icon: github
+        menu:
+          - text: SeaBee repositories
+            url:  https://github.com/SeaBee-no
+    contents:
+      - text: "Home"
+        file: index.qmd
+      - login.qmd
+      - storage.qmd
+      - section: "Processing"
+        contents:
+          - orthorectification.qmd
+          - jupyterhub.qmd 
+      - annotation.qmd
+      - data-products.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

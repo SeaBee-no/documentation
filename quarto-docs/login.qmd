@@ -1,0 +1,27 @@
+---
+title: "Login"
+---
+
+Access to SeaBee's data platform is controlled via **Feide**. 
+
+## Create a Feide account {#sec-create-account}
+
+ * **Describe the simplest way for new users to create an account and login to the platform**
+
+
+## Browse files using MinIO {#sec-minio}
+
+SeaBee uses [MinIO](https://min.io/) on Sigma2 to provide an S3-compatible API for file storage and transfer. A simple web interface for browsing the available files is [here](). 
+
+See the [File storage](./storage.qmd) page for further details of how to interact with the MinIO API.
+
+## Data processing using SeaBee's JupterHub {#sec-jupyterhub}
+
+Login to the JupyterHub [here](https://hub.seabee.sigma2.no/) using your Feide credentials.
+
+SeaBee's JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers.
+
+See the [JupyterHub](./jupyterhub.qmd) page for full details.
+
+
+
