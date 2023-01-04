@@ -11,32 +11,37 @@ number-sections: true
 
 ## Backups
 
- * Describe backup schedule
+ Files stored on NIRD will follow the regular backup on NIRD as described in this [section](https://documentation.sigma2.no/files_storage/backup.html#nird). For the geonode databases backups can be dumped to the `seabee-backup-restore` bucket, and then backuped through the NIRD regime.
 
 ## Uploading and downloading files
 
- * Describe options for uploading and download, including detailed configuration steps
+ There is a rich set of options to upload and download files to the minio storage.
 
 ### MinIO web interface
+ 
+ The minio console located at <https://minio.seabee.sigma2.no/login> provides among other things a graphical interface to upload and download files. 
+ 
+ ![Minio Console](./images/minio_console_window.png){#fig-minio-console-window}
 
- * Overview of the web UI
- * How to manually browse, upload and download files
- * What should go where?
- * How should files be structured?
+ One the [buckets page](https://minio.seabee.sigma2.no/buckets) click `Browse`->`Upload` then select either `Upload Folder` or `Upload File` or to download mark the desired folder/file and click `Download`.
 
 ### SeaBee data upload portal
 
  * Describe Deb's data upload portal
  * Best option for standard/less advanced users?
 
-### Python API
+### Machine Access
 
- * Possible to up/download using Python?
- * Can this be done from an external machine, or only from the SeaBee JupyterHub?
- * Based on Kim's example [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb)
+ To accesss the s3 api on <https://storage.seabee.sigma2.no> you need a service account that can be generated [here](https://minio.seabee.sigma2.no/identity/account).
 
-### Rclone
 
-[Rclone](https://rclone.org/) provides a convenient way of synchronising local files to cloud storage. **It is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
+#### Python
 
- * Describe the configuration required to get Rclone working with MinIO on Sigma2
+ All python libaries supporting the s3 api will be able to interact with the minio storage. One good option is the [minio sdk](https://min.io/docs/minio/linux/developers/python/minio-py.html) that in addition to upload and download have options to search and manage access, a small snippet can be seen [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb) or take a look at these [examples](https://github.com/minio/minio-py/tree/master/examples). If you are in the need of file like access the [s3fs](https://s3fs.readthedocs.io/en/latest/) library is also a good option.
+
+#### Shell
+
+ * [Rclone](https://rclone.org/) provides a convenient way of synchronising files `local->cloud` or `cloud->cloud`. **It is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
+ * [minio client](https://min.io/docs/minio/linux/reference/minio-mc.html), if you only need `local->s3` or `s3->s3` actions
+
+
