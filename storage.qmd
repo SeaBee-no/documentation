@@ -1,11 +1,13 @@
 ---
 title: "Storage"
+number-sections: true
 ---
 
 ## Overview
 
  * Describe MinIO instance, how to login, basic bucket/folder structure etc.
  * S3-compatible storage endpoint at <https://storage.seabee.sigma2.no>
+ * Web interface at <https://minio.seabee.sigma2.no/login>
 
 ## Backups
 
@@ -15,7 +17,7 @@ title: "Storage"
 
  * Describe options for uploading and download, including detailed configuration steps
 
-### MinIO interface
+### MinIO web interface
 
  * Overview of the web UI
  * How to manually browse, upload and download files

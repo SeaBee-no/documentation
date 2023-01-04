@@ -107,6 +107,9 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./data-products.html">Data products</a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./howto.html">How to</a>
+  </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -187,6 +190,11 @@ ul.task-list li input[type="checkbox"] {
   <a href="./data-products.html" class="sidebar-item-text sidebar-link">Data products</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">How to</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -196,7 +204,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#open-drone-map" id="toc-open-drone-map" class="nav-link active" data-scroll-target="#open-drone-map">Open Drone Map</a></li>
+  <li><a href="#open-drone-map" id="toc-open-drone-map" class="nav-link active" data-scroll-target="#open-drone-map"><span class="toc-section-number">1</span>  Open Drone Map</a></li>
   </ul>
 </nav>
     </div>
@@ -219,10 +227,10 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Orthorectification is currently performed using two main tools: <a href="https://opendronemap.org/">Open Drone Map (ODM)</a>, which is Open Source, and <a href="https://www.pix4d.com/">Pix4D</a>, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has typically been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.</p>
+<p>Orthorectification within SeaBee is currently performed using two main tools: <a href="https://opendronemap.org/">Open Drone Map (ODM)</a>, which is Open Source, and <a href="https://www.pix4d.com/">Pix4D</a>, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.</p>
 <p>Pix4D cannot be deployed on Sigma2 due to licensing restrictions, but ODM is available via the <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM API</a>. <a href="https://github.com/OpenDroneMap/PyODM">PyODM</a> and <a href="https://github.com/OpenDroneMap/CloudODM">CloudODM</a> are also provided.</p>
-<section id="open-drone-map" class="level2">
-<h2 class="anchored" data-anchor-id="open-drone-map">Open Drone Map</h2>
+<section id="open-drone-map" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="open-drone-map"><span class="header-section-number">1</span> Open Drone Map</h2>
 <ul>
 <li>Describe the configuration for ODM on Sigma2</li>
 <li>Add simple examples of mosaicing test images from a MinIO bucket using both Python (PyODM) and the command line (CloudODM)</li>

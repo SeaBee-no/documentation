@@ -1,3 +1,10 @@
 ---
 title: "Data products"
+number-sections: true
 ---
+
+ * Describe GeoServer, GeoNode and databases (PostGIS)
+ * How do we move data uploaded to MinIO to GeoServer?
+ * How do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g. ArcGIS?
+ * What is the difference between registered and unregistered users on the GeoNode site?
+ * What can users do via GeoNode and how do they do it (create new maps, download data... ?)

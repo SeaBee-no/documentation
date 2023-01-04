@@ -107,6 +107,9 @@ ul.task-list li input[type="checkbox"] {
   <li class="nav-item">
     <a class="nav-link" href="./data-products.html">Data products</a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./howto.html">How to</a>
+  </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
           </div> <!-- /navcollapse -->
@@ -187,6 +190,11 @@ ul.task-list li input[type="checkbox"] {
   <a href="./data-products.html" class="sidebar-item-text sidebar-link">Data products</a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./howto.html" class="sidebar-item-text sidebar-link">How to</a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -196,9 +204,10 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#sec-create-account" id="toc-sec-create-account" class="nav-link active" data-scroll-target="#sec-create-account">Create a Feide account</a></li>
-  <li><a href="#sec-minio" id="toc-sec-minio" class="nav-link" data-scroll-target="#sec-minio">Browse files using MinIO</a></li>
-  <li><a href="#sec-jupyterhub" id="toc-sec-jupyterhub" class="nav-link" data-scroll-target="#sec-jupyterhub">Data processing using SeaBee’s JupterHub</a></li>
+  <li><a href="#sec-create-account" id="toc-sec-create-account" class="nav-link active" data-scroll-target="#sec-create-account"><span class="toc-section-number">1</span>  Create a Feide account</a></li>
+  <li><a href="#sec-minio" id="toc-sec-minio" class="nav-link" data-scroll-target="#sec-minio"><span class="toc-section-number">2</span>  Browse files using MinIO</a></li>
+  <li><a href="#sec-jupyterhub" id="toc-sec-jupyterhub" class="nav-link" data-scroll-target="#sec-jupyterhub"><span class="toc-section-number">3</span>  Data processing using SeaBee’s JupterHub</a></li>
+  <li><a href="#sec-geonode" id="toc-sec-geonode" class="nav-link" data-scroll-target="#sec-geonode"><span class="toc-section-number">4</span>  <code>Editor</code> permissions on GeoNode</a></li>
   </ul>
 </nav>
     </div>
@@ -221,23 +230,33 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Access to SeaBee’s data platform is controlled via <strong>Feide</strong>.</p>
-<section id="sec-create-account" class="level2">
-<h2 class="anchored" data-anchor-id="sec-create-account">Create a Feide account</h2>
+<p>Access to SeaBee’s data platform is controlled via <a href="https://docs.feide.no/general/feide_overview.html">Feide</a>. <strong>You can login via Dataproten <a href="https://auth.dataporten.no/discovery?returnTo=https%3A%2F%2Fauth.dataporten.no%2Foauth%2Fauthorization%3Fclient_id%3Ddf34f687-ff1b-419e-9b5c-55b49e4babad%26redirect_uri%3Dhttps%253A%252F%252Fdashboard.dataporten.no%252F%26response_type%3Dtoken%26state%3D5f6ff55e-18b7-4194-8e0b-101576744ac4&amp;clientid=df34f687-ff1b-419e-9b5c-55b49e4babad">here</a></strong>.</p>
+<p>Some organisations automatically provide Feide access for all their memebrs. If you do not have organisational access, you will need to create a <strong>Fedie Guest</strong> account (see <a href="#sec-create-account">Section&nbsp;1</a>).</p>
+<section id="sec-create-account" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sec-create-account"><span class="header-section-number">1</span> Create a Feide account</h2>
+<ol type="1">
+<li>Register a new account with Feide <a href="https://openidp.feide.no/simplesaml/module.php/selfregister/newUser.php">here</a></li>
+</ol>
 <ul>
-<li><strong>Describe the simplest way for new users to create an account and login to the platform</strong></li>
+<li><strong>Describe this part in more detail</strong></li>
 </ul>
 </section>
-<section id="sec-minio" class="level2">
-<h2 class="anchored" data-anchor-id="sec-minio">Browse files using MinIO</h2>
-<p>SeaBee uses <a href="https://min.io/">MinIO</a> on Sigma2 to provide an S3-compatible API for file storage and transfer. A simple web interface for browsing the available files is <a href="">here</a>.</p>
-<p>See the <a href="./storage.html">File storage</a> page for further details of how to interact with the MinIO API.</p>
+<section id="sec-minio" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-minio"><span class="header-section-number">2</span> Browse files using MinIO</h2>
+<p>SeaBee uses <a href="https://min.io/">MinIO</a> on Sigma2 to provide an S3-compatible API for file storage and transfer. Once you have a Feide account, you can request access to MinIO by <a href="https://github.com/SeaBee-no/documentation/issues">creating an issue</a> in the SeaBee repository explaining your use case and describing which datasets you need to access.</p>
+<p>The easiest way to explore the files available to you on MinIO is via the web interface <a href="https://minio.seabee.sigma2.no/login">here</a>. See the <a href="./storage.html">File storage</a> page for further details, including alternative options for interacting with SeaBee data on Sigma2.</p>
 </section>
-<section id="sec-jupyterhub" class="level2">
-<h2 class="anchored" data-anchor-id="sec-jupyterhub">Data processing using SeaBee’s JupterHub</h2>
-<p>Login to the JupyterHub <a href="https://hub.seabee.sigma2.no/">here</a> using your Feide credentials.</p>
-<p>SeaBee’s JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers.</p>
+<section id="sec-jupyterhub" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-jupyterhub"><span class="header-section-number">3</span> Data processing using SeaBee’s JupterHub</h2>
+<p>SeaBee’s JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account, you can request access to JupyterHub by <a href="https://github.com/SeaBee-no/documentation/issues">creating an issue</a> in the SeaBee repository explaining your use case. You can then login <a href="https://hub.seabee.sigma2.no/">here</a> using your Feide credentials.</p>
 <p>See the <a href="./jupyterhub.html">JupyterHub</a> page for full details.</p>
+</section>
+<section id="sec-geonode" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="sec-geonode"><span class="header-section-number">4</span> <code>Editor</code> permissions on GeoNode</h2>
+<p>SeaBee data products are publicly available via the <a href="https://geonode.seabee.sigma2.no/#/">SeaBee Geonode</a>.</p>
+<ul>
+<li><strong>Describe what happens when users click the <code>Register</code> button on the GeoNode site i.e.&nbsp;what can registered users do than unregisterd users cannot?</strong></li>
+</ul>
 
 
 </section>

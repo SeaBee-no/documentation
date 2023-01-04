@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>SeaBee Documentation - Data products</title>
+<title>SeaBee Documentation - How to</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -117,7 +117,7 @@ ul.task-list li input[type="checkbox"] {
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Data products</h1>
+      <h1 class="quarto-secondary-nav-title">How to</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -187,12 +187,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-products.html" class="sidebar-item-text sidebar-link active">Data products</a>
+  <a href="./data-products.html" class="sidebar-item-text sidebar-link">Data products</a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./howto.html" class="sidebar-item-text sidebar-link">How to</a>
+  <a href="./howto.html" class="sidebar-item-text sidebar-link active">How to</a>
   </div>
 </li>
     </ul>
@@ -200,14 +200,24 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-create-account" id="toc-sec-create-account" class="nav-link active" data-scroll-target="#sec-create-account"><span class="toc-section-number">1</span>  Create a user account</a></li>
+  <li><a href="#sec-file-transfer" id="toc-sec-file-transfer" class="nav-link" data-scroll-target="#sec-file-transfer"><span class="toc-section-number">2</span>  Upload or download files</a></li>
+  <li><a href="#sec-orthorectification" id="toc-sec-orthorectification" class="nav-link" data-scroll-target="#sec-orthorectification"><span class="toc-section-number">3</span>  Mosaic geotagged raw images to georeferenced mosaics</a></li>
+  <li><a href="#sec-annotation" id="toc-sec-annotation" class="nav-link" data-scroll-target="#sec-annotation"><span class="toc-section-number">4</span>  Create training data for machine learning (annotation)</a></li>
+  <li><a href="#explore-and-download-seabee-datasets" id="toc-explore-and-download-seabee-datasets" class="nav-link" data-scroll-target="#explore-and-download-seabee-datasets"><span class="toc-section-number">5</span>  Explore and download SeaBee datasets</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">Data products</h1>
+<h1 class="title d-none d-lg-block">How to</h1>
 </div>
 
 
@@ -221,15 +231,29 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<ul>
-<li>Describe GeoServer, GeoNode and databases (PostGIS)</li>
-<li>How do we move data uploaded to MinIO to GeoServer?</li>
-<li>How do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g.&nbsp;ArcGIS?</li>
-<li>What is the difference between registered and unregistered users on the GeoNode site?</li>
-<li>What can users do via GeoNode and how do they do it (create new maps, download data… ?)</li>
-</ul>
+<p>I want to…</p>
+<section id="sec-create-account" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sec-create-account"><span class="header-section-number">1</span> Create a user account</h2>
+<p>You need to create a Feide account and then request access to the resources you will need. See the <a href="./login.html">Login</a> page for details.</p>
+</section>
+<section id="sec-file-transfer" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-file-transfer"><span class="header-section-number">2</span> Upload or download files</h2>
+<p>The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the <strong>MinIO web interface</strong> or the <strong>SeaBee data upload portal</strong>. For larger volumes of data (e.g.&nbsp;raw imagery for whole missions), command-line solutions such as <strong>Rclone</strong> are preferable. See <a href="./storage.html#uploading-and-downloading-files">Uploading and downloading files</a> for details.</p>
+</section>
+<section id="sec-orthorectification" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-orthorectification"><span class="header-section-number">3</span> Mosaic geotagged raw images to georeferenced mosaics</h2>
+<p>You can use <strong>Open Drone Map</strong> (ODM) via either PyODM or CloudODM (e.g.&nbsp;via the SeaBee JupyterHub). See the <a href="./orthorectification.html">Orthorectification</a> page for details.</p>
+</section>
+<section id="sec-annotation" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="sec-annotation"><span class="header-section-number">4</span> Create training data for machine learning (annotation)</h2>
+<p>The recommended workflow for <strong>image segmentation</strong> tasks is to use ArcGIS Pro and the Image Analyst extension - see the <a href="./annotation.html">Annotation</a> page for details.</p>
+</section>
+<section id="explore-and-download-seabee-datasets" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="explore-and-download-seabee-datasets"><span class="header-section-number">5</span> Explore and download SeaBee datasets</h2>
+<p>Orthomosaics from aerial drones and data products from the machine learning are available via <strong>SeaBee’s GeoNode</strong>. See the <a href="./data-products.html">Data products</a> page for details.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

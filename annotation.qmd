@@ -1,5 +1,6 @@
 ---
 title: "Annotation"
+number-sections: true
 ---
 
 [Repository on GitHub](https://github.com/SeaBee-no/annotation)

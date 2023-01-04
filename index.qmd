@@ -1,5 +1,6 @@
 ---
 title: "SeaBee documentation"
+number-sections: true
 ---
 
 This website provides technical documentation for various aspects of the SeaBee workflow. 

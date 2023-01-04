@@ -1,8 +1,9 @@
 ---
 title: "Orthorectification"
+number-sections: true
 ---
 
-Orthorectification is currently performed using two main tools: [Open Drone Map (ODM)](https://opendronemap.org/), which is Open Source, and [Pix4D](https://www.pix4d.com/), which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has typically been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM. 
+Orthorectification within SeaBee is currently performed using two main tools: [Open Drone Map (ODM)](https://opendronemap.org/), which is Open Source, and [Pix4D](https://www.pix4d.com/), which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM. 
 
 Pix4D cannot be deployed on Sigma2 due to licensing restrictions, but ODM is available via the [NodeODM API](https://github.com/OpenDroneMap/NodeODM). [PyODM](https://github.com/OpenDroneMap/PyODM) and [CloudODM](https://github.com/OpenDroneMap/CloudODM) are also provided. 
 

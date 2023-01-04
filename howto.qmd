@@ -1,0 +1,26 @@
+---
+title: "How to"
+number-sections: true
+---
+
+I want to...
+
+## Create a user account {#sec-create-account}
+
+You need to create a Feide account and then request access to the resources you will need. See the [Login](./login.qmd) page for details.
+
+## Upload or download files {#sec-file-transfer}
+
+The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the **MinIO web interface** or the **SeaBee data upload portal**. For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as **Rclone** are preferable. See [Uploading and downloading files](./storage.qmd#uploading-and-downloading-files) for details.
+
+## Mosaic geotagged raw images to georeferenced mosaics {#sec-orthorectification}
+
+You can use **Open Drone Map** (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the [Orthorectification](./orthorectification.qmd) page for details.
+
+## Create training data for machine learning (annotation) {#sec-annotation}
+
+The recommended workflow for **image segmentation** tasks is to use ArcGIS Pro and the Image Analyst extension - see the [Annotation](./annotation.qmd) page for details.
+
+## Explore and download SeaBee datasets
+
+Orthomosaics from aerial drones and data products from the machine learning are available via **SeaBee's GeoNode**. See the [Data products](./data-products.qmd) page for details.
