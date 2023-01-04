@@ -3,7 +3,7 @@ title: "Login"
 number-sections: true
 ---
 
-Access to SeaBee's data platform is controlled via [Feide](https://docs.feide.no/general/feide_overview.html). **You can login via Dataproten [here](https://auth.dataporten.no/discovery?returnTo=https%3A%2F%2Fauth.dataporten.no%2Foauth%2Fauthorization%3Fclient_id%3Ddf34f687-ff1b-419e-9b5c-55b49e4babad%26redirect_uri%3Dhttps%253A%252F%252Fdashboard.dataporten.no%252F%26response_type%3Dtoken%26state%3D5f6ff55e-18b7-4194-8e0b-101576744ac4&clientid=df34f687-ff1b-419e-9b5c-55b49e4babad)**.
+Access to SeaBee's data platform is controlled via [Feide](https://docs.feide.no/general/feide_overview.html). **You can login via Dataporten [here](https://auth.dataporten.no/discovery?returnTo=https%3A%2F%2Fauth.dataporten.no%2Foauth%2Fauthorization%3Fclient_id%3Ddf34f687-ff1b-419e-9b5c-55b49e4babad%26redirect_uri%3Dhttps%253A%252F%252Fdashboard.dataporten.no%252F%26response_type%3Dtoken%26state%3D5f6ff55e-18b7-4194-8e0b-101576744ac4&clientid=df34f687-ff1b-419e-9b5c-55b49e4babad)**.
 
 Some organisations automatically provide Feide access for all their memebrs. If you do not have organisational access, you will need to create a **Fedie Guest** account (see @sec-create-account). 
 
