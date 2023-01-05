@@ -246,28 +246,28 @@ ul.task-list li input[type="checkbox"] {
 <section id="overview" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="overview"><span class="header-section-number">1</span> Overview</h2>
 <ul>
-<li>Describe MinIO instance, how to login, basic bucket/folder structure etc.</li>
+<li><strong>Describe MinIO instance, how to login, basic bucket/folder structure etc.</strong></li>
 <li>S3-compatible storage endpoint at <a href="https://storage.seabee.sigma2.no" class="uri">https://storage.seabee.sigma2.no</a></li>
 <li>Web interface at <a href="https://minio.seabee.sigma2.no/login" class="uri">https://minio.seabee.sigma2.no/login</a></li>
 </ul>
 </section>
 <section id="backups" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="backups"><span class="header-section-number">2</span> Backups</h2>
-<p>Files stored on NIRD will follow the regular backup on NIRD as described in this <a href="https://documentation.sigma2.no/files_storage/backup.html#nird">section</a>. For the geonode databases backups can be dumped to the <code>seabee-backup-restore</code> bucket, and then backuped through the NIRD regime.</p>
+<p>Files stored on NIRD follow the regular backup schedule described <a href="https://documentation.sigma2.no/files_storage/backup.html#nird">here</a>. For the GeoNode databases, backups should be dumped to the <code>seabee-backup-restore</code> bucket (which is then backed-up via the standard NIRD regime).</p>
 </section>
 <section id="uploading-and-downloading-files" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="uploading-and-downloading-files"><span class="header-section-number">3</span> Uploading and downloading files</h2>
-<p>There is a rich set of options to upload and download files to the minio storage.</p>
+<p>There are several options to upload and download files to/from the MinIO storage.</p>
 <section id="minio-web-interface" class="level3" data-number="3.1">
 <h3 data-number="3.1" class="anchored" data-anchor-id="minio-web-interface"><span class="header-section-number">3.1</span> MinIO web interface</h3>
-<p>The minio console located at <a href="https://minio.seabee.sigma2.no/login" class="uri">https://minio.seabee.sigma2.no/login</a> provides among other things a graphical interface to upload and download files.</p>
+<p>The minio console located at <a href="https://minio.seabee.sigma2.no/login" class="uri">https://minio.seabee.sigma2.no/login</a> provides a graphical interface to upload and download files (<a href="#fig-minio-console-window">Figure&nbsp;1</a>).</p>
 <div id="fig-minio-console-window" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
 <p><img src="./images/minio_console_window.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Minio Console</figcaption><p></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Minio Console.</figcaption><p></p>
 </figure>
 </div>
-<p>One the <a href="https://minio.seabee.sigma2.no/buckets">buckets page</a> click <code>Browse</code>-&gt;<code>Upload</code> then select either <code>Upload Folder</code> or <code>Upload File</code> or to download mark the desired folder/file and click <code>Download</code>.</p>
+<p>On the <a href="https://minio.seabee.sigma2.no/buckets">buckets page</a>, click <code>Browse -&gt; Upload</code>, then select either <code>Upload Folder</code> or <code>Upload File</code>. To download, mark the desired folder/file and click <code>Download</code>.</p>
 </section>
 <section id="seabee-data-upload-portal" class="level3" data-number="3.2">
 <h3 data-number="3.2" class="anchored" data-anchor-id="seabee-data-upload-portal"><span class="header-section-number">3.2</span> SeaBee data upload portal</h3>
@@ -278,16 +278,17 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="machine-access" class="level3" data-number="3.3">
 <h3 data-number="3.3" class="anchored" data-anchor-id="machine-access"><span class="header-section-number">3.3</span> Machine Access</h3>
-<p>To accesss the s3 api on <a href="https://storage.seabee.sigma2.no" class="uri">https://storage.seabee.sigma2.no</a> you need a service account that can be generated <a href="https://minio.seabee.sigma2.no/identity/account">here</a>.</p>
+<p>To accesss the S3 API on <a href="https://storage.seabee.sigma2.no" class="uri">https://storage.seabee.sigma2.no</a> you first need a service account (generated <a href="https://minio.seabee.sigma2.no/identity/account">here</a>).</p>
 <section id="python" class="level4" data-number="3.3.1">
 <h4 data-number="3.3.1" class="anchored" data-anchor-id="python"><span class="header-section-number">3.3.1</span> Python</h4>
-<p>All python libaries supporting the s3 api will be able to interact with the minio storage. One good option is the <a href="https://min.io/docs/minio/linux/developers/python/minio-py.html">minio sdk</a> that in addition to upload and download have options to search and manage access, a small snippet can be seen <a href="https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb">here</a> or take a look at these <a href="https://github.com/minio/minio-py/tree/master/examples">examples</a>. If you are in the need of file like access the <a href="https://s3fs.readthedocs.io/en/latest/">s3fs</a> library is also a good option.</p>
+<p>All python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the <a href="https://min.io/docs/minio/linux/developers/python/minio-py.html">MinIO SDK</a> that, in addition to upload and download, has options to search and manage access. A simple SeaBee-specific example is <a href="https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb">here</a> and more general examples are <a href="https://github.com/minio/minio-py/tree/master/examples">here</a>. If you need file-like access, the <a href="https://s3fs.readthedocs.io/en/latest/">S3Fs</a> library for Python is also a good option.</p>
 </section>
 <section id="shell" class="level4" data-number="3.3.2">
 <h4 data-number="3.3.2" class="anchored" data-anchor-id="shell"><span class="header-section-number">3.3.2</span> Shell</h4>
 <ul>
-<li><a href="https://rclone.org/">Rclone</a> provides a convenient way of synchronising files <code>local-&gt;cloud</code> or <code>cloud-&gt;cloud</code>. <strong>It is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2</strong>.</li>
-<li><a href="https://min.io/docs/minio/linux/reference/minio-mc.html">minio client</a>, if you only need <code>local-&gt;s3</code> or <code>s3-&gt;s3</code> actions</li>
+<li><p><a href="https://rclone.org/">Rclone</a> provides a convenient way of synchronising files <code>local -&gt; cloud</code> or <code>cloud -&gt; cloud</code>. <strong>It is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2</strong>.</p></li>
+<li><p><strong>Document setup steps for connecting Rclone to Sigma2.</strong></p></li>
+<li><p>Consider the <a href="https://min.io/docs/minio/linux/reference/minio-mc.html">MinIO client</a> if you only need <code>local -&gt; s3</code> or <code>s3 -&gt; s3</code> actions.</p></li>
 </ul>
 
 
