@@ -2,7 +2,7 @@ name: Render and deploy quarto files
 on:
   push:
     branches:
-      - 'action'
+      - 'main'
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
