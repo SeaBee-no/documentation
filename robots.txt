@@ -1,1 +1,1 @@
-Sitemap: https://SeaBee-no.github.io/documentation/sitemap.xml
+Sitemap: https://github.com/SeaBee-no/documentation/sitemap.xml
