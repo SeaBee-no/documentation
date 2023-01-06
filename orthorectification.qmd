@@ -9,8 +9,6 @@ Pix4D cannot be deployed on Sigma2 due to licensing restrictions, but ODM is ava
 
 ## Open Drone Map
 
- * Describe the configuration for ODM on Sigma2
- * Add simple examples of mosaicing test images from a MinIO bucket using both Python (PyODM) and the command line (CloudODM)
- * Best done via the JupyterHub interface?
+ * ODM is accessible via the SeaBee JupyterHub
 
-
+ * See the notebook [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb) for a simple example using PyODM
