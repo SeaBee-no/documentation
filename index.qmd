@@ -21,4 +21,6 @@ The full SeaBee workflow is considerably more complex than illustrated above. In
 
  * Typical data products from the machine learning include both **image segmentation** (e.g. habitat mapping) and **object identification** (e.g. seabird or mammal counts).
 
-As far as possible, data handling for the SeaBee project is hosted by Sigma2 on [NIRD](https://documentation.sigma2.no/files_storage/nird.html), the National Infrastructure for Research Data. 
+As far as possible, data handling for the SeaBee project is hosted by Sigma2 on [NIRD](https://documentation.sigma2.no/files_storage/nird.html), the National Infrastructure for Research Data. The SeaBee project has its own [Kubernetes](https://kubernetes.io/) namespace on Sigma2. A high-level schematic of the current configuration is shown in @fig-sigma2-outline.
+
+![Simplified Sigma2 architecture.](./images/sigma2_outline_2023-01-06.png){#fig-sigma2-outline}
