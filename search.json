@@ -39,7 +39,7 @@
     "href": "orthorectification.html#open-drone-map",
     "title": "Orthorectification",
     "section": "1 Open Drone Map",
-    "text": "1 Open Drone Map\n\nDescribe the configuration for ODM on Sigma2\nAdd simple examples of mosaicing test images from a MinIO bucket using both Python (PyODM) and the command line (CloudODM)\nBest done via the JupyterHub interface?"
+    "text": "1 Open Drone Map\n\nODM is accessible via the SeaBee JupyterHub\nSee the notebook here for a simple example using PyODM"
   },
   {
     "objectID": "login.html",
@@ -158,6 +158,6 @@
     "href": "index.html#sec-overview",
     "title": "SeaBee documentation",
     "section": "1 Overview",
-    "text": "1 Overview\nThe simplest possible version of the SeaBee data flow is illustrated in Figure 1. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.\nGround-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the SeaBee GeoNode.\n\n\n\nFigure 1: Simplified SeaBee workflow.\n\n\nThe full SeaBee workflow is considerably more complex than illustrated above. In particular, note the following:\n\nStandard aerial drones are flown with both RGB and multispectral cameras. In addition, the project includes hyperspectral data as well as imagery from other types of drone, such as the Otter (an unmanned surface vehicle).\nTypical data products from the machine learning include both image segmentation (e.g. habitat mapping) and object identification (e.g. seabird or mammal counts).\n\nAs far as possible, data handling for the SeaBee project is hosted by Sigma2 on NIRD, the National Infrastructure for Research Data."
+    "text": "1 Overview\nThe simplest possible version of the SeaBee data flow is illustrated in Figure 1. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.\nGround-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the SeaBee GeoNode.\n\n\n\nFigure 1: Simplified SeaBee workflow.\n\n\nThe full SeaBee workflow is considerably more complex than illustrated above. In particular, note the following:\n\nStandard aerial drones are flown with both RGB and multispectral cameras. In addition, the project includes hyperspectral data as well as imagery from other types of drone, such as the Otter (an unmanned surface vehicle).\nTypical data products from the machine learning include both image segmentation (e.g. habitat mapping) and object identification (e.g. seabird or mammal counts).\n\nAs far as possible, data handling for the SeaBee project is hosted by Sigma2 on NIRD, the National Infrastructure for Research Data. The SeaBee project has its own Kubernetes namespace on Sigma2. A high-level schematic of the current configuration is shown in Figure 2.\n\n\n\nFigure 2: Simplified Sigma2 architecture."
   }
 ]
