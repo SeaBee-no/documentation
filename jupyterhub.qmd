@@ -3,6 +3,10 @@ title: "JupyterHub"
 number-sections: true
 ---
 
+ * Login to the JupyterHub [here](https://hub.seabee.sigma2.no/) using your Feide credentials. 
+ 
+ * Your Feide account needs to be added to the list of JupyterHub users. See the [Login](./login.qmd) page for details.
+ 
 Describe the configuration:
 
  * How much "personal" storage do users have (and where is it stored)?

@@ -3,6 +3,10 @@ title: "Data products"
 number-sections: true
 ---
 
+ * The SeaBee GeoNode is [here](https://geonode.seabee.sigma2.no/#/).
+ 
+ To do:
+ 
  * Describe GeoServer, GeoNode and databases (PostGIS)
  * How do we move data uploaded to MinIO to GeoServer?
  * How do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g. ArcGIS?
