@@ -25,7 +25,7 @@
     "href": "data-products.html",
     "title": "Data products",
     "section": "",
-    "text": "Describe GeoServer, GeoNode and databases (PostGIS)\nHow do we move data uploaded to MinIO to GeoServer?\nHow do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g. ArcGIS?\nWhat is the difference between registered and unregistered users on the GeoNode site?\nWhat can users do via GeoNode and how do they do it (create new maps, download data… ?)"
+    "text": "The SeaBee GeoNode is here.\n\nTo do:\n\nDescribe GeoServer, GeoNode and databases (PostGIS)\nHow do we move data uploaded to MinIO to GeoServer?\nHow do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g. ArcGIS?\nWhat is the difference between registered and unregistered users on the GeoNode site?\nWhat can users do via GeoNode and how do they do it (create new maps, download data… ?)"
   },
   {
     "objectID": "orthorectification.html",
@@ -81,7 +81,7 @@
     "href": "jupyterhub.html",
     "title": "JupyterHub",
     "section": "",
-    "text": "Describe the configuration:\n\nHow much “personal” storage do users have (and where is it stored)?\nWhat buckets on MinIO can they access?\nAre their files backed up?\nWhat level of computing resources can they access (CPU, memory, GPU)?\nWhat packages are available in the user environment (for both Python and R)?"
+    "text": "Login to the JupyterHub here using your Feide credentials.\nYour Feide account needs to be added to the list of JupyterHub users. See the Login page for details.\n\nDescribe the configuration:\n\nHow much “personal” storage do users have (and where is it stored)?\nWhat buckets on MinIO can they access?\nAre their files backed up?\nWhat level of computing resources can they access (CPU, memory, GPU)?\nWhat packages are available in the user environment (for both Python and R)?"
   },
   {
     "objectID": "annotation.html",
