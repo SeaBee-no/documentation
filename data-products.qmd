@@ -7,7 +7,7 @@ number-sections: true
  
  To do:
  
- * Describe GeoServer, GeoNode and databases (PostGIS)
+ * Describe GeoServer, GeoNode and databases test (PostGIS)
  * How do we move data uploaded to MinIO to GeoServer?
  * How do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g. ArcGIS?
  * What is the difference between registered and unregistered users on the GeoNode site?
