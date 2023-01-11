@@ -208,7 +208,22 @@ ul.task-list li input[type="checkbox"] {
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#sec-overview" id="toc-sec-overview" class="nav-link active" data-scroll-target="#sec-overview"><span class="toc-section-number">1</span>  Overview</a>
+  <ul class="collapse">
+  <li><a href="#sec-languages" id="toc-sec-languages" class="nav-link" data-scroll-target="#sec-languages"><span class="toc-section-number">1.1</span>  Programming languages</a></li>
+  <li><a href="#sec-ides" id="toc-sec-ides" class="nav-link" data-scroll-target="#sec-ides"><span class="toc-section-number">1.2</span>  Integrated Development Environments</a></li>
+  <li><a href="#sec-extensions" id="toc-sec-extensions" class="nav-link" data-scroll-target="#sec-extensions"><span class="toc-section-number">1.3</span>  Extensions</a></li>
+  <li><a href="#resources" id="toc-resources" class="nav-link" data-scroll-target="#resources"><span class="toc-section-number">1.4</span>  Resources</a></li>
+  </ul></li>
+  <li><a href="#sec-login" id="toc-sec-login" class="nav-link" data-scroll-target="#sec-login"><span class="toc-section-number">2</span>  Access and login</a></li>
+  <li><a href="#sec-git" id="toc-sec-git" class="nav-link" data-scroll-target="#sec-git"><span class="toc-section-number">3</span>  Configure Git</a></li>
+  <li><a href="#sec-resources" id="toc-sec-resources" class="nav-link" data-scroll-target="#sec-resources"><span class="toc-section-number">4</span>  Useful resources</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -230,20 +245,60 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
+<p><strong>Login to the JupyterHub <a href="https://hub.seabee.sigma2.no/">here</a> using your Feide credentials.</strong></p>
+<section id="sec-overview" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sec-overview"><span class="header-section-number">1</span> Overview</h2>
+<p>The SeaBee JupyterHub provides a central access point for data processing on the SeaBee platform. It can be used to access data stored on MinIO, to push new datasets to GeoServer &amp; GeoNode, to train &amp; apply machine learning algorithms, and to perform general data processing tasks. See the <a href="./index.html#fig-sigma2-outline">simplified architecture diagram</a> for an indication of where the Hub fits in relation to other platform components.</p>
+<section id="sec-languages" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="sec-languages"><span class="header-section-number">1.1</span> Programming languages</h3>
+<p>The Hub provides access to three programming languages: <strong>Python</strong>, <strong>R</strong> and <strong>Julia</strong>. Most of the development work so far has been done using Python, but since R is popular with many SeaBee ecologists it has been included to facilitate better collaboration between developers and researchers. Julia is typically faster than Python or R for intensive number crunching, but it is not (yet) used in any SeaBee workflows.</p>
+<p>The Python environment includes everything most users will need for typical geospatial data processing and machine learning tasks. See <a href="#sec-resources">Section&nbsp;4</a> for some example notebooks illustrating various SeaBee workflows.</p>
+</section>
+<section id="sec-ides" class="level3" data-number="1.2">
+<h3 data-number="1.2" class="anchored" data-anchor-id="sec-ides"><span class="header-section-number">1.2</span> Integrated Development Environments</h3>
+<p>The Hub provides access to three Integrated Development Environments (IDEs): <strong>JupyterLab</strong>, <strong>VS Code</strong> and <strong>R-Studio</strong>. Users may work with one or all of these (and switch between them), depending on their experience, preferences and the task being undertaken. JupyterLab provides a familiar interface for many Python-orientated data scientists, while R-Studio will be familiar to most users of R. VS Code offers a more traditional IDE, with a richer set of tools for developers. In addition, all users have access to an <strong>Ubuntu terminal</strong>, providing access to Bash and various other command-line tools.</p>
+<p>Jupyter Notebooks and scripts can be created for any of the 3 languages described. Notebooks can be edited using either JupyterLab or VS Code, and they provide an excellent way to develop and test workflows and to share examples with colleagues. Similarly, R-Studio can be used to create R-Markdown documents, which combine working code and descriptive text is an analogous way to Jupyter Notebooks. See <a href="#sec-resources">Section&nbsp;4</a> for some examples.</p>
+</section>
+<section id="sec-extensions" class="level3" data-number="1.3">
+<h3 data-number="1.3" class="anchored" data-anchor-id="sec-extensions"><span class="header-section-number">1.3</span> Extensions</h3>
+<p>The Hub includes the following extensions and add-ins:</p>
 <ul>
-<li><p>Login to the JupyterHub <a href="https://hub.seabee.sigma2.no/">here</a> using your Feide credentials.</p></li>
-<li><p>Your Feide account needs to be added to the list of JupyterHub users. See the <a href="./login.html">Login</a> page for details.</p></li>
+<li><p><code>jupyter-archive</code> provides context menu options for creating and extracting <code>.zip</code> archives (the <code>zip</code> and <code>unzip</code> terminal commands are also available).</p></li>
+<li><p><code>jupyterlab-lsp</code> provides language server protocol integration.</p></li>
+<li><p><code>jupyterlab_code_formatter</code> offers code auto-formatting (using <a href="https://github.com/psf/black">black</a> for Python).</p></li>
+<li><p><code>jupyterlab-spellchecker</code> provides spell-checking within Markdown and notebook documents.</p></li>
+<li><p><code>jupyterlab-spreadsheet</code> supports read-only exploration of Excel files, which is useful for quickly inspecting files while coding, without having to download open them in Excel.</p></li>
+<li><p><code>jupyterlab-git</code> provides a Git graphical user interface (GUI) in JupyterLab (see <a href="#sec-git">Section&nbsp;3</a>). Note that Git integration is also available in R-Studio and VS Code, as well as via the terminal.</p></li>
 </ul>
-<p>Describe the configuration:</p>
-<ul>
-<li>How much “personal” storage do users have (and where is it stored)?</li>
-<li>What buckets on MinIO can they access?</li>
-<li>Are their files backed up?</li>
-<li>What level of computing resources can they access (CPU, memory, GPU)?</li>
-<li>What packages are available in the user environment (for both Python and R)?</li>
-</ul>
+</section>
+<section id="resources" class="level3" data-number="1.4">
+<h3 data-number="1.4" class="anchored" data-anchor-id="resources"><span class="header-section-number">1.4</span> Resources</h3>
+<p>All SeaBee components are deployed within a single Kubernetes <code>namespace</code>. The JupyterHub shares resources in this namespace with other components of the platform. At present, the namespace has access to <strong>32 CPUs, 96 GB of memory and 2 NVIDIA Tesla V100-SXM2-16GB GPUs</strong>. Some of the memory and CPUs are permanently reserved for running e.g.&nbsp;GeoServer and Open Drone Mapper, but the rest is available to JupyterHub and is shared between active users. This means the total resources available to any given user will depend to some extent on how many other users are logged in at the same time.</p>
+<p>Resources on the Hub can be increased if necessary. If you believe your workflows are being limited by lack of memory or processing power, please <a href="https://github.com/SeaBee-no/dockerfiles/issues">create an issue</a> and we will try to help.</p>
+</section>
+</section>
+<section id="sec-login" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-login"><span class="header-section-number">2</span> Access and login</h2>
+<p>To use the JupyterHub, you first need to create a Feide account and ask for you Feide username to be added to the list of JupyterHub users. See the <a href="./login.html">Login</a> page for details.</p>
+</section>
+<section id="sec-git" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-git"><span class="header-section-number">3</span> Configure Git</h2>
+<p>It is <strong>strongly recommended</strong> that all users store and version their code within <strong>GitHub repositories</strong>. GitHub provides backup in case anything goes wrong, and also makes it easier to work collaboratively and share results.</p>
+<p>Git interfaces are available in JupyterLab, R-Studio and VS Code. You can also work with Git from the command line if you prefer. In order to <code>pull</code> and <code>push</code> from <code>private</code> GitHub repositories, you will need to store your GitHub credentials on the Hub so that Git can authenticate correctly. To do this, follow the steps below:</p>
+<ol type="1">
+<li><p>Login to GitHub and create a Personal Access Token (PAT) by following the steps described <a href="https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">here</a>.</p></li>
+<li><p>Login to JupyterHub, open a terminal and attempt to <code>pull</code> a private repository. When prompted for your username enter your GitHub username, and when prompted for your password <strong>enter the PAT</strong> (<em>not</em> your GitHub password).</p></li>
+<li><p>Once the repository has been cloned, run <code>git config --global credential.helper store</code> and then <code>git pull</code></p></li>
+</ol>
+<p>This should create a hidden file called <code>.git-credentials</code> within your <code>$HOME</code> directory (the file will be not be visible in JupyterLab, but it will show in VS Code, which displays hidden files by default). This file contains your username and your personal access token, which Git will use in future to authenticate on GitHub.</p>
+<p>Note that you should <strong>only need to perform these steps once</strong> - once your credentials are stored, you can use any of the four available Git interfaces in future JupyterHub sessions and your credentials will be used automatically.</p>
+</section>
+<section id="sec-resources" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="sec-resources"><span class="header-section-number">4</span> Useful resources</h2>
+<p>The <a href="https://github.com/SeaBee-no/snippets">snippets</a> repository includes example notebooks illustrating different parts of the SeaBee workflow. You can clone this repository to your <code>$HOME</code> directory and use the notebooks as a starting point for your own work. If you create a new workflow (e.g.&nbsp;a notebook or script) that you think might be useful for others, please consider adding it to this repository. The aim is to build up a library of examples to help new users to get started.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
