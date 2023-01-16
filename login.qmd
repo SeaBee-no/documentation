@@ -25,8 +25,8 @@ SeaBee's JupyterHub provides Python and R environments offering fast and conveni
 
 See the [JupyterHub](./jupyterhub.qmd) page for full details.
 
-## `Editor` permissions on GeoNode {#sec-geonode}
+## Permissions on GeoNode {#sec-geonode}
 
-SeaBee data products are publicly available via the [SeaBee Geonode](https://geonode.seabee.sigma2.no/#/).
+SeaBee data products are publicly available via the [SeaBee Geonode](https://geonode.seabee.sigma2.no/#/). Products include individual datasets (e.g. image mosaics and annotation), reports & documentation, and interactive maps, which combine multiple data layers into a single visualisation.
 
- * **Describe what happens when users click the `Register` button on the GeoNode site i.e. what can registered users do than unregisterd users cannot?**
+Registered users of the GeoNode can create their own maps by selecting data layers, and they can also download SeaBee datasets for further analysis. To sign-up, click the `Register` button towards the top-right of the [GeoNode home page](https://geonode.seabee.sigma2.no/catalogue/#/).
