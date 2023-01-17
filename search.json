@@ -123,28 +123,28 @@
     "href": "login.html",
     "title": "Login",
     "section": "",
-    "text": "Access to SeaBee’s data platform is controlled via Feide. You can login via Dataporten here.\nSome organisations automatically provide Feide access for all their memebrs. If you do not have organisational access, you will need to create a Fedie Guest account (see Section 1)."
+    "text": "At present, different components of the SeaBee platform require different logins. Eventually, we are hoping to streamline the login process by switching to a single Feide-based authentication step, but for the time being please follow the steps below."
   },
   {
     "objectID": "login.html#sec-create-account",
     "href": "login.html#sec-create-account",
     "title": "Login",
     "section": "1 Create a Feide account",
-    "text": "1 Create a Feide account\n\nRegister a new account with Feide here\n\n\nDescribe this part in more detail"
+    "text": "1 Create a Feide account\nAccess to the core of SeaBee’s data platform (the JupyterHub etc.) is controlled via Feide. You can login via Dataporten here.\nSome organisations automatically provide Feide access for all their memebrs. If you do not have organisational access, you will need to create a Fedie Guest account here."
   },
   {
     "objectID": "login.html#sec-minio",
     "href": "login.html#sec-minio",
     "title": "Login",
     "section": "2 Browse files using MinIO",
-    "text": "2 Browse files using MinIO\nSeaBee uses MinIO on Sigma2 to provide an S3-compatible API for file storage and transfer. Once you have a Feide account, you can request access to MinIO by creating an issue in the SeaBee repository explaining your use case and describing which datasets you need to access.\nThe easiest way to explore the files available to you on MinIO is via the web interface here. See the File storage page for further details, including alternative options for interacting with SeaBee data on Sigma2."
+    "text": "2 Browse files using MinIO\nSeaBee uses MinIO on Sigma2 to provide an S3-compatible API for file storage and transfer. You can request access to MinIO by creating an issue in the SeaBee repository explaining your use case and describing which datasets you need to access.\nThe easiest way to explore the files available to you on MinIO is via the web interface here. See the File storage page for further details, including alternative options for interacting with SeaBee data on Sigma2."
   },
   {
     "objectID": "login.html#sec-jupyterhub",
     "href": "login.html#sec-jupyterhub",
     "title": "Login",
     "section": "3 Data processing using SeaBee’s JupterHub",
-    "text": "3 Data processing using SeaBee’s JupterHub\nSeaBee’s JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account, you can request access to JupyterHub by creating an issue in the SeaBee repository explaining your use case. You can then login here using your Feide credentials.\nSee the JupyterHub page for full details."
+    "text": "3 Data processing using SeaBee’s JupterHub\nSeaBee’s JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account (see Section 1), you can request access to JupyterHub by creating an issue in the SeaBee repository explaining your use case. You can then login here using your Feide credentials.\nSee the JupyterHub page for full details."
   },
   {
     "objectID": "login.html#sec-geonode",
