@@ -3,25 +3,23 @@ title: "Login"
 number-sections: true
 ---
 
-Access to SeaBee's data platform is controlled via [Feide](https://docs.feide.no/general/feide_overview.html). **You can login via Dataporten [here](https://auth.dataporten.no/discovery?returnTo=https%3A%2F%2Fauth.dataporten.no%2Foauth%2Fauthorization%3Fclient_id%3Ddf34f687-ff1b-419e-9b5c-55b49e4babad%26redirect_uri%3Dhttps%253A%252F%252Fdashboard.dataporten.no%252F%26response_type%3Dtoken%26state%3D5f6ff55e-18b7-4194-8e0b-101576744ac4&clientid=df34f687-ff1b-419e-9b5c-55b49e4babad)**.
-
-Some organisations automatically provide Feide access for all their memebrs. If you do not have organisational access, you will need to create a **Fedie Guest** account (see @sec-create-account). 
+At present, different components of the SeaBee platform require different logins. Eventually, we are hoping to streamline the login process by switching to a single [Feide](https://docs.feide.no/general/feide_overview.html)-based authentication step, but for the time being please follow the steps below.
 
 ## Create a Feide account {#sec-create-account}
 
- 1. Register a new account with Feide [here](https://openidp.feide.no/simplesaml/module.php/selfregister/newUser.php)
+Access to the core of SeaBee's data platform (the JupyterHub etc.) is controlled via [Feide](https://docs.feide.no/general/feide_overview.html). You can login via Dataporten [here](https://auth.dataporten.no/discovery?returnTo=https%3A%2F%2Fauth.dataporten.no%2Foauth%2Fauthorization%3Fclient_id%3Ddf34f687-ff1b-419e-9b5c-55b49e4babad%26redirect_uri%3Dhttps%253A%252F%252Fdashboard.dataporten.no%252F%26response_type%3Dtoken%26state%3D5f6ff55e-18b7-4194-8e0b-101576744ac4&clientid=df34f687-ff1b-419e-9b5c-55b49e4babad). 
 
- * **Describe this part in more detail**
+Some organisations automatically provide Feide access for all their memebrs. If you do not have organisational access, you will need to create a **Fedie Guest** account [here](https://openidp.feide.no/simplesaml/module.php/selfregister/newUser.php).
 
 ## Browse files using MinIO {#sec-minio}
 
-SeaBee uses [MinIO](https://min.io/) on Sigma2 to provide an S3-compatible API for file storage and transfer. Once you have a Feide account, you can request access to MinIO by [creating an issue](https://github.com/SeaBee-no/documentation/issues) in the SeaBee repository explaining your use case and describing which datasets you need to access.
+SeaBee uses [MinIO](https://min.io/) on Sigma2 to provide an S3-compatible API for file storage and transfer. You can request access to MinIO by [creating an issue](https://github.com/SeaBee-no/documentation/issues) in the SeaBee repository explaining your use case and describing which datasets you need to access.
 
 The easiest way to explore the files available to you on MinIO is via the web interface [here](https://minio.seabee.sigma2.no/login). See the [File storage](./storage.qmd) page for further details, including alternative options for interacting with SeaBee data on Sigma2.
 
 ## Data processing using SeaBee's JupterHub {#sec-jupyterhub}
 
-SeaBee's JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account, you can request access to JupyterHub by [creating an issue](https://github.com/SeaBee-no/documentation/issues) in the SeaBee repository explaining your use case. You can then login [here](https://hub.seabee.sigma2.no/) using your Feide credentials.
+SeaBee's JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account (see @sec-create-account), you can request access to JupyterHub by [creating an issue](https://github.com/SeaBee-no/documentation/issues) in the SeaBee repository explaining your use case. You can then login [here](https://hub.seabee.sigma2.no/) using your Feide credentials.
 
 See the [JupyterHub](./jupyterhub.qmd) page for full details.
 
