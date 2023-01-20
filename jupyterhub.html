@@ -245,7 +245,29 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p><strong>Login to the JupyterHub <a href="https://hub.seabee.sigma2.no/">here</a> using your Feide credentials.</strong></p>
+<p><strong>Choose the resources you need from the links below and login using your Feide credentials.</strong></p>
+<ul>
+<li><p><strong><a href="https://hub-standard.seabee.sigma2.no">Standard</a></strong>. <em>1 CPU, 1 GB memory</em>. The default machine, suitable for basic data analysis such as processing ground truth data, annotation, simple statistics &amp; visualisation etc.</p></li>
+<li><p><strong><a href="https://hub-highmem.seabee.sigma2.no">High memory</a></strong>. <em>4 CPUs, 32 GB memory</em>. Well suited to raster processing, such as manipulating image mosaics.</p></li>
+<li><p><strong><a href="https://hub-medium.seabee.sigma2.no">Medium</a></strong>. <em>4 CPUs, 16 GB memory, 1 Tesla V100-SXM2-16GB GPU</em>. Suitable for machine learning.</p></li>
+</ul>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><p>Some platform components accessible from the Hub have their own resources in addition to those listed above. For example, NodeODM, which provides access to Open Drone Map, has its own CPU and memory allocations, so you can perform orthomosaicing of large volumes of raw images even from a <strong>Standard</strong> machine.</p></li>
+<li><p>If in doubt, start small and work up. It is easy to switch between machines</p></li>
+<li><p>If you receive a <code>Spawn failed</code> error when you login, it is likely that there are not enough resources available to start your chosen machine. Either try a smaller one or wait until the Hub is less busy. If you see this message often, please <a href="https://github.com/SeaBee-no/documentation/issues">create an issue</a> and we’ll try to increase the resources available</p></li>
+</ul>
+</div>
+</div>
 <section id="sec-overview" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="sec-overview"><span class="header-section-number">1</span> Overview</h2>
 <p>The SeaBee JupyterHub provides a central access point for data processing on the SeaBee platform. It can be used to access data stored on MinIO, to push new datasets to GeoServer &amp; GeoNode, to train &amp; apply machine learning algorithms, and to perform general data processing tasks. See the <a href="./index.html#fig-sigma2-outline">simplified architecture diagram</a> for an indication of where the Hub fits in relation to other platform components.</p>
