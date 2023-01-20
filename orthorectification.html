@@ -237,13 +237,24 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>Orthorectification within SeaBee is currently performed using two main tools: <a href="https://opendronemap.org/">Open Drone Map (ODM)</a>, which is Open Source, and <a href="https://www.pix4d.com/">Pix4D</a>, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.</p>
-<p>Pix4D cannot be deployed on Sigma2 due to licensing restrictions, but ODM is available via the <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM API</a>. <a href="https://github.com/OpenDroneMap/PyODM">PyODM</a> and <a href="https://github.com/OpenDroneMap/CloudODM">CloudODM</a> are also provided.</p>
+<p><a href="https://developer.pix4d.com/cloud-api/index.html#">Pix4D-Engine</a> is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM API</a>. <a href="https://github.com/OpenDroneMap/PyODM">PyODM</a> and <a href="https://github.com/OpenDroneMap/CloudODM">CloudODM</a> are also provided.</p>
 <section id="open-drone-map" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="open-drone-map"><span class="header-section-number">1</span> Open Drone Map</h2>
-<ul>
-<li><p>ODM is accessible via the SeaBee JupyterHub</p></li>
-<li><p>See the notebook <a href="https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb">here</a> for a simple example using PyODM</p></li>
-</ul>
+<p>Open Drone Map is accessible from the SeaBee JupyterHub via <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM</a>, which provides a convenient API for scheduling and executing jobs. By default, ODM has access to up to 8 CPUs and 32 GB of memory. This is sufficient for small to medium tasks, but if you need to process a large batch of images please <a href="https://github.com/SeaBee-no/documentation/issues">create an issue</a> first so we can relax these limitations.</p>
+<div class="callout-tip callout callout-style-default callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Because NodeODM has its resources allocated separately, you can use it from the <a href="https://hub-standard.seabee.sigma2.no/">Standard</a> SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please <strong>do not use the more powerful Hubs for orthomosaicing</strong> - they will not run any faster and will block resources from other users.</p>
+</div>
+</div>
+<p>Once you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use <code>task.info().progress</code> to periodically check the status of your job. For a more detailed example, see the notebook <a href="https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb">here</a>.</p>
 
 
 </section>

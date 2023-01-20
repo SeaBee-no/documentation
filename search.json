@@ -53,7 +53,7 @@
     "href": "jupyterhub.html#sec-resources",
     "title": "JupyterHub",
     "section": "4 Useful resources",
-    "text": "4 Useful resources\nThe snippets repository includes example notebooks illustrating different parts of the SeaBee workflow. You can clone this repository to your $HOME directory and use the notebooks as a starting point for your own work. If you create a new workflow (e.g. a notebook or script) that you think might be useful for others, please consider adding it to this repository. The aim is to build up a library of examples to help new users to get started."
+    "text": "4 Useful resources\nThe workflow_examples repository includes example notebooks illustrating different parts of the SeaBee workflow. The snippets repository also contains some useful tips. You can clone these repositories to your $HOME directory and use them as a starting point for your own work. If you create a new workflow (e.g. a notebook or script) that you think might be useful for others, please consider adding it to one of these repositories (workflow_examples should be fairly well documented and explained; snippets can be brief). The aim is to build up a library of examples to help new users to get started."
   },
   {
     "objectID": "howto.html",
@@ -102,42 +102,56 @@
     "href": "storage.html",
     "title": "Storage",
     "section": "",
-    "text": "Describe MinIO instance, how to login, basic bucket/folder structure etc.\nS3-compatible storage endpoint at https://storage.seabee.sigma2.no\nWeb interface at https://minio.seabee.sigma2.no/login"
+    "text": "Access to SeaBee data is provided by MinIO, which offers high-performance, S3-compatible object storage. At the highest level, files within MinIO are organised into buckets. For example, there are currently buckets for niva, nina, ntnu etc. Within these, files are organised within folders and sub-folders, just like a standard file system. At present, each organisation is responsible for organising their data in a way that fits with their existing workflows.\n\n\n\n\n\n\nNote\n\n\n\nEventually, we will define a common file and folder structure for all SeaBee data, as this will make it easier to automate common SeaBee tasks.\n\n\nTo access the data on MinIO, you first need to create an account. You can then login to the SeaBee MinIO web interface (Figure 1) and browse files in a similar way to e.g. DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at https://storage.seabee.sigma2.no (see Section 3 for details)."
   },
   {
-    "objectID": "storage.html#backups",
-    "href": "storage.html#backups",
+    "objectID": "storage.html#sec-backups",
+    "href": "storage.html#sec-backups",
     "title": "Storage",
     "section": "2 Backups",
     "text": "2 Backups\nFiles stored on NIRD follow the regular backup schedule described here. For the GeoNode databases, backups should be dumped to the seabee-backup-restore bucket (which is then backed-up via the standard NIRD regime)."
   },
   {
-    "objectID": "storage.html#uploading-and-downloading-files",
-    "href": "storage.html#uploading-and-downloading-files",
+    "objectID": "storage.html#sec-upload-download",
+    "href": "storage.html#sec-upload-download",
     "title": "Storage",
     "section": "3 Uploading and downloading files",
-    "text": "3 Uploading and downloading files\nThere are several options to upload and download files to/from the MinIO storage.\n\n3.1 MinIO web interface\nThe minio console located at https://minio.seabee.sigma2.no/login provides a graphical interface to upload and download files (Figure 1).\n\n\n\nFigure 1: Minio Console.\n\n\nOn the buckets page, click Browse -> Upload, then select either Upload Folder or Upload File. To download, mark the desired folder/file and click Download.\n\n\n3.2 SeaBee data upload portal\n\nDescribe Deb’s data upload portal\nBest option for standard/less advanced users?\n\n\n\n3.3 Machine Access\nTo accesss the S3 API on https://storage.seabee.sigma2.no you first need a service account (generated here).\n\n3.3.1 Python\nAll python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the MinIO SDK that, in addition to upload and download, has options to search and manage access. A simple SeaBee-specific example is here and more general examples are here. If you need file-like access, the S3Fs library for Python is also a good option.\n\n\n3.3.2 Shell\n\nRclone provides a convenient way of synchronising files local -> cloud or cloud -> cloud. It is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2.\nDocument setup steps for connecting Rclone to Sigma2.\nConsider the MinIO client if you only need local -> s3 or s3 -> s3 actions."
+    "text": "3 Uploading and downloading files\nThere are several options to upload and download files to/from the MinIO storage.\n\n3.1 MinIO web interface\nThe minio console located at https://minio.seabee.sigma2.no/login provides a graphical interface to upload and download files (Figure 1).\n\n\n\nFigure 1: MinIO Console.\n\n\nOn the buckets page, click Browse -> Upload, then select either Upload Folder or Upload File. To download, mark the desired folder/file and click Download.\n\n\n3.2 SeaBee data upload portal\n\nDescribe Deb’s data upload portal\nBest option for standard/less advanced users?\n\n\n\n3.3 Machine Access\nTo accesss the S3 API on https://storage.seabee.sigma2.no you first need a service account (generated here).\n\n3.3.1 Python\nAll python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the MinIO SDK. In addition to upload and download, this has options to search and manage access and to retrieve metadata etc. A simple SeaBee-specific example using the MinIO client is here and more general examples are here. If you need file-like access, the S3Fs library for Python is also a good option.\n\n\n3.3.2 Shell\n\nRclone provides a convenient way of synchronising files local -> cloud or cloud -> cloud. Rclone keeps track of what has been transferred and will retry if the connection is interrupted, so it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2.\nDocument setup steps for connecting Rclone to Sigma2."
   },
   {
     "objectID": "orthorectification.html",
     "href": "orthorectification.html",
     "title": "Orthorectification",
     "section": "",
-    "text": "Orthorectification within SeaBee is currently performed using two main tools: Open Drone Map (ODM), which is Open Source, and Pix4D, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.\nPix4D cannot be deployed on Sigma2 due to licensing restrictions, but ODM is available via the NodeODM API. PyODM and CloudODM are also provided."
+    "text": "Orthorectification within SeaBee is currently performed using two main tools: Open Drone Map (ODM), which is Open Source, and Pix4D, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.\nPix4D-Engine is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the NodeODM API. PyODM and CloudODM are also provided."
   },
   {
     "objectID": "orthorectification.html#open-drone-map",
     "href": "orthorectification.html#open-drone-map",
     "title": "Orthorectification",
     "section": "1 Open Drone Map",
-    "text": "1 Open Drone Map\n\nODM is accessible via the SeaBee JupyterHub\nSee the notebook here for a simple example using PyODM"
+    "text": "1 Open Drone Map\nOpen Drone Map is accessible from the SeaBee JupyterHub via NodeODM, which provides a convenient API for scheduling and executing jobs. By default, ODM has access to up to 8 CPUs and 32 GB of memory. This is sufficient for small to medium tasks, but if you need to process a large batch of images please create an issue first so we can relax these limitations.\n\n\n\n\n\n\nTip\n\n\n\nBecause NodeODM has its resources allocated separately, you can use it from the Standard SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please do not use the more powerful Hubs for orthomosaicing - they will not run any faster and will block resources from other users.\n\n\nOnce you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use task.info().progress to periodically check the status of your job. For a more detailed example, see the notebook here."
   },
   {
     "objectID": "data-products.html",
     "href": "data-products.html",
     "title": "Data products",
     "section": "",
-    "text": "The SeaBee GeoNode is here.\n\nTo do:\n\nDescribe GeoServer, GeoNode and databases test (PostGIS)\nHow do we move data uploaded to MinIO to GeoServer?\nHow do we expose orthomosaics and vector datasets as web services (WMS and WFS)? How do we add them to e.g. ArcGIS?\nWhat is the difference between registered and unregistered users on the GeoNode site?\nWhat can users do via GeoNode and how do they do it (create new maps, download data… ?)"
+    "text": "The SeaBee data products are made publicly available via the SeaBee GeoNode. Products include:\n\nDatasets. Individual data layers, such as raster mosaics or vector annotation.\nMaps. User-defined maps that combine multiple datasets. For example, a map containing all the data generated by a single SeaBee mission.\nDocuments. Relevant non-spatial datasets, such as reports, documentation, etc.\nGeoStories. Websites that combine geospatial visualisations with descriptive text to create a story on a particular theme.\nDashboards. Interactive applications allowing users to explore, visualise and analyse SeaBee datasets."
+  },
+  {
+    "objectID": "data-products.html#sec-other-apps",
+    "href": "data-products.html#sec-other-apps",
+    "title": "Data products",
+    "section": "2 Using SeaBee data in other applications",
+    "text": "2 Using SeaBee data in other applications\nAll datasets hosted on SeaBee’s GeoNode are exposed as Web Mapping Services (WMSs), which users can add to their own maps or applications (e.g. in ArcGIS or QGIS). To do this, add a new WMS server to your application with the following URL\nhttps://geonode.seabee.sigma2.no/geoserver/geonode/wms?version=1.1.1\nThis should allow you to load a list of available SeaBee data layers and add them to your map."
+  },
+  {
+    "objectID": "data-products.html#sec-registered-users",
+    "href": "data-products.html#sec-registered-users",
+    "title": "Data products",
+    "section": "3 Registered users",
+    "text": "3 Registered users\nSeaBee data is available to everyone, but registered users can create their own maps and adjust layer styling etc. Click the Register button at the top-right of the GeoNode home page to create an account."
   },
   {
     "objectID": "login.html",
