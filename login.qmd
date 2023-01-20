@@ -19,7 +19,7 @@ The easiest way to explore the files available to you on MinIO is via the web in
 
 ## Data processing using SeaBee's JupterHub {#sec-jupyterhub}
 
-SeaBee's JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account (see @sec-create-account), you can request access to JupyterHub by [creating an issue](https://github.com/SeaBee-no/documentation/issues) in the SeaBee repository explaining your use case. You can then login [here](https://hub.seabee.sigma2.no/) using your Feide credentials.
+SeaBee's JupyterHub provides Python and R environments offering fast and convenient access to data hosted on Sigma2. The JupyterHub is especially useful for developing and testing workflows and for sharing code with other researchers. Once you have a Feide account (see @sec-create-account), you can request access to JupyterHub by [creating an issue](https://github.com/SeaBee-no/documentation/issues) in the SeaBee repository explaining your use case. You can then login using your Feide credentials.
 
 See the [JupyterHub](./jupyterhub.qmd) page for full details.
 
