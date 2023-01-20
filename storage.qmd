@@ -3,47 +3,47 @@ title: "Storage"
 number-sections: true
 ---
 
-## Overview
+## Overview {#sec-overview}
 
- * **Describe MinIO instance, how to login, basic bucket/folder structure etc.**
- * S3-compatible storage endpoint at <https://storage.seabee.sigma2.no>
- * Web interface at <https://minio.seabee.sigma2.no/login>
+Access to SeaBee data is provided by MinIO, which offers high-performance, S3-compatible object storage. At the highest level, files within MinIO are organised into **buckets**. For example, there are currently buckets for `niva`, `nina`, `ntnu` etc. Within these, files are organised within folders and sub-folders, just like a standard file system. At present, each organisation is responsible for organising their data in a way that fits with their existing workflows. 
 
-## Backups
+:::{.callout-note}
+Eventually, we will define a common file and folder structure for all SeaBee data, as this will make it easier to automate common SeaBee tasks.
+:::
+
+To access the data on MinIO, you first need to [create an account](./login.qmd#sec-minio). You can then login to the [SeaBee MinIO web interface](https://minio.seabee.sigma2.no/login) (@fig-minio-console-window) and browse files in a similar way to e.g. DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at <https://storage.seabee.sigma2.no> (see @sec-upload-download for details). 
+
+## Backups {#sec-backups}
 
  Files stored on NIRD follow the regular backup schedule described [here](https://documentation.sigma2.no/files_storage/backup.html#nird). For the GeoNode databases, backups should be dumped to the `seabee-backup-restore` bucket (which is then backed-up via the standard NIRD regime).
 
-## Uploading and downloading files
+## Uploading and downloading files {#sec-upload-download}
 
 There are several options to upload and download files to/from the MinIO storage.
 
-### MinIO web interface
+### MinIO web interface {#sec-minio-ui}
  
  The minio console located at <https://minio.seabee.sigma2.no/login> provides a graphical interface to upload and download files (@fig-minio-console-window). 
  
- ![Minio Console.](./images/minio_console_window.png){#fig-minio-console-window}
+ ![MinIO Console.](./images/minio_console_window.png){#fig-minio-console-window}
 
  On the [buckets page](https://minio.seabee.sigma2.no/buckets), click `Browse -> Upload`, then select either `Upload Folder` or `Upload File`. To download, mark the desired folder/file and click `Download`.
 
-### SeaBee data upload portal
+### SeaBee data upload portal {#sec-data-portal}
 
  * Describe Deb's data upload portal
  * Best option for standard/less advanced users?
 
-### Machine Access
+### Machine Access {#sec-machine-access}
 
 To accesss the S3 API on <https://storage.seabee.sigma2.no> you first need a service account (generated [here](https://minio.seabee.sigma2.no/identity/account)).
 
-#### Python
+#### Python {#sec-python}
 
- All python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the [MinIO SDK](https://min.io/docs/minio/linux/developers/python/minio-py.html) that, in addition to upload and download, has options to search and manage access. A simple SeaBee-specific example is [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb) and more general examples are [here](https://github.com/minio/minio-py/tree/master/examples). If you need file-like access, the [S3Fs](https://s3fs.readthedocs.io/en/latest/) library for Python is also a good option.
+ All python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the [MinIO SDK](https://min.io/docs/minio/linux/developers/python/minio-py.html). In addition to upload and download, this has options to search and manage access and to retrieve metadata etc. A simple SeaBee-specific example using the MinIO client is [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb) and more general examples are [here](https://github.com/minio/minio-py/tree/master/examples). If you need file-like access, the [S3Fs](https://s3fs.readthedocs.io/en/latest/) library for Python is also a good option.
 
-#### Shell
+#### Shell {#sec-shell}
 
- * [Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. **It is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
+ * [Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of what has been transferred and will retry if the connection is interrupted, so **it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
 
  * **Document setup steps for connecting Rclone to Sigma2.**
-
- * Consider the [MinIO client](https://min.io/docs/minio/linux/reference/minio-mc.html) if you only need `local -> s3` or `s3 -> s3` actions.
-
-

@@ -5,10 +5,15 @@ number-sections: true
 
 Orthorectification within SeaBee is currently performed using two main tools: [Open Drone Map (ODM)](https://opendronemap.org/), which is Open Source, and [Pix4D](https://www.pix4d.com/), which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM. 
 
-Pix4D cannot be deployed on Sigma2 due to licensing restrictions, but ODM is available via the [NodeODM API](https://github.com/OpenDroneMap/NodeODM). [PyODM](https://github.com/OpenDroneMap/PyODM) and [CloudODM](https://github.com/OpenDroneMap/CloudODM) are also provided. 
+[Pix4D-Engine](https://developer.pix4d.com/cloud-api/index.html#) is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the [NodeODM API](https://github.com/OpenDroneMap/NodeODM). [PyODM](https://github.com/OpenDroneMap/PyODM) and [CloudODM](https://github.com/OpenDroneMap/CloudODM) are also provided. 
 
 ## Open Drone Map
 
- * ODM is accessible via the SeaBee JupyterHub
+Open Drone Map is accessible from the SeaBee JupyterHub via [NodeODM](https://github.com/OpenDroneMap/NodeODM), which provides a convenient API for scheduling and executing jobs. By default, ODM has access to up to 8 CPUs and 32 GB of memory. This is sufficient for small to medium tasks, but if you need to process a large batch of images please [create an issue](https://github.com/SeaBee-no/documentation/issues) first so we can relax these limitations.
 
- * See the notebook [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb) for a simple example using PyODM
+
+:::{.callout-tip}
+Because NodeODM has its resources allocated separately, you can use it from the [Standard](https://hub-standard.seabee.sigma2.no/) SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please **do not use the more powerful Hubs for orthomosaicing** - they will not run any faster and will block resources from other users.
+:::
+ 
+Once you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you're using PyODM, use `task.info().progress` to periodically check the status of your job. For a more detailed example, see the notebook [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb).
