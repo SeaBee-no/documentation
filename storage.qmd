@@ -44,6 +44,57 @@ To accesss the S3 API on <https://storage.seabee.sigma2.no> you first need a ser
 
 #### Shell {#sec-shell}
 
- * [Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of what has been transferred and will retry if the connection is interrupted, so **it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
+##### Rclone {-}
 
- * **Document setup steps for connecting Rclone to Sigma2.**
+ [Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of transferred files and will retry if the connection is interrupted, so **it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
+
+###### Setup {-}
+
+ To install rclone follow the [instructions](https://rclone.org install/) for your operating system, it is a single excutable that you can download.
+
+ The quickest way to add minio seabee as an rclone remote is to edit/create the `rclone.conf` file. Check the location of this file by running the command
+
+ ```bash
+ rclone config file
+ ```
+
+ if the file does not exist create it. Then add this section
+
+ ```txt
+ [seabee-minio]
+type = s3
+provider = Minio
+access_key_id = <ACCESS_KEY_ID>
+secret_access_key = <SECRET_ACCESS_KEY>
+endpoint = storage.seabee.sigma2.no
+```   
+
+ where `<ACCESS_KEY_ID>` can be your user name or a service account, and `<SECRET_ACCESS_KEY>` is the accompanying password.
+
+ To check that everything is working run this command
+
+```bash
+rclone lsd seabee-minio:
+```
+
+it should list the buckets on minio.
+
+The configuration setup can also be completed by following rclone's interactive config session. This can be started using
+
+```bash
+rclone config
+```
+
+For most cases use the default, the storage type to select is `S3 compliant` .i.e. option `5)` and endpoint is `storage.seabee.sigma2.no`. This also allows you to setup a wide range of other remotes:)
+
+
+###### Usage {-}
+
+
+ **IMPORTANT!** It is quite convenient to setup autocomplete for rclone, see [genautocomplete](https://rclone.org/commands/rclone_genautocomplete/), now rclone completes commands and paths when you press `TAB`.
+
+ Some nice commands to know about is `rclone mount --read-only`, `rclone copy`, and `rclone sync`, in addition to commands like `ls`, `mkdir` and `rclone help`.
+
+
+
+
