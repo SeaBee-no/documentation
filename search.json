@@ -1,26 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "SeaBee documentation",
-    "section": "",
-    "text": "This website provides technical documentation for various aspects of the SeaBee workflow.\nTo learn more about the SeaBee project itself, please visit https://seabee.no/."
-  },
-  {
-    "objectID": "index.html#sec-overview",
-    "href": "index.html#sec-overview",
-    "title": "SeaBee documentation",
-    "section": "1 Overview",
-    "text": "1 Overview\nThe simplest possible version of the SeaBee data flow is illustrated in Figure 1. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.\nGround-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the SeaBee GeoNode.\n\n\n\nFigure 1: Simplified SeaBee workflow.\n\n\nThe full SeaBee workflow is considerably more complex than illustrated above. In particular, note the following:\n\nStandard aerial drones are flown with both RGB and multispectral cameras. In addition, the project includes hyperspectral data as well as imagery from other types of drone, such as the Otter (an unmanned surface vehicle).\nTypical data products from the machine learning include both image segmentation (e.g. habitat mapping) and object identification (e.g. seabird or mammal counts)."
-  },
-  {
-    "objectID": "index.html#sec-sigma2",
-    "href": "index.html#sec-sigma2",
-    "title": "SeaBee documentation",
-    "section": "2 Sigma2",
-    "text": "2 Sigma2\nAs far as possible, data handling for the SeaBee project is hosted by Sigma2 on NIRD, the National Infrastructure for Research Data. The SeaBee project has its own Kubernetes namespace on Sigma2. A high-level schematic of the current configuration is shown in Figure 2.\n\n\n\nFigure 2: Simplified Sigma2 architecture."
-  },
-  {
     "objectID": "jupyterhub.html",
     "href": "jupyterhub.html",
     "title": "JupyterHub",
@@ -54,104 +33,6 @@
     "title": "JupyterHub",
     "section": "4 Useful resources",
     "text": "4 Useful resources\nThe workflow_examples repository includes example notebooks illustrating different parts of the SeaBee workflow. The snippets repository also contains some useful tips. You can clone these repositories to your $HOME directory and use them as a starting point for your own work. If you create a new workflow (e.g. a notebook or script) that you think might be useful for others, please consider adding it to one of these repositories (workflow_examples should be fairly well documented and explained; snippets can be brief). The aim is to build up a library of examples to help new users to get started."
-  },
-  {
-    "objectID": "howto.html",
-    "href": "howto.html",
-    "title": "How to",
-    "section": "",
-    "text": "I want to…"
-  },
-  {
-    "objectID": "howto.html#sec-create-account",
-    "href": "howto.html#sec-create-account",
-    "title": "How to",
-    "section": "1 Create a user account",
-    "text": "1 Create a user account\nYou need to create a Feide account and then request access to the resources you will need. See the Login page for details."
-  },
-  {
-    "objectID": "howto.html#sec-file-transfer",
-    "href": "howto.html#sec-file-transfer",
-    "title": "How to",
-    "section": "2 Upload or download files",
-    "text": "2 Upload or download files\nThe best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the MinIO web interface or the SeaBee data upload portal. For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as Rclone are preferable. See Uploading and downloading files for details."
-  },
-  {
-    "objectID": "howto.html#sec-orthorectification",
-    "href": "howto.html#sec-orthorectification",
-    "title": "How to",
-    "section": "3 Mosaic geotagged raw images to georeferenced mosaics",
-    "text": "3 Mosaic geotagged raw images to georeferenced mosaics\nYou can use Open Drone Map (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the Orthorectification page for details."
-  },
-  {
-    "objectID": "howto.html#sec-annotation",
-    "href": "howto.html#sec-annotation",
-    "title": "How to",
-    "section": "4 Create training data for machine learning (annotation)",
-    "text": "4 Create training data for machine learning (annotation)\nThe recommended workflow for image segmentation tasks is to use ArcGIS Pro and the Image Analyst extension - see the Annotation page for details."
-  },
-  {
-    "objectID": "howto.html#explore-and-download-seabee-datasets",
-    "href": "howto.html#explore-and-download-seabee-datasets",
-    "title": "How to",
-    "section": "5 Explore and download SeaBee datasets",
-    "text": "5 Explore and download SeaBee datasets\nOrthomosaics from aerial drones and data products from the machine learning are available via SeaBee’s GeoNode. See the Data products page for details."
-  },
-  {
-    "objectID": "storage.html",
-    "href": "storage.html",
-    "title": "Storage",
-    "section": "",
-    "text": "Access to SeaBee data is provided by MinIO, which offers high-performance, S3-compatible object storage. At the highest level, files within MinIO are organised into buckets. For example, there are currently buckets for niva, nina, ntnu etc. Within these, files are organised within folders and sub-folders, just like a standard file system. At present, each organisation is responsible for organising their data in a way that fits with their existing workflows.\n\n\n\n\n\n\nNote\n\n\n\nEventually, we will define a common file and folder structure for all SeaBee data, as this will make it easier to automate common SeaBee tasks.\n\n\nTo access the data on MinIO, you first need to create an account. You can then login to the SeaBee MinIO web interface (Figure 1) and browse files in a similar way to e.g. DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at https://storage.seabee.sigma2.no (see Section 3 for details)."
-  },
-  {
-    "objectID": "storage.html#sec-backups",
-    "href": "storage.html#sec-backups",
-    "title": "Storage",
-    "section": "2 Backups",
-    "text": "2 Backups\nFiles stored on NIRD follow the regular backup schedule described here. For the GeoNode databases, backups should be dumped to the seabee-backup-restore bucket (which is then backed-up via the standard NIRD regime)."
-  },
-  {
-    "objectID": "storage.html#sec-upload-download",
-    "href": "storage.html#sec-upload-download",
-    "title": "Storage",
-    "section": "3 Uploading and downloading files",
-    "text": "3 Uploading and downloading files\nThere are several options to upload and download files to/from the MinIO storage.\n\n3.1 MinIO web interface\nThe minio console located at https://minio.seabee.sigma2.no/login provides a graphical interface to upload and download files (Figure 1).\n\n\n\nFigure 1: MinIO Console.\n\n\nOn the buckets page, click Browse -> Upload, then select either Upload Folder or Upload File. To download, mark the desired folder/file and click Download.\n\n\n3.2 SeaBee data upload portal\n\nDescribe Deb’s data upload portal\nBest option for standard/less advanced users?\n\n\n\n3.3 Machine Access\nTo accesss the S3 API on https://storage.seabee.sigma2.no you first need a service account (generated here).\n\n3.3.1 Python\nAll python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the MinIO SDK. In addition to upload and download, this has options to search and manage access and to retrieve metadata etc. A simple SeaBee-specific example using the MinIO client is here and more general examples are here. If you need file-like access, the S3Fs library for Python is also a good option.\n\n\n3.3.2 Shell\n\nRclone\nRclone provides a convenient way of synchronising files local -> cloud or cloud -> cloud. Rclone keeps track of transferred files and will retry if the connection is interrupted, so it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2.\n\nSetup\nTo install rclone follow the instructions for your operating system, it is a single excutable that you can download.\nThe quickest way to add minio seabee as an rclone remote is to edit/create the rclone.conf file. Check the location of this file by running the command\nrclone config file\nif the file does not exist create it. Then add this section\n[seabee-minio]\ntype = s3\nprovider = Minio\naccess_key_id = <ACCESS_KEY_ID>\nsecret_access_key = <SECRET_ACCESS_KEY>\nendpoint = storage.seabee.sigma2.no\nwhere <ACCESS_KEY_ID> can be your user name or a service account, and <SECRET_ACCESS_KEY> is the accompanying password.\nTo check that everything is working run this command\nrclone lsd seabee-minio:\nit should list the buckets on minio.\nThe configuration setup can also be completed by following rclone’s interactive config session. This can be started using\nrclone config\nFor most cases use the default, the storage type to select is S3 compliant .i.e. option 5) and endpoint is storage.seabee.sigma2.no. This also allows you to setup a wide range of other remotes:)\n\n\nUsage\nIMPORTANT! It is quite convenient to setup autocomplete for rclone, see genautocomplete, now rclone completes commands and paths when you press TAB.\nSome nice commands to know about is rclone mount --read-only, rclone copy, and rclone sync, in addition to commands like ls, mkdir and rclone help."
-  },
-  {
-    "objectID": "orthorectification.html",
-    "href": "orthorectification.html",
-    "title": "Orthorectification",
-    "section": "",
-    "text": "Orthorectification within SeaBee is currently performed using two main tools: Open Drone Map (ODM), which is Open Source, and Pix4D, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.\nPix4D-Engine is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the NodeODM API. PyODM and CloudODM are also provided."
-  },
-  {
-    "objectID": "orthorectification.html#open-drone-map",
-    "href": "orthorectification.html#open-drone-map",
-    "title": "Orthorectification",
-    "section": "1 Open Drone Map",
-    "text": "1 Open Drone Map\nOpen Drone Map is accessible from the SeaBee JupyterHub via NodeODM, which provides a convenient API for scheduling and executing jobs. By default, ODM has access to up to 8 CPUs and 32 GB of memory. This is sufficient for small to medium tasks, but if you need to process a large batch of images please create an issue first so we can relax these limitations.\n\n\n\n\n\n\nTip\n\n\n\nBecause NodeODM has its resources allocated separately, you can use it from the Standard SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please do not use the more powerful Hubs for orthomosaicing - they will not run any faster and will block resources from other users.\n\n\nOnce you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use task.info().progress to periodically check the status of your job. For a more detailed example, see the notebook here."
-  },
-  {
-    "objectID": "data-products.html",
-    "href": "data-products.html",
-    "title": "Data products",
-    "section": "",
-    "text": "The SeaBee data products are made publicly available via the SeaBee GeoNode. Products include:\n\nDatasets. Individual data layers, such as raster mosaics or vector annotation.\nMaps. User-defined maps that combine multiple datasets. For example, a map containing all the data generated by a single SeaBee mission.\nDocuments. Relevant non-spatial datasets, such as reports, documentation, etc.\nGeoStories. Websites that combine geospatial visualisations with descriptive text to create a story on a particular theme.\nDashboards. Interactive applications allowing users to explore, visualise and analyse SeaBee datasets."
-  },
-  {
-    "objectID": "data-products.html#sec-other-apps",
-    "href": "data-products.html#sec-other-apps",
-    "title": "Data products",
-    "section": "2 Using SeaBee data in other applications",
-    "text": "2 Using SeaBee data in other applications\nAll datasets hosted on SeaBee’s GeoNode are exposed as Web Mapping Services (WMSs), which users can add to their own maps or applications (e.g. in ArcGIS or QGIS). To do this, add a new WMS server to your application with the following URL\nhttps://geonode.seabee.sigma2.no/geoserver/geonode/wms?version=1.1.1\nThis should allow you to load a list of available SeaBee data layers and add them to your map."
-  },
-  {
-    "objectID": "data-products.html#sec-registered-users",
-    "href": "data-products.html#sec-registered-users",
-    "title": "Data products",
-    "section": "3 Registered users",
-    "text": "3 Registered users\nSeaBee data is available to everyone, but registered users can create their own maps and adjust layer styling etc. Click the Register button at the top-right of the GeoNode home page to create an account."
   },
   {
     "objectID": "login.html",
@@ -208,5 +89,131 @@
     "title": "Annotation",
     "section": "2 Workflow",
     "text": "2 Workflow\n\n2.1 Install ArcGIS Pro\nFollow the steps below to download and install ArcGIS Pro on your local machine.\n\nContact Jan Karud to obtain login details for ArcGIS Online. You need access to ArcGIS Pro with the Image Analyst extension.\nLogin to ArcGIS Online and, under your profile, choose Settings > Licenses. Check that Image Analyst is available to you under ArcGIS Pro extensions, then click the link to Download ArcGIS Pro (Figure 1).\nObtain an administrator password from IT-Vakt and run the installer. You should then be able to start ArcGIS Pro and login to the application using your ArcGIS Online credentials.\n\n\n\n\nFigure 1: Download ArcGIS Pro\n\n\n\n\n2.2 Setup project\nThe next step is to create a new project within ArcGIS and add SeaBee data to it.\n\nIn ArcGIS Pro, create a new Map project. The Name should describe the mission/area you’re annotating and Location should be an existing local folder on your PC.\n\n\n\n\n\n\n\nTip\n\n\n\nArcGIS may run slowly if you set Location to be a network folder or a folder that is synchronised to an external server (e.g. DropBox, OneDrive, GoogleDrive).\n\n\n\nWithin your project folder, create three new subfolders: class_definitions, vector and raster. This can either be done using the Catalog pane in ArcGIS or using Windows’ File Explorer.\nDownload relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a class definition file and a georeferenced orthomosaic. Optionally, you may include a ground truth dataset, a region of interest (ROI) file and any pre-existing annotation for your area of interest. See Section 2.3 to Section 2.6 for details.\n\n\n\n\n\n\n\nNote\n\n\n\nAt present, most mission data is hosted on OneDrive/Sharepoint, which means it must be downloaded locally for use with ArcGIS. For large files, this can be slow. Eventually, datasets should be hosted on Sigma2 and exposed as web mapping services (WMS). This will make it possible to add the orthomosaics to your map without having to download large volumes of raw imagery.\n\n\n\n\n2.3 Class definition files\nArcGIS Pro supports hierarchical class definitions, which can be defined manually via the Training Samples Manager. Class definitions are saved as ESRI Classification Schema files (.ecs), which are JSON files with a specific structure.\nThe classes of interest to SeaBee are complex and creating them manually via the user interface is cumbersome. Section 2 of the notebook here includes code to build an .ecs file with the correct schema from an Excel table, which is more convenient in most cases.\nAs far as possible, SeaBee will use a standard set of class definitions for habitat mapping. The latest versions are available online here in both Excel and .ecs formats.\nThe workflow for class definition files is as follows:\n\nBefore starting to annotate a new area, everyone involved must agree on which set of class definitions (i.e. which version) to use. If necessary, class definitions can be updated in Excel and a new version of the .ecs file created using the code linked above.\nEveryone should download the same .ecs file and add it to the class_definitions folder in their ArcGIS project (created in Section 2.2).\n\n\n\n\n\n\n\nImportant\n\n\n\nUsing a standard set of classes is important if the machine learning algorithms created by SeaBee are to be transferable/re-trainable. It is likely that some changes to the class schema will be necessary initially, but we are hoping to converge on a standard set of habitat classes if possible. Proposed changes should be discussed with Hege Gundersen and Kristina Øie Kvile.\n\n\n\n\n2.4 Orthomosaics\nOrthomosaics for your area of interest should be downloaded and added to the raster folder within your ArcGIS project. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.\nData are currently available via Sharepoint/Teams in a folder structure that typically looks something like this:\nWP4 > 1_DATA-SeaBee > {year} > {mission} > 1_drone > {pilot/organisation} > {time_spec_altitude} > Mosaics\nA direct link to the 1_DATA-SeaBee folder is here.\n\n\n\n\n\n\nTip\n\n\n\nDownloading large files from Teams/Sharepoint via the UI can be slow and unstable. Experience with the Runde data suggests the Python API is faster and more reliable. The notebook here shows an example of this.\n\n\n\n\n\n\n\n\nNote\n\n\n\nEventually, it is hoped that all SeaBee orthomosiacs will be available as WMS layers from Geoserver running on Sigma2. This will make it possible to add raster imagery to ArcGIS without downloading it locally.\n\n\n\n\n2.5 Ground truth data\nPoint shapefiles of ground truth data are available for most missions. These are typically stored in the mission folder on Sharepoint/Teams within a subfolder named GT.\nIf available, download the shapefile and add it to the vector folder within your in ArcGIS project.\n\n\n2.6 Region of interest and training subareas\nFor each mission, you should create shapefiles defining (i) your region of interest (ROI), and (ii) a set of subareas that will be used to divide the annotation data into “blocks”. When you create these shapefiles, be sure to use the same co-ordinate reference system (CRS) as the orthomosaic you wish to annotate.\n\nThe ROI defines the area that you would eventually like to classify. This will typically cover a large proportion of the total image, but excluding anything not covered by your class definition file (see Section 2.3). As an example, see the black dashed line defining the ROI for Remøy on Figure 2.\nMachine learning algorithms only learn based on the training samples you provide, so if the prediction area includes things not present in the training data you will get poor results. If possible, use the ROI file to define an area excluding things like roads, buildings and bridges that you are not interested in. You can then ignore these at the annotation stage and focus instead on annotating classes of ecological interest.\n\n\n\n\n\n\n\nImportant\n\n\n\nIf your area includes lots of man-made objects and you can’t exclude them using an ROI for some reason, make sure you annotate a representative selection of each type of object and tag them all as ANTHRO.\n\n\n\nThe training subareas are a set of rectangles (say, 5 to 10) that define discrete areas within which you create annotation. See the red rectangles on Figure 2 for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g. Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we’re satisfied, we can use data from Area 6 to get a independent assessment of the model’s performance.\nDefining training subareas is also a convenient way of dividing the annotation workload between several people: each person agrees to annotate one or two specific subareas. This avoids accidental duplication of effort (although at times it may also be useful for several people to annotate the same area to assess consistency).\n\n\n\n\nFigure 2: Region of interest and training subareas used for Remøy\n\n\n\n\n2.7 Styling the map\nOnce you have download all the relevant datasets and added them to your project folder in ArcGIS, you can add layers to your map and style them appropriately. Figure 3 shows an example.\n\nDrag each layer from the Catalog pane (right-most column in Figure 3) to the ArcGIS Table of contents (left-most pane in Figure 3). The order of layers in the Table of contents defines the drawing order on the map, so put the orthomosaic at the bottom and the other layers on top.\nRight-click each vector layer in the Table of contents and choose Symbology. This will allow you to define fill and outline colours for the vector layers on your map.\n[Optional] Right-click the ground truth dataset and choose Labelling Properties. Set the Expression to be $feature.Kode, where Kode is the name of the column in the ground truth attribute table containing the labels you want to use. When you click Apply, you should see each point in the ground truth dataset labelled with its class code.\n\n\n\n\n\n\n\nTip\n\n\n\nWhenever you’re working with anything GIS-related, remember to save your work regularly!\n\n\n\n\n\nFigure 3: Example ArcGIS layout\n\n\n\n\n2.8 Creating annotation\nWith the ArcGIS project configured, you can begin creating annotation.\n\nIn the ArcGIS Table of contents (left-most pane in Figure 3), select one of your orthomosaic layers. This will activate the Image Analyst extension.\nOn the “ribbon” (i.e. menu bar), select the Imagery tab and choose Classification Tools > Training Samples Manager. A new pane should appear at the right side of the window.\nIn the upper part of the new pane, click the folder icon (which has a tooltip saying Classification schema) and load your class definition file (see Section 2.3). You should see the class hierarchy added to the upper half of the window.\nIdentify the training area you wish to annotate and zoom in on a feature (e.g. a boulder or patch of algae). In the class hierarchy, select the class you wish to annotate, choose one of drawing tools from the top of the window and begin digitising. In most cases, the Freehand tool is likely to be most useful.\n\nEach polygon you draw will appear in the lower half of the Image Classification pane (see Figure 4). The Pixels (%) column shows what proportion of the pixels digitised so far belong to each class.\n\n\n\nFigure 4: The Training Samples Manager\n\n\n\nIt is a good idea to periodically group polygons of the same class. This is done by selecting the rows you wish to group in the lower pane (using SHIFT + Click or CTRL + Click) and then clicking the Collapse icon (two arrows coming together). You can also ungroup using the Expand button (one arrow splitting into two).\nWhen you have finished your digitising session, click the Save icon in the lower pane of the Training Samples Manager to save your training samples as a shapefile in the vector folder of your ArcGIS project. You should also save the entire ArcGIS project before closing down.\nIf you wish to continue annotating using a shapefile created previously, first open your ArcGIS project and load the class definitions file (steps 1 to 3 above). Then, instead of creating new annotation from scratch, click the folder icon in the lower part of the Image Classification pane (labelled Load training samples) and browse to the annotation shapefile created previously. You can now continue annotating and save changes back to the original shapefile.\n\n\n\n\n\n\n\nTip\n\n\n\nThe following tips should help you to create good quality annotation:\n\nAlways assign the most detailed level in the class hierarchy that you can confidently identify. If you are not sure, assign the level above.\nGroup your polygons by class regularly and get into the habit of clicking Save immediately before each grouping operation.\nUse the Pixels (%) column to prioritise which classes to focus on. Given the classes of interest, you will probably not be able to produce a “balanced” training dataset, but if you have e.g. 90% BOULDER there’s no point digitising more boulders.\nYou don’t need to digitise everything within each training subarea (but the more the better).\nDo not annotate anything outside of the training subareas and do not draw polygons that cross subarea boundaries.\nDo not draw overlapping polygons or polygons that touch one another (ideally, there should be at least one pixel between adjacent polygons).\nDo not draw self-intersecting polygons (i.e. when the line you’re drawing crosses itself, such as when drawing a figure-of-eight or bow-tie shape). Such polygons are invalid and they cause problems later in the workflow. In particular, there is a bug/lack of error handling in ArcGIS Pro’s Training Samples Manager that causes the application to crash hard if you attempt to group invalid polygons.\nIf you’re not sure how to assign something, or where a boundary should be drawn, the key question to ask yourself is: “Would I be happy if an algorithm classified this entire polygon as X?” If the answer is “Yes”, it is reasonable to tag the whole polygon as X; if the answer is “No” consider subdividing or deleting it.\n\n\n\n\n\n2.9 Packaging annotation\nOnce all subareas have been digitised, each person should upload their annotation shapefiles to an agreed folder on Teams (eventually, on Sigma2). Make sure each subarea is included only once.\n\nWork through the notebook here, specifically Sections 3 to 6. This will:\n\nMerge the annotation shapefiles for each subarea or group of subareas into a single dataset.\nTag each of the annotation polygons with the subarea ID, making it easier to filter/subdivide the training data.\nReconstruct the original, three-column class hierarchy from the single-column ArcGIS output. This makes it easy to generate raster annotation for any of the three “levels”.\nCreate a geopackage combining the annotation data, the subarea polygons and the region of interest.\n\nThe geopackage should be uploaded to Teams/Sharepoint and shared with NR, together with links to the relevant orthomosaics."
+  },
+  {
+    "objectID": "data-products.html",
+    "href": "data-products.html",
+    "title": "Data products",
+    "section": "",
+    "text": "The SeaBee data products are made publicly available via the SeaBee GeoNode. Products include:\n\nDatasets. Individual data layers, such as raster mosaics or vector annotation.\nMaps. User-defined maps that combine multiple datasets. For example, a map containing all the data generated by a single SeaBee mission.\nDocuments. Relevant non-spatial datasets, such as reports, documentation, etc.\nGeoStories. Websites that combine geospatial visualisations with descriptive text to create a story on a particular theme.\nDashboards. Interactive applications allowing users to explore, visualise and analyse SeaBee datasets."
+  },
+  {
+    "objectID": "data-products.html#sec-other-apps",
+    "href": "data-products.html#sec-other-apps",
+    "title": "Data products",
+    "section": "2 Using SeaBee data in other applications",
+    "text": "2 Using SeaBee data in other applications\nAll datasets hosted on SeaBee’s GeoNode are exposed as Web Mapping Services (WMSs), which users can add to their own maps or applications (e.g. in ArcGIS or QGIS). To do this, add a new WMS server to your application with the following URL\nhttps://geonode.seabee.sigma2.no/geoserver/geonode/wms?version=1.1.1\nThis should allow you to load a list of available SeaBee data layers and add them to your map."
+  },
+  {
+    "objectID": "data-products.html#sec-registered-users",
+    "href": "data-products.html#sec-registered-users",
+    "title": "Data products",
+    "section": "3 Registered users",
+    "text": "3 Registered users\nSeaBee data is available to everyone, but registered users can create their own maps and adjust layer styling etc. Click the Register button at the top-right of the GeoNode home page to create an account."
+  },
+  {
+    "objectID": "howto.html",
+    "href": "howto.html",
+    "title": "How to",
+    "section": "",
+    "text": "I want to…"
+  },
+  {
+    "objectID": "howto.html#sec-create-account",
+    "href": "howto.html#sec-create-account",
+    "title": "How to",
+    "section": "1 Create a user account",
+    "text": "1 Create a user account\nYou need to create a Feide account and then request access to the resources you will need. See the Login page for details."
+  },
+  {
+    "objectID": "howto.html#sec-file-transfer",
+    "href": "howto.html#sec-file-transfer",
+    "title": "How to",
+    "section": "2 Upload or download files",
+    "text": "2 Upload or download files\nThe best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the MinIO web interface or the SeaBee data upload portal. For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as Rclone are preferable. See Uploading and downloading files for details."
+  },
+  {
+    "objectID": "howto.html#sec-orthorectification",
+    "href": "howto.html#sec-orthorectification",
+    "title": "How to",
+    "section": "3 Mosaic geotagged raw images to georeferenced mosaics",
+    "text": "3 Mosaic geotagged raw images to georeferenced mosaics\nYou can use Open Drone Map (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the Orthorectification page for details."
+  },
+  {
+    "objectID": "howto.html#sec-annotation",
+    "href": "howto.html#sec-annotation",
+    "title": "How to",
+    "section": "4 Create training data for machine learning (annotation)",
+    "text": "4 Create training data for machine learning (annotation)\nThe recommended workflow for image segmentation tasks is to use ArcGIS Pro and the Image Analyst extension - see the Annotation page for details."
+  },
+  {
+    "objectID": "howto.html#explore-and-download-seabee-datasets",
+    "href": "howto.html#explore-and-download-seabee-datasets",
+    "title": "How to",
+    "section": "5 Explore and download SeaBee datasets",
+    "text": "5 Explore and download SeaBee datasets\nOrthomosaics from aerial drones and data products from the machine learning are available via SeaBee’s GeoNode. See the Data products page for details."
+  },
+  {
+    "objectID": "orthorectification.html",
+    "href": "orthorectification.html",
+    "title": "Orthorectification",
+    "section": "",
+    "text": "Orthorectification within SeaBee is currently performed using two main tools: Open Drone Map (ODM), which is Open Source, and Pix4D, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.\nPix4D-Engine is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the NodeODM API. PyODM and CloudODM are also provided."
+  },
+  {
+    "objectID": "orthorectification.html#open-drone-map",
+    "href": "orthorectification.html#open-drone-map",
+    "title": "Orthorectification",
+    "section": "1 Open Drone Map",
+    "text": "1 Open Drone Map\nOpen Drone Map is accessible from the SeaBee JupyterHub via NodeODM, which provides a convenient API for scheduling and executing jobs. By default, ODM has access to up to 8 CPUs and 32 GB of memory. This is sufficient for small to medium tasks, but if you need to process a large batch of images please create an issue first so we can relax these limitations.\n\n\n\n\n\n\nTip\n\n\n\nBecause NodeODM has its resources allocated separately, you can use it from the Standard SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please do not use the more powerful Hubs for orthomosaicing - they will not run any faster and will block resources from other users.\n\n\nOnce you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use task.info().progress to periodically check the status of your job. For a more detailed example, see the notebook here."
+  },
+  {
+    "objectID": "storage.html",
+    "href": "storage.html",
+    "title": "Storage",
+    "section": "",
+    "text": "Access to SeaBee data is provided by MinIO, which offers high-performance, S3-compatible object storage. At the highest level, files within MinIO are organised into buckets. For example, there are currently buckets for niva, nina, ntnu etc. Within these, files are organised within folders and sub-folders, just like a standard file system. At present, each organisation is responsible for organising their data in a way that fits with their existing workflows.\n\n\n\n\n\n\nNote\n\n\n\nEventually, we will define a common file and folder structure for all SeaBee data, as this will make it easier to automate common SeaBee tasks.\n\n\nTo access the data on MinIO, you first need to create an account. You can then login to the SeaBee MinIO web interface (Figure 1) and browse files in a similar way to e.g. DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at https://storage.seabee.sigma2.no (see Section 3 for details)."
+  },
+  {
+    "objectID": "storage.html#sec-backups",
+    "href": "storage.html#sec-backups",
+    "title": "Storage",
+    "section": "2 Backups",
+    "text": "2 Backups\nFiles stored on NIRD follow the regular backup schedule described here. For the GeoNode databases, backups should be dumped to the seabee-backup-restore bucket (which is then backed-up via the standard NIRD regime)."
+  },
+  {
+    "objectID": "storage.html#sec-upload-download",
+    "href": "storage.html#sec-upload-download",
+    "title": "Storage",
+    "section": "3 Uploading and downloading files",
+    "text": "3 Uploading and downloading files\nThere are several options to upload and download files to/from the MinIO storage.\n\n3.1 MinIO web interface\nThe minio console located at https://minio.seabee.sigma2.no/login provides a graphical interface to upload and download files (Figure 1).\n\n\n\nFigure 1: MinIO Console.\n\n\nOn the buckets page, click Browse -> Upload, then select either Upload Folder or Upload File. To download, mark the desired folder/file and click Download.\n\n\n3.2 SeaBee data upload portal\n\nDescribe Deb’s data upload portal\nBest option for standard/less advanced users?\n\n\n\n3.3 Machine Access\nTo accesss the S3 API on https://storage.seabee.sigma2.no you first need a service account (generated here).\n\n3.3.1 Python\nAll python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the MinIO SDK. In addition to upload and download, this has options to search and manage access and to retrieve metadata etc. A simple SeaBee-specific example using the MinIO client is here and more general examples are here. If you need file-like access, the S3Fs library for Python is also a good option.\n\n\n3.3.2 Shell\n\nRclone\nRclone provides a convenient way of synchronising files local -> cloud or cloud -> cloud. Rclone keeps track of transferred files and will retry if the connection is interrupted, so it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2.\n\nSetup\nTo install rclone follow the instructions for your operating system, it is a single excutable that you can download.\nThe quickest way to add minio seabee as an rclone remote is to edit/create the rclone.conf file. Check the location of this file by running the command\nrclone config file\nif the file does not exist create it. Then add this section\n[seabee-minio]\ntype = s3\nprovider = Minio\naccess_key_id = <ACCESS_KEY_ID>\nsecret_access_key = <SECRET_ACCESS_KEY>\nendpoint = storage.seabee.sigma2.no\nwhere <ACCESS_KEY_ID> can be your user name or a service account, and <SECRET_ACCESS_KEY> is the accompanying password.\nTo check that everything is working run this command\nrclone lsd seabee-minio:\nit should list the buckets on minio.\nThe configuration setup can also be completed by following rclone’s interactive config session. This can be started using\nrclone config\nFor most cases use the default, the storage type to select is S3 compliant .i.e. option 5) and endpoint is storage.seabee.sigma2.no. This also allows you to setup a wide range of other remotes:)\n\n\nUsage\nIMPORTANT! It is quite convenient to setup autocomplete for rclone, see genautocomplete, now rclone completes commands and paths when you press TAB.\nSome nice commands to know about is rclone mount --read-only, rclone copy, and rclone sync, in addition to commands like ls, mkdir and rclone help."
+  },
+  {
+    "objectID": "composite-images.html",
+    "href": "composite-images.html",
+    "title": "Composite images",
+    "section": "",
+    "text": "Orthorectified images often need standardising and stacking to create “composite” images before being used in the rest of the SeaBee workflow. This page defines standards and recommendations for SeaBee datasets.\n\n\nFor multiband images, bands should be stacked in order of descending wavelength (i.e. band 1 corresponds to the longest wavelength and band \\(n\\) to the shortest):\n\nFor RGB datasets, R, G, B = bands 1, 2, 3\nFor typical multispectral data, NIR, RE, R, G, B = bands 1, 2, 3, 4, 5 (where NIR corresponds to “near infrared” and RE is “red edge”)\n\nNote that GeoTiffs support band-level metadata via set_band_description. It is strongly recommended to use this to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.\n\n\n\n\n\n\nTip\n\n\n\nBy default, most GIS software will display bands 1, 2 and 3 as R, G and B, respectively. However, it is usually easy to change these settings and assign colours to whichever bands you wish:\n\nIn ArcGIS Desktop, use the Symbology tab\nIn ArcGIS Pro, use the Raster Layer tab\nFor QGIS, see the Raster Properties Dialog\n\n\n\n\n\n\nThere are two common approaches for representing “no data” in raster imagery: setting a nodata value and using an “alpha mask”. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range available for the data type. However, alpha masks are not supported by some software and compression algorithms. For SeaBee, it is recommended to discard any alpha channels and explicitly set a nodata value instead.\n\n\n\n\n\n\nNote\n\n\n\nRGB mosaics produced by SeaBee cameras are usually RGBA (i.e. they include an alpha band); multispectral mosaics typically do not.\n\n\n\n\n\n8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recomended to convert each band to 8-bit integer type before stacking. Be sure to scale - rather than truncate - the values when converting.\n\n\n\n\n\n\nNote\n\n\n\nSeaBee RGB mosaics are typically 8-bit by default; multispectral cameras usually output 32-bit bands."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "SeaBee documentation",
+    "section": "",
+    "text": "This website provides technical documentation for various aspects of the SeaBee workflow.\nTo learn more about the SeaBee project itself, please visit https://seabee.no/."
+  },
+  {
+    "objectID": "index.html#sec-overview",
+    "href": "index.html#sec-overview",
+    "title": "SeaBee documentation",
+    "section": "1 Overview",
+    "text": "1 Overview\nThe simplest possible version of the SeaBee data flow is illustrated in Figure 1. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.\nGround-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the SeaBee GeoNode.\n\n\n\nFigure 1: Simplified SeaBee workflow.\n\n\nThe full SeaBee workflow is considerably more complex than illustrated above. In particular, note the following:\n\nStandard aerial drones are flown with both RGB and multispectral cameras. In addition, the project includes hyperspectral data as well as imagery from other types of drone, such as the Otter (an unmanned surface vehicle).\nTypical data products from the machine learning include both image segmentation (e.g. habitat mapping) and object identification (e.g. seabird or mammal counts)."
+  },
+  {
+    "objectID": "index.html#sec-sigma2",
+    "href": "index.html#sec-sigma2",
+    "title": "SeaBee documentation",
+    "section": "2 Sigma2",
+    "text": "2 Sigma2\nAs far as possible, data handling for the SeaBee project is hosted by Sigma2 on NIRD, the National Infrastructure for Research Data. The SeaBee project has its own Kubernetes namespace on Sigma2. A high-level schematic of the current configuration is shown in Figure 2.\n\n\n\nFigure 2: Simplified Sigma2 architecture."
   }
 ]
