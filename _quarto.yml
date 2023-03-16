@@ -13,6 +13,7 @@ website:
       - text: "Processing"
         menu:
           - orthorectification.qmd
+          - composite-images.qmd
           - jupyterhub.qmd 
       - annotation.qmd
       - data-products.qmd
@@ -34,6 +35,7 @@ website:
       - section: "Processing"
         contents:
           - orthorectification.qmd
+          - composite-images.qmd
           - jupyterhub.qmd 
       - annotation.qmd
       - data-products.qmd
