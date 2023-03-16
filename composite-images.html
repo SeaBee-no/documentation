@@ -222,12 +222,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#composite-images" id="toc-composite-images" class="nav-link active" data-scroll-target="#composite-images"><span class="toc-section-number">1</span>  Composite images</a>
-  <ul class="collapse">
-  <li><a href="#sec-band-order" id="toc-sec-band-order" class="nav-link" data-scroll-target="#sec-band-order"><span class="toc-section-number">1.1</span>  Band order</a></li>
-  <li><a href="#sec-nodata" id="toc-sec-nodata" class="nav-link" data-scroll-target="#sec-nodata"><span class="toc-section-number">1.2</span>  Handling missing data</a></li>
-  <li><a href="#sec-bit-depth" id="toc-sec-bit-depth" class="nav-link" data-scroll-target="#sec-bit-depth"><span class="toc-section-number">1.3</span>  Bit depth</a></li>
-  </ul></li>
+  <li><a href="#sec-band-order" id="toc-sec-band-order" class="nav-link active" data-scroll-target="#sec-band-order"><span class="toc-section-number">1</span>  Band order</a></li>
+  <li><a href="#sec-nodata" id="toc-sec-nodata" class="nav-link" data-scroll-target="#sec-nodata"><span class="toc-section-number">2</span>  Handling missing data</a></li>
+  <li><a href="#sec-bit-depth" id="toc-sec-bit-depth" class="nav-link" data-scroll-target="#sec-bit-depth"><span class="toc-section-number">3</span>  Bit depth</a></li>
   </ul>
 </nav>
     </div>
@@ -251,11 +248,9 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="composite-images" class="level1" data-number="1">
-<h1 data-number="1"><span class="header-section-number">1</span> Composite images</h1>
-<p>Orthorectified images often need standardising and stacking to create “composite” images before being used in the rest of the SeaBee workflow. This page defines standards and recommendations for SeaBee datasets.</p>
-<section id="sec-band-order" class="level2" data-number="1.1">
-<h2 data-number="1.1" class="anchored" data-anchor-id="sec-band-order"><span class="header-section-number">1.1</span> Band order</h2>
+<p>Orthorectified images often need standardising and stacking to create “composite” images before being used in the rest of the SeaBee workflow. This page defines some standards and recommendations for SeaBee datasets.</p>
+<section id="sec-band-order" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sec-band-order"><span class="header-section-number">1</span> Band order</h2>
 <p>For multiband images, <strong>bands should be stacked in order of descending wavelength</strong> (i.e.&nbsp;band 1 corresponds to the longest wavelength and band <span class="math inline">\(n\)</span> to the shortest):</p>
 <ul>
 <li>For RGB datasets, <code>R, G, B = bands 1, 2, 3</code></li>
@@ -276,14 +271,14 @@ Tip
 <ul>
 <li>In ArcGIS Desktop, use the <a href="https://resources.arcgis.com/en/help/main/10.2/index.html#/Drawing_a_multiband_raster_dataset_as_an_RGB_composite/009t00000073000000/">Symbology</a> tab</li>
 <li>In ArcGIS Pro, use the <a href="https://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/setting-the-default-bands-to-display-multiband-rasters.htm">Raster Layer</a> tab</li>
-<li>For QGIS, see the <a href="https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/raster_properties.html?highlight=multiband#multiband-color">Raster Properties Dialog</a></li>
+<li>For QGIS, see the <a href="https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/raster_properties.html?highlight=multiband#multiband-color">Raster Properties</a> dialog</li>
 </ul>
 </div>
 </div>
 </section>
-<section id="sec-nodata" class="level2" data-number="1.2">
-<h2 data-number="1.2" class="anchored" data-anchor-id="sec-nodata"><span class="header-section-number">1.2</span> Handling missing data</h2>
-<p>There are two common approaches for representing “no data” in raster imagery: setting a <code>nodata</code> value and using an “alpha mask”. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range available for the data type. However, alpha masks are not supported by some software and compression algorithms. For SeaBee, it is recommended to <strong>discard any alpha channels and explicitly set a <code>nodata</code> value</strong> instead.</p>
+<section id="sec-nodata" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-nodata"><span class="header-section-number">2</span> Handling missing data</h2>
+<p>There are two common approaches for representing “no data” in raster imagery: setting a <code>nodata</code> value and using an “alpha mask”. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range of values for the data type. However, alpha masks are not supported by some software and image compression algorithms. For SeaBee, it is recommended to <strong>discard any alpha channels and explicitly set a <code>nodata</code> value</strong> instead.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -298,9 +293,10 @@ Note
 </div>
 </div>
 </section>
-<section id="sec-bit-depth" class="level2" data-number="1.3">
-<h2 data-number="1.3" class="anchored" data-anchor-id="sec-bit-depth"><span class="header-section-number">1.3</span> Bit depth</h2>
+<section id="sec-bit-depth" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-bit-depth"><span class="header-section-number">3</span> Bit depth</h2>
 <p>8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recomended to <strong>convert each band to 8-bit integer type</strong> before stacking. Be sure to scale - rather than truncate - the values when converting.</p>
+<p>SeaBee workflows are not limited to 8-bits per band. Please let us know if you believe your workflow will benefit from using higher bit depths.</p>
 <div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -311,12 +307,11 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>SeaBee RGB mosaics are typically 8-bit by default; multispectral cameras usually output 32-bit bands.</p>
+<p>SeaBee RGB mosaics are typically 8-bit by default; the multispectral cameras usually produce 32-bit bands.</p>
 </div>
 </div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->

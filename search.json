@@ -193,7 +193,28 @@
     "href": "composite-images.html",
     "title": "Composite images",
     "section": "",
-    "text": "Orthorectified images often need standardising and stacking to create “composite” images before being used in the rest of the SeaBee workflow. This page defines standards and recommendations for SeaBee datasets.\n\n\nFor multiband images, bands should be stacked in order of descending wavelength (i.e. band 1 corresponds to the longest wavelength and band \\(n\\) to the shortest):\n\nFor RGB datasets, R, G, B = bands 1, 2, 3\nFor typical multispectral data, NIR, RE, R, G, B = bands 1, 2, 3, 4, 5 (where NIR corresponds to “near infrared” and RE is “red edge”)\n\nNote that GeoTiffs support band-level metadata via set_band_description. It is strongly recommended to use this to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.\n\n\n\n\n\n\nTip\n\n\n\nBy default, most GIS software will display bands 1, 2 and 3 as R, G and B, respectively. However, it is usually easy to change these settings and assign colours to whichever bands you wish:\n\nIn ArcGIS Desktop, use the Symbology tab\nIn ArcGIS Pro, use the Raster Layer tab\nFor QGIS, see the Raster Properties Dialog\n\n\n\n\n\n\nThere are two common approaches for representing “no data” in raster imagery: setting a nodata value and using an “alpha mask”. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range available for the data type. However, alpha masks are not supported by some software and compression algorithms. For SeaBee, it is recommended to discard any alpha channels and explicitly set a nodata value instead.\n\n\n\n\n\n\nNote\n\n\n\nRGB mosaics produced by SeaBee cameras are usually RGBA (i.e. they include an alpha band); multispectral mosaics typically do not.\n\n\n\n\n\n8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recomended to convert each band to 8-bit integer type before stacking. Be sure to scale - rather than truncate - the values when converting.\n\n\n\n\n\n\nNote\n\n\n\nSeaBee RGB mosaics are typically 8-bit by default; multispectral cameras usually output 32-bit bands."
+    "text": "Orthorectified images often need standardising and stacking to create “composite” images before being used in the rest of the SeaBee workflow. This page defines some standards and recommendations for SeaBee datasets."
+  },
+  {
+    "objectID": "composite-images.html#sec-band-order",
+    "href": "composite-images.html#sec-band-order",
+    "title": "Composite images",
+    "section": "1 Band order",
+    "text": "1 Band order\nFor multiband images, bands should be stacked in order of descending wavelength (i.e. band 1 corresponds to the longest wavelength and band \\(n\\) to the shortest):\n\nFor RGB datasets, R, G, B = bands 1, 2, 3\nFor typical multispectral data, NIR, RE, R, G, B = bands 1, 2, 3, 4, 5 (where NIR corresponds to “near infrared” and RE is “red edge”)\n\nNote that GeoTiffs support band-level metadata via set_band_description. It is strongly recommended to use this to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.\n\n\n\n\n\n\nTip\n\n\n\nBy default, most GIS software will display bands 1, 2 and 3 as R, G and B, respectively. However, it is usually easy to change these settings and assign colours to whichever bands you wish:\n\nIn ArcGIS Desktop, use the Symbology tab\nIn ArcGIS Pro, use the Raster Layer tab\nFor QGIS, see the Raster Properties dialog"
+  },
+  {
+    "objectID": "composite-images.html#sec-nodata",
+    "href": "composite-images.html#sec-nodata",
+    "title": "Composite images",
+    "section": "2 Handling missing data",
+    "text": "2 Handling missing data\nThere are two common approaches for representing “no data” in raster imagery: setting a nodata value and using an “alpha mask”. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range of values for the data type. However, alpha masks are not supported by some software and image compression algorithms. For SeaBee, it is recommended to discard any alpha channels and explicitly set a nodata value instead.\n\n\n\n\n\n\nNote\n\n\n\nRGB mosaics produced by SeaBee cameras are usually RGBA (i.e. they include an alpha band); multispectral mosaics typically do not."
+  },
+  {
+    "objectID": "composite-images.html#sec-bit-depth",
+    "href": "composite-images.html#sec-bit-depth",
+    "title": "Composite images",
+    "section": "3 Bit depth",
+    "text": "3 Bit depth\n8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recomended to convert each band to 8-bit integer type before stacking. Be sure to scale - rather than truncate - the values when converting.\nSeaBee workflows are not limited to 8-bits per band. Please let us know if you believe your workflow will benefit from using higher bit depths.\n\n\n\n\n\n\nNote\n\n\n\nSeaBee RGB mosaics are typically 8-bit by default; the multispectral cameras usually produce 32-bit bands."
   },
   {
     "objectID": "index.html",
