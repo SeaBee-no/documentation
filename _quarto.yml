@@ -39,6 +39,7 @@ website:
           - jupyterhub.qmd 
       - annotation.qmd
       - data-products.qmd
+      - GUI-data-upload.qmd
       - howto.qmd
 
 format:
