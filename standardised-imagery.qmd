@@ -1,9 +1,13 @@
 ---
-title: "Composite images"
+title: "Standardised imagery"
 number-sections: true
 ---
 
 Orthorectified images often need standardising and stacking to create "composite" images before being used in the rest of the SeaBee workflow. This page defines some standards and recommendations for SeaBee datasets.
+
+:::{.callout-tip}
+The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation/transformation.
+:::
 
 ## Band order {#sec-band-order}
 
@@ -24,7 +28,7 @@ By default, most GIS software will display bands 1, 2 and 3 as R, G and B, respe
 
 ## Handling missing data {#sec-nodata}
 
-There are two common approaches for representing "no data" in raster imagery: setting a `nodata` value and using an "alpha mask". Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range of values for the data type. However, alpha masks are not supported by some software and image compression algorithms. For SeaBee, it is recommended to **discard any alpha channels and explicitly set a `nodata` value** instead.
+There are three common approaches for representing "no data" in raster imagery: setting a `nodata` value, using an "alpha channel" and using a mask. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range of values for the data type. However, alpha masks are not supported by some software and image compression algorithms. For the time being, it is recommended to **discard any alpha channels and explicitly set a `nodata` value** (but see the issue [here](https://github.com/SeaBee-no/documentation/issues/30) for the latest advice).
 
 :::{.callout-note}
 RGB mosaics produced by SeaBee cameras are usually RGBA (i.e. they include an alpha band); multispectral mosaics typically do not.
@@ -32,7 +36,7 @@ RGB mosaics produced by SeaBee cameras are usually RGBA (i.e. they include an al
 
 ## Bit depth {#sec-bit-depth}
 
-8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recomended to **convert each band to 8-bit integer type** before stacking. Be sure to scale - rather than truncate - the values when converting.
+8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recommended to **convert each band to 8-bit integer type** before stacking. Be sure to scale - rather than truncate - the values when converting.
 
 SeaBee workflows are not limited to 8-bits per band. Please let us know if you believe your workflow will benefit from using higher bit depths.
 
