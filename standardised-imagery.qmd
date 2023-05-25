@@ -6,7 +6,7 @@ number-sections: true
 Orthorectified images often need standardising and stacking to create "composite" images before being used in the rest of the SeaBee workflow. This page defines some standards and recommendations for SeaBee datasets.
 
 :::{.callout-tip}
-The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation/transformation.
+The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation required.
 :::
 
 ## Band order {#sec-band-order}
@@ -14,6 +14,7 @@ The easiest way to ensure your data matches the formats and standards expected i
 For multiband images, **bands should be stacked in order of descending wavelength** (i.e. band 1 corresponds to the longest wavelength and band $n$ to the shortest):
 
  * For RGB datasets, `R, G, B = bands 1, 2, 3`
+ 
  * For typical multispectral data, `NIR, RE, R, G, B = bands 1, 2, 3, 4, 5` (where `NIR` corresponds to "near infrared" and `RE` is "red edge")
 
 Note that GeoTiffs support band-level metadata via [set_band_description](https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html#rasterio.io.BufferedDatasetWriter.set_band_description). It is strongly recommended to use this to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.

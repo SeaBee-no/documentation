@@ -35,7 +35,7 @@ To accesss the S3 API on <https://storage.seabee.sigma2.no> you first need a ser
 
 #### Python {#sec-python}
 
- All python libraries supporting the S3 API will be able to interact with the MinIO storage. One good option for Python is the [S3Fs](https://s3fs.readthedocs.io/en/latest/) library. The [`seabeepy`](https://github.com/SeaBee-no/seabeepy) package also includes convenience functions designed to make it easier to manipulate SeaBee data hosted on MinIO from Python code. See, for example, the `copy_file`, `delete_file`, `copy_folder` and `delete_folder` functions in [`seabeepy.storage` module](https://github.com/SeaBee-no/seabeepy/blob/main/seabeepy/storage.py).
+ All python libraries supporting the S3 API will be able to interact with the MinIO storage. One good option for Python is the [S3Fs](https://s3fs.readthedocs.io/en/latest/) library. The [`seabeepy`](https://github.com/SeaBee-no/seabeepy) package also includes convenience functions designed to make it easier to manipulate SeaBee data hosted on MinIO from Python code. See, for example, the `copy_file`, `delete_file`, `copy_folder` and `delete_folder` functions in the [`seabeepy.storage` module](https://github.com/SeaBee-no/seabeepy/blob/main/seabeepy/storage.py).
 
 #### Rclone {#sec-rclone}
 
@@ -51,7 +51,7 @@ The quickest way to add SeaBee's MinIO storage as an rclone "remote" is to edit/
  rclone config file
  ```
 
- if the file does not exist, create it. Then add this section
+ If the file does not exist, create it, then add this section
 
  ```txt
  [seabee-minio]
@@ -70,7 +70,7 @@ endpoint = storage.seabee.sigma2.no
 rclone lsd seabee-minio:
 ```
 
-it should list the buckets on MinIO.
+which should list the buckets on MinIO.
 
 The configuration setup can also be completed by following rclone's interactive configuration session. This can be started using
 
@@ -86,4 +86,6 @@ It is convenient to setup [autocomplete for rclone](https://rclone.org/commands/
 
 ##### Usage {#sec-rclone-usage}
 
-See the [Rclone documentation](https://rclone.org/docs/) for a full list of available commands. For SeaBee, the most useful commands are likely to be `rclone mount --read-only`, `rclone copy` and `rclone sync`, in addition to standard OS commands such as `ls` and `mkdir`. `rclone help` is also useful.
+See the [Rclone documentation](https://rclone.org/docs/) for a full list of available commands. For SeaBee, the most useful commands are likely to be `rclone mount --read-only`, `rclone copy` and `rclone sync`, in addition to standard OS commands such as `ls` and `mkdir`. 
+
+`rclone help` is also useful.
