@@ -356,7 +356,7 @@ Note
 <p>To accesss the S3 API on <a href="https://storage.seabee.sigma2.no" class="uri">https://storage.seabee.sigma2.no</a> you first need a service account (generated <a href="https://minio.seabee.sigma2.no/identity/account">here</a>).</p>
 <section id="sec-python" class="level4" data-number="3.2.1">
 <h4 data-number="3.2.1" class="anchored" data-anchor-id="sec-python"><span class="header-section-number">3.2.1</span> Python</h4>
-<p>All python libraries supporting the S3 API will be able to interact with the MinIO storage. One good option for Python is the <a href="https://s3fs.readthedocs.io/en/latest/">S3Fs</a> library. The <a href="https://github.com/SeaBee-no/seabeepy"><code>seabeepy</code></a> package also includes convenience functions designed to make it easier to manipulate SeaBee data hosted on MinIO from Python code. See, for example, the <code>copy_file</code>, <code>delete_file</code>, <code>copy_folder</code> and <code>delete_folder</code> functions in <a href="https://github.com/SeaBee-no/seabeepy/blob/main/seabeepy/storage.py"><code>seabeepy.storage</code> module</a>.</p>
+<p>All python libraries supporting the S3 API will be able to interact with the MinIO storage. One good option for Python is the <a href="https://s3fs.readthedocs.io/en/latest/">S3Fs</a> library. The <a href="https://github.com/SeaBee-no/seabeepy"><code>seabeepy</code></a> package also includes convenience functions designed to make it easier to manipulate SeaBee data hosted on MinIO from Python code. See, for example, the <code>copy_file</code>, <code>delete_file</code>, <code>copy_folder</code> and <code>delete_folder</code> functions in the <a href="https://github.com/SeaBee-no/seabeepy/blob/main/seabeepy/storage.py"><code>seabeepy.storage</code> module</a>.</p>
 </section>
 <section id="sec-rclone" class="level4" data-number="3.2.2">
 <h4 data-number="3.2.2" class="anchored" data-anchor-id="sec-rclone"><span class="header-section-number">3.2.2</span> Rclone</h4>
@@ -366,7 +366,7 @@ Note
 <p>To install rclone follow the <a href="https://rclone.org%20install/">instructions</a> for your operating system, it is a single excutable that you can download.</p>
 <p>The quickest way to add SeaBee’s MinIO storage as an rclone “remote” is to edit/create the <code>rclone.conf</code> file. Check the location of this file by running the command</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> config file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>if the file does not exist, create it. Then add this section</p>
+<p>If the file does not exist, create it, then add this section</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[seabee-minio]</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>type = s3</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>provider = Minio</span>
@@ -376,7 +376,7 @@ Note
 <p>where <code>&lt;ACCESS_KEY_ID&gt;</code> can be your user name or a service account, and <code>&lt;SECRET_ACCESS_KEY&gt;</code> is the accompanying password.</p>
 <p>To check that everything is working run this command</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> lsd seabee-minio:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>it should list the buckets on MinIO.</p>
+<p>which should list the buckets on MinIO.</p>
 <p>The configuration setup can also be completed by following rclone’s interactive configuration session. This can be started using</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For most options, just accept the default. The storage type to select is <code>S3 compliant</code> (i.e.&nbsp;option 5) and the endpoint is <code>storage.seabee.sigma2.no</code>. This also allows you to setup a wide range of other remotes.</p>
@@ -396,7 +396,8 @@ Tip
 </section>
 <section id="sec-rclone-usage" class="level5" data-number="3.2.2.2">
 <h5 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-rclone-usage"><span class="header-section-number">3.2.2.2</span> Usage</h5>
-<p>See the <a href="https://rclone.org/docs/">Rclone documentation</a> for a full list of available commands. For SeaBee, the most useful commands are likely to be <code>rclone mount --read-only</code>, <code>rclone copy</code> and <code>rclone sync</code>, in addition to standard OS commands such as <code>ls</code> and <code>mkdir</code>. <code>rclone help</code> is also useful.</p>
+<p>See the <a href="https://rclone.org/docs/">Rclone documentation</a> for a full list of available commands. For SeaBee, the most useful commands are likely to be <code>rclone mount --read-only</code>, <code>rclone copy</code> and <code>rclone sync</code>, in addition to standard OS commands such as <code>ls</code> and <code>mkdir</code>.</p>
+<p><code>rclone help</code> is also useful.</p>
 
 
 </section>

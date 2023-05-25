@@ -290,15 +290,15 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation/transformation.</p>
+<p>The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation required.</p>
 </div>
 </div>
 <section id="sec-band-order" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="sec-band-order"><span class="header-section-number">1</span> Band order</h2>
 <p>For multiband images, <strong>bands should be stacked in order of descending wavelength</strong> (i.e.&nbsp;band 1 corresponds to the longest wavelength and band <span class="math inline">\(n\)</span> to the shortest):</p>
 <ul>
-<li>For RGB datasets, <code>R, G, B = bands 1, 2, 3</code></li>
-<li>For typical multispectral data, <code>NIR, RE, R, G, B = bands 1, 2, 3, 4, 5</code> (where <code>NIR</code> corresponds to “near infrared” and <code>RE</code> is “red edge”)</li>
+<li><p>For RGB datasets, <code>R, G, B = bands 1, 2, 3</code></p></li>
+<li><p>For typical multispectral data, <code>NIR, RE, R, G, B = bands 1, 2, 3, 4, 5</code> (where <code>NIR</code> corresponds to “near infrared” and <code>RE</code> is “red edge”)</p></li>
 </ul>
 <p>Note that GeoTiffs support band-level metadata via <a href="https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html#rasterio.io.BufferedDatasetWriter.set_band_description">set_band_description</a>. It is strongly recommended to use this to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
