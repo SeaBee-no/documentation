@@ -11,11 +11,11 @@ You need to create a Feide account and then request access to the resources you 
 
 ## Upload or download files {#sec-file-transfer}
 
-The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the **MinIO web interface** or the **SeaBee data upload portal**. For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as **Rclone** are preferable. See [Uploading and downloading files](./storage.qmd#uploading-and-downloading-files) for details.
+The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the [MinIO web interface(https://minio.seabee.sigma2.no/) or the [SeaBee data upload portal](https://geonode.seabee.sigma2.no/ddc/#step-1). For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as **Rclone** are preferable. See [Uploading and downloading files](./storage.qmd#uploading-and-downloading-files) for details.
 
 ## Mosaic geotagged raw images to georeferenced mosaics {#sec-orthorectification}
 
-You can use **Open Drone Map** (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the [Orthorectification](./orthorectification.qmd) page for details.
+You can use **Open Drone Map** (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the [Orthorectification](./orthorectification.qmd) page for details. If you are a drone pilot wishing to upload missions data, see data preparation guide [here](./data-upload.qmd).
 
 ## Create training data for machine learning (annotation) {#sec-annotation}
 
@@ -23,4 +23,4 @@ The recommended workflow for **image segmentation** tasks is to use ArcGIS Pro a
 
 ## Explore and download SeaBee datasets
 
-Orthomosaics from aerial drones and data products from the machine learning are available via **SeaBee's GeoNode**. See the [Data products](./data-products.qmd) page for details.
+Orthomosaics from aerial drones and data products from the machine learning are available via the **SeaBee GeoNode**. See the [Data products](./data-products.qmd) page for details.

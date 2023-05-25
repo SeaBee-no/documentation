@@ -10,10 +10,11 @@ website:
         file: index.qmd
       - login.qmd
       - storage.qmd
+      - data-upload.qmd
       - text: "Processing"
         menu:
           - orthorectification.qmd
-          - composite-images.qmd
+          - standardised-imagery.qmd
           - jupyterhub.qmd 
       - annotation.qmd
       - data-products.qmd
@@ -32,14 +33,14 @@ website:
         file: index.qmd
       - login.qmd
       - storage.qmd
+      - data-upload.qmd
       - section: "Processing"
         contents:
           - orthorectification.qmd
-          - composite-images.qmd
+          - standardised-imagery.qmd
           - jupyterhub.qmd 
       - annotation.qmd
       - data-products.qmd
-      - GUI-data-upload.qmd
       - howto.qmd
 
 format:

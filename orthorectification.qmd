@@ -9,8 +9,7 @@ Orthorectification within SeaBee is currently performed using two main tools: [O
 
 ## Open Drone Map
 
-Open Drone Map is accessible from the SeaBee JupyterHub via [NodeODM](https://github.com/OpenDroneMap/NodeODM), which provides a convenient API for scheduling and executing jobs. By default, ODM has access to up to 8 CPUs and 32 GB of memory. This is sufficient for small to medium tasks, but if you need to process a large batch of images please [create an issue](https://github.com/SeaBee-no/documentation/issues) first so we can relax these limitations.
-
+Open Drone Map is accessible from the SeaBee JupyterHub via [NodeODM](https://github.com/OpenDroneMap/NodeODM), which provides a convenient API for scheduling and executing jobs. SeaBee's NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used [in combination with Rclone](./storage.qmd#sec-rclone), this makes it possible to create and publish orthomosaics in near-real-time.
 
 :::{.callout-tip}
 Because NodeODM has its resources allocated separately, you can use it from the [Standard](https://hub-standard.seabee.sigma2.no/) SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please **do not use the more powerful Hubs for orthomosaicing** - they will not run any faster and will block resources from other users.

@@ -5,7 +5,7 @@ number-sections: true
 
 ## Overview {#sec-overview}
 
-The SeaBee data products are made publicly available via the [SeaBee GeoNode](https://geonode.seabee.sigma2.no/#/). Products include:
+SeaBee data products are made publicly available via the [SeaBee GeoNode](https://geonode.seabee.sigma2.no/#/). Products include:
 
  * **[Datasets](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=dataset)**. Individual data layers, such as raster mosaics or vector annotation.
  
@@ -13,7 +13,7 @@ The SeaBee data products are made publicly available via the [SeaBee GeoNode](ht
  
  * **[Documents](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=document)**. Relevant non-spatial datasets, such as reports, documentation, etc.
  
- * **[GeoStories](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=geostory)**. Websites that combine geospatial visualisations with descriptive text to create a story on a particular theme.
+ * **[GeoStories](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=geostory)**. Web pages that combine geospatial visualisations with descriptive text to create a story on a particular theme.
  
  * **[Dashboards](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=dashboard)**. Interactive applications allowing users to explore, visualise and analyse SeaBee datasets.
 

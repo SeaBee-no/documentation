@@ -5,7 +5,7 @@ number-sections: true
 
 **Choose the resources you need from the links below and login using your Feide credentials.**
 
- * **[Standard](https://hub-standard.seabee.sigma2.no)**. *1 CPU, 1 GB memory*. The default machine, suitable for basic data analysis such as processing ground truth data, annotation, simple statistics & visualisation etc.
+ * **[Standard](https://hub-standard.seabee.sigma2.no)**. *1 CPU, 1 GB memory*. The default machine, suitable for basic data analysis such as processing ground truth data, annotation, simple statistics & visualisation etc. Also good for deploying orthorectification tasks to NodeODM.
  
  * **[High memory](https://hub-highmem.seabee.sigma2.no)**. *4 CPUs, 32 GB memory*. Well suited to raster processing, such as manipulating image mosaics.
  
@@ -32,9 +32,9 @@ The Python environment includes everything most users will need for typical geos
 
 ### Integrated Development Environments {#sec-ides}
 
-The Hub provides access to three Integrated Development Environments (IDEs): **JupyterLab**, **VS Code** and **R-Studio**. Users may work with one or all of these (and switch between them), depending on their experience, preferences and the task being undertaken. JupyterLab provides a familiar interface for many Python-orientated data scientists, while R-Studio will be familiar to most users of R. VS Code offers a more traditional IDE, with a richer set of tools for developers. In addition, all users have access to an **Ubuntu terminal**, providing access to Bash and various other command-line tools.
+The Hub provides access to three Integrated Development Environments (IDEs): **JupyterLab**, **VSCode** and **R-Studio**. Users may work with one or all of these (and switch between them), depending on their experience, preferences and the task being undertaken. JupyterLab provides a familiar interface for many Python-orientated data scientists, while R-Studio will be familiar to most users of R. VSCode offers a more traditional IDE, with a richer set of tools for developers. In addition, all users have access to an **Ubuntu terminal**, providing access to Bash and various other command-line tools.
 
-Jupyter Notebooks and scripts can be created for any of the 3 languages described. Notebooks can be edited using either JupyterLab or VS Code, and they provide an excellent way to develop and test workflows and to share examples with colleagues. Similarly, R-Studio can be used to create R-Markdown documents, which combine working code and descriptive text is an analogous way to Jupyter Notebooks. See @sec-resources for some examples.
+Jupyter Notebooks and scripts can be created for any of the 3 languages described. Notebooks can be edited using either JupyterLab or VSCode, and they provide an excellent way to develop and test workflows and to share examples with colleagues. Similarly, R-Studio can be used to create R-Markdown documents, which combine working code and descriptive text is an analogous way to Jupyter Notebooks. See @sec-resources for some examples.
 
 ### Extensions {#sec-extensions}
 
@@ -50,13 +50,11 @@ The Hub includes the following extensions and add-ins:
  
  * `jupyterlab-spreadsheet` supports read-only exploration of Excel files, which is useful for quickly inspecting files while coding, without having to download open them in Excel.
  
- * `jupyterlab-git` provides a Git graphical user interface (GUI) in JupyterLab (see @sec-git). Note that Git integration is also available in R-Studio and VS Code, as well as via the terminal.
+ * `jupyterlab-git` provides a Git graphical user interface (GUI) in JupyterLab (see @sec-git). Note that Git integration is also available in R-Studio and VSCode, as well as via the terminal.
  
 ### Resources
 
-All SeaBee components are deployed within a single Kubernetes `namespace`. The JupyterHub shares resources in this namespace with other components of the platform. At present, the namespace has access to **32 CPUs, 96 GB of memory and 2 NVIDIA Tesla V100-SXM2-16GB GPUs**. Some of the memory and CPUs are permanently reserved for running e.g. GeoServer and Open Drone Mapper, but the rest is available to JupyterHub and is shared between active users. This means the total resources available to any given user will depend to some extent on how many other users are logged in at the same time.
-
-Resources on the Hub can be increased if necessary. If you believe your workflows are being limited by lack of memory or processing power, please [create an issue](https://github.com/SeaBee-no/dockerfiles/issues) and we will try to help.
+All SeaBee components are deployed within a single Kubernetes `namespace`. The JupyterHub shares resources in this namespace with other components of the platform. Some memory and CPUs are permanently reserved for running e.g. GeoServer and Open Drone Map, but the rest is available to JupyterHub. Resources on the Hub can be increased if necessary. If you believe your workflows are being limited by lack of memory or processing power, please [create an issue](https://github.com/SeaBee-no/dockerfiles/issues) and we will try to help.
 
 ## Access and login {#sec-login}
 
@@ -66,17 +64,17 @@ To use the JupyterHub, you first need to create a Feide account and ask for you 
 
 It is **strongly recommended** that all users store and version their code within **GitHub repositories**. GitHub provides backup in case anything goes wrong, and also makes it easier to work collaboratively and share results.
 
-Git interfaces are available in JupyterLab, R-Studio and VS Code. You can also work with Git from the command line if you prefer. In order to `pull` and `push` from `private` GitHub repositories, you will need to store your GitHub credentials on the Hub so that Git can authenticate correctly. To do this, follow the steps below:
+Git interfaces are available in JupyterLab, R-Studio and VSCode. You can also work with Git from the command line if you prefer. In order to `pull` and `push` from `private` GitHub repositories, you will need to store your GitHub credentials on the Hub so that Git can authenticate correctly. To do this, follow the steps below:
 
  1. Login to GitHub and create a Personal Access Token (PAT) by following the steps described [here](https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token).
  
- 2. Login to JupyterHub, open a terminal and attempt to `pull` a private repository. When prompted for your username enter your GitHub username, and when prompted for your password **enter the PAT** (*not* your GitHub password).
+ 2. Login to JupyterHub, open a terminal and attempt to `clone` a private repository. When prompted for your username enter your GitHub username, and when prompted for your password **enter the PAT** (*not* your GitHub password).
  
  3. Once the repository has been cloned, run `git config --global credential.helper store` and then `git pull`
  
-This should create a hidden file called `.git-credentials` within your `$HOME` directory (the file will be not be visible in JupyterLab, but it will show in VS Code, which displays hidden files by default). This file contains your username and your personal access token, which Git will use in future to authenticate on GitHub.
+This should create a hidden file called `.git-credentials` within your `$HOME` directory (the file will be not be visible in JupyterLab, but it will show in VSCode, which displays hidden files by default). This file contains your username and your personal access token, which Git will use in future to authenticate on GitHub.
 
-Note that you should **only need to perform these steps once** - once your credentials are stored, you can use any of the four available Git interfaces in future JupyterHub sessions and your credentials will be used automatically.
+Note that you should **only need to perform these steps once**. After your credentials are stored, you can use any of the four available Git interfaces in future JupyterHub sessions and your credentials will be used automatically.
 
 ## Useful resources {#sec-resources}
 

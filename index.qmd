@@ -9,13 +9,13 @@ To learn more about the SeaBee project itself, please visit <https://seabee.no/>
 
 ## Overview {#sec-overview}
 
-The simplest possible version of the SeaBee data flow is illustrated in @fig-simple-workflow. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics. 
+A simplified version of the SeaBee data flow is illustrated in @fig-simple-workflow. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics. 
 
 Ground-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the [SeaBee GeoNode](https://geonode.seabee.sigma2.no/#/).
 
 ![Simplified SeaBee workflow.](./images/simple_workflow.png){#fig-simple-workflow}
 
-The full SeaBee workflow is considerably more complex than illustrated above. In particular, note the following:
+The full SeaBee workflow is more complex than illustrated above. In particular:
 
  * Standard aerial drones are flown with both **RGB** and **multispectral** cameras. In addition, the project includes **hyperspectral** data as well as imagery from other types of drone, such as the [**Otter**](https://www.maritimerobotics.com/otter) (an unmanned surface vehicle). 
 

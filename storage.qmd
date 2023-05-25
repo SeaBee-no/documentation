@@ -11,28 +11,23 @@ Access to SeaBee data is provided by MinIO, which offers high-performance, S3-co
 Eventually, we will define a common file and folder structure for all SeaBee data, as this will make it easier to automate common SeaBee tasks.
 :::
 
-To access the data on MinIO, you first need to [create an account](./login.qmd#sec-minio). You can then login to the [SeaBee MinIO web interface](https://minio.seabee.sigma2.no/login) (@fig-minio-console-window) and browse files in a similar way to e.g. DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at <https://storage.seabee.sigma2.no> (see @sec-upload-download for details). 
+To access data on MinIO, you first need to [create an account](./login.qmd#sec-minio). You can then login to the [SeaBee MinIO web interface](https://minio.seabee.sigma2.no/login) (@fig-minio-console-window) and browse files in a similar way to e.g. DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at <https://storage.seabee.sigma2.no> (see @sec-work-with-files for details). 
 
 ## Backups {#sec-backups}
 
  Files stored on NIRD follow the regular backup schedule described [here](https://documentation.sigma2.no/files_storage/backup.html#nird). For the GeoNode databases, backups should be dumped to the `seabee-backup-restore` bucket (which is then backed-up via the standard NIRD regime).
 
-## Uploading and downloading files {#sec-upload-download}
+## Working with files {#sec-work-with-files}
 
-There are several options to upload and download files to/from the MinIO storage.
+There are several options for interacting with files stored on MinIO.
 
 ### MinIO web interface {#sec-minio-ui}
  
- The minio console located at <https://minio.seabee.sigma2.no/login> provides a graphical interface to upload and download files (@fig-minio-console-window). 
+ The minio console located at <https://minio.seabee.sigma2.no/login> provides a graphical interface to browse, upload and download files (@fig-minio-console-window). 
  
  ![MinIO Console.](./images/minio_console_window.png){#fig-minio-console-window}
 
- On the [buckets page](https://minio.seabee.sigma2.no/buckets), click `Browse -> Upload`, then select either `Upload Folder` or `Upload File`. To download, mark the desired folder/file and click `Download`.
-
-### SeaBee data upload portal {#sec-data-portal}
-
- * Describe Deb's data upload portal
- * Best option for standard/less advanced users?
+ To upload data, navigate to the location you wish to add data to, click `Upload`, then select either `Upload Folder` or `Upload File`. To download, mark the desired folder/files using the checkboxes and click `Download`.
 
 ### Machine Access {#sec-machine-access}
 
@@ -40,25 +35,23 @@ To accesss the S3 API on <https://storage.seabee.sigma2.no> you first need a ser
 
 #### Python {#sec-python}
 
- All python libaries supporting the S3 API will be able to interact with the MinIO storage. One good option is the [MinIO SDK](https://min.io/docs/minio/linux/developers/python/minio-py.html). In addition to upload and download, this has options to search and manage access and to retrieve metadata etc. A simple SeaBee-specific example using the MinIO client is [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/storage.ipynb) and more general examples are [here](https://github.com/minio/minio-py/tree/master/examples). If you need file-like access, the [S3Fs](https://s3fs.readthedocs.io/en/latest/) library for Python is also a good option.
+ All python libraries supporting the S3 API will be able to interact with the MinIO storage. One good option for Python is the [S3Fs](https://s3fs.readthedocs.io/en/latest/) library. The [`seabeepy`](https://github.com/SeaBee-no/seabeepy) package also includes convenience functions designed to make it easier to manipulate SeaBee data hosted on MinIO from Python code. See, for example, the `copy_file`, `delete_file`, `copy_folder` and `delete_folder` functions in [`seabeepy.storage` module](https://github.com/SeaBee-no/seabeepy/blob/main/seabeepy/storage.py).
 
-#### Shell {#sec-shell}
+#### Rclone {#sec-rclone}
 
-##### Rclone {-}
+[Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of the transferred files and will retry if the connection is interrupted. **It is therefore the best option for experienced/advanced users wishing to add large volumes of imagery to Sigma2**.
 
- [Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of transferred files and will retry if the connection is interrupted, so **it is probably the best option for experienced/advanced users to add large volumes of imagery to Sigma2**.
+##### Setup {#sec-rclone-setup}
 
-###### Setup {-}
+To install rclone follow the [instructions](https://rclone.org install/) for your operating system, it is a single excutable that you can download.
 
- To install rclone follow the [instructions](https://rclone.org install/) for your operating system, it is a single excutable that you can download.
-
- The quickest way to add minio seabee as an rclone remote is to edit/create the `rclone.conf` file. Check the location of this file by running the command
+The quickest way to add SeaBee's MinIO storage as an rclone "remote" is to edit/create the `rclone.conf` file. Check the location of this file by running the command
 
  ```bash
  rclone config file
  ```
 
- if the file does not exist create it. Then add this section
+ if the file does not exist, create it. Then add this section
 
  ```txt
  [seabee-minio]
@@ -77,24 +70,20 @@ endpoint = storage.seabee.sigma2.no
 rclone lsd seabee-minio:
 ```
 
-it should list the buckets on minio.
+it should list the buckets on MinIO.
 
-The configuration setup can also be completed by following rclone's interactive config session. This can be started using
+The configuration setup can also be completed by following rclone's interactive configuration session. This can be started using
 
 ```bash
 rclone config
 ```
 
-For most cases use the default, the storage type to select is `S3 compliant` .i.e. option `5)` and endpoint is `storage.seabee.sigma2.no`. This also allows you to setup a wide range of other remotes:)
+For most options, just accept the default. The storage type to select is `S3 compliant` (i.e. option 5) and the endpoint is `storage.seabee.sigma2.no`. This also allows you to setup a wide range of other remotes. 
 
+::: {.callout-tip}
+It is convenient to setup [autocomplete for rclone](https://rclone.org/commands/rclone_genautocomplete/), so it completes commands and paths when you press `TAB`.
+:::
 
-###### Usage {-}
+##### Usage {#sec-rclone-usage}
 
-
- **IMPORTANT!** It is quite convenient to setup autocomplete for rclone, see [genautocomplete](https://rclone.org/commands/rclone_genautocomplete/), now rclone completes commands and paths when you press `TAB`.
-
- Some nice commands to know about is `rclone mount --read-only`, `rclone copy`, and `rclone sync`, in addition to commands like `ls`, `mkdir` and `rclone help`.
-
-
-
-
+See the [Rclone documentation](https://rclone.org/docs/) for a full list of available commands. For SeaBee, the most useful commands are likely to be `rclone mount --read-only`, `rclone copy` and `rclone sync`, in addition to standard OS commands such as `ls` and `mkdir`. `rclone help` is also useful.
