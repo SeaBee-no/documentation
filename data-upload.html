@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>SeaBee Documentation - Storage</title>
+<title>SeaBee Documentation - Data upload</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -172,7 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./storage.html">Storage</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-upload.html">Data upload</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -218,13 +218,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./storage.html" class="sidebar-item-text sidebar-link active">
+  <a href="./storage.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Storage</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./data-upload.html" class="sidebar-item-text sidebar-link">
+  <a href="./data-upload.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Data upload</span></a>
   </div>
 </li>
@@ -286,12 +286,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#sec-overview" id="toc-sec-overview" class="nav-link active" data-scroll-target="#sec-overview"><span class="header-section-number">1</span> Overview</a></li>
-  <li><a href="#sec-backups" id="toc-sec-backups" class="nav-link" data-scroll-target="#sec-backups"><span class="header-section-number">2</span> Backups</a></li>
-  <li><a href="#sec-work-with-files" id="toc-sec-work-with-files" class="nav-link" data-scroll-target="#sec-work-with-files"><span class="header-section-number">3</span> Working with files</a>
+  <li><a href="#sec-data-structure" id="toc-sec-data-structure" class="nav-link" data-scroll-target="#sec-data-structure"><span class="header-section-number">2</span> Data structure</a>
   <ul class="collapse">
-  <li><a href="#sec-minio-ui" id="toc-sec-minio-ui" class="nav-link" data-scroll-target="#sec-minio-ui"><span class="header-section-number">3.1</span> MinIO web interface</a></li>
-  <li><a href="#sec-machine-access" id="toc-sec-machine-access" class="nav-link" data-scroll-target="#sec-machine-access"><span class="header-section-number">3.2</span> Machine Access</a></li>
+  <li><a href="#sec-flight-folder" id="toc-sec-flight-folder" class="nav-link" data-scroll-target="#sec-flight-folder"><span class="header-section-number">2.1</span> Flight folder naming</a></li>
+  <li><a href="#sec-subfolder-structure" id="toc-sec-subfolder-structure" class="nav-link" data-scroll-target="#sec-subfolder-structure"><span class="header-section-number">2.2</span> Subfolder structure</a></li>
+  <li><a href="#sec-config-file" id="toc-sec-config-file" class="nav-link" data-scroll-target="#sec-config-file"><span class="header-section-number">2.3</span> Configuration file</a></li>
   </ul></li>
+  <li><a href="#sec-upload" id="toc-sec-upload" class="nav-link" data-scroll-target="#sec-upload"><span class="header-section-number">3</span> Manual data upload</a></li>
   </ul>
 </nav>
     </div>
@@ -300,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Storage</h1>
+<h1 class="title">Data upload</h1>
 </div>
 
 
@@ -315,9 +316,55 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<p>The information on this page is primarily aimed at SeaBee drone pilots wishing to add mission data to the SeaBee platform. For a more general overview of SeaBee data storage, see <a href="./storage.html">here</a>.</p>
 <section id="sec-overview" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="sec-overview"><span class="header-section-number">1</span> Overview</h2>
-<p>Access to SeaBee data is provided by MinIO, which offers high-performance, S3-compatible object storage. At the highest level, files within MinIO are organised into <strong>buckets</strong>. For example, there are currently buckets for <code>niva</code>, <code>nina</code>, <code>ntnu</code> etc. Within these, files are organised within folders and sub-folders, just like a standard file system. At present, each organisation is responsible for organising their data in a way that fits with their existing workflows.</p>
+<p>There are two main use cases for pilots adding data to the SeaBee platform:</p>
+<ol type="1">
+<li><p><strong>Upload raw images and associated files</strong> (ground control points etc.) and then perform all subsequent processing - such as orthomosaicing - on the platform itself.</p></li>
+<li><p><strong>Upload partially processed data</strong>. For example by performing some of the initial steps on a local desktop machine first.</p></li>
+</ol>
+<p><strong>Option 1 should be preferred where possible</strong> as it ensures a consistent and traceable processing pipeline for the entire workflow, and in most cases it should be faster and easier from the pilot’s perspective too. The main reason for choosing Option 2 is if pilots want to use commercial software (such as Pix4D) instead of Open Drone Map (ODM) for orthorectification. In this case, pilots must have a separate Pix4D licence to create the orthophoto(s), then upload the finished mosaics together with supporting metadata.</p>
+<p>The easiest way to upload data for a <strong>single mission</strong> is to use the <a href="https://geonode.seabee.sigma2.no/ddc/#step-1">data upload interface</a>. This will guide you through the process of adding mission data and metadata, regardless of whether you want to upload raw files or partially processed data.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The data upload interface assumes the mission has already been registered in SeaBee’s <a href="https://www.dronelogbook.com/hp/1/index.html">Dronelogbook</a> during the mission planning stage. <strong>If the mission is not registered in Dronelogbook, you will not be able to use the upload interface</strong> (see below for alternatives).</p>
+</div>
+</div>
+<p>If you wish to upload data from <strong>multiple missions</strong>, or if you mission is <em>not</em> registered in Dronelogbook, you will need to organise the data into folders yourself and then upload it to the platform using the method of your choice (see below for details).</p>
+</section>
+<section id="sec-data-structure" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-data-structure"><span class="header-section-number">2</span> Data structure</h2>
+<section id="sec-flight-folder" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="sec-flight-folder"><span class="header-section-number">2.1</span> Flight folder naming</h3>
+<p>The data from each flight should be grouped into a <strong>single folder</strong> named <code>grouping_area_yyyymmddHHMM</code>. Note the use of <strong>underscores</strong> (<code>_</code>) to separate each of the components. Hyphens (<code>-</code>) or <code>CamelCase</code> can be used to further divide each component, if necessary. For example <code>multipart-group_area-part-1_yyyymmddHHMM</code> or <code>MultipartGroup_AreaPart1_yyyymmddHHMM</code>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>The folder name must be unique</strong>. If you really have two flights in the same group and area that took off at <em>exactly</em> the same time, consider using e.g.&nbsp;<code>group_area-flight1_yyyymmddHHMM</code> and <code>group_area-flight2_yyyymmddHHMM</code>, or simply adjust one of the start times by a small amount.</p>
+</div>
+</div>
+<p>The three components of the folder name have the following meanings:</p>
+<ul>
+<li><p><code>grouping</code> is any general identifier linking data from this flight with data from other related flights. For example: the name of a broad region where several flights have taken place (e.g.&nbsp;<code>Runde</code>); the name of a project (e.g.&nbsp;<code>Kelpmap</code>); or the name of a fieldwork team (e.g.&nbsp;<code>Team1</code>, or <code>Team1Day1</code>).</p></li>
+<li><p><code>area</code>. The name of the location (e.g.&nbsp;the name of an island, or a specific stretch of coastline).</p></li>
+<li><p><code>yyyymmddHHMM</code>. The flight start date and time. The date part (<code>yyyymmdd</code>) is mandatory, whereas the time (<code>HHMM</code>) is optional (but recommended). Including the time is often necessary to uniquely distinguish multiple flights taking place in the same group and area on the same day. Note that there are no separators or additional characters in the datetime (i.e.&nbsp;use <code>yyyymmddHHMM</code>, <strong>not</strong> <code>yyyy-mm-dd-HH:MM</code> or any other variant).</p></li>
+</ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -328,80 +375,103 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Eventually, we will define a common file and folder structure for all SeaBee data, as this will make it easier to automate common SeaBee tasks.</p>
+<p>The flight folders themselves can be organised however you wish. For example, you may choose to group flight folders into a parent folder structure based on organisation and year (e.g.&nbsp;<code>/niva/2023/flight_folder1</code>, <code>/niva/2023/flight_folder2</code> etc.), or you may wish to group them by project, or pilot, or any combination of these. As long as the data <em>within</em> each flight folder is arranged correctly, everything should work OK (see <a href="#sec-subfolder-structure">Section&nbsp;2.2</a>).</p>
 </div>
 </div>
-<p>To access data on MinIO, you first need to <a href="./login.html#sec-minio">create an account</a>. You can then login to the <a href="https://minio.seabee.sigma2.no/login">SeaBee MinIO web interface</a> (<a href="#fig-minio-console-window">Figure&nbsp;1</a>) and browse files in a similar way to e.g.&nbsp;DropBox or GoogleDrive. If you need to work with SeaBee data from your code, there is also an S3-compatible storage endpoint at <a href="https://storage.seabee.sigma2.no" class="uri">https://storage.seabee.sigma2.no</a> (see <a href="#sec-work-with-files">Section&nbsp;3</a> for details).</p>
 </section>
-<section id="sec-backups" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="sec-backups"><span class="header-section-number">2</span> Backups</h2>
-<p>Files stored on NIRD follow the regular backup schedule described <a href="https://documentation.sigma2.no/files_storage/backup.html#nird">here</a>. For the GeoNode databases, backups should be dumped to the <code>seabee-backup-restore</code> bucket (which is then backed-up via the standard NIRD regime).</p>
-</section>
-<section id="sec-work-with-files" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="sec-work-with-files"><span class="header-section-number">3</span> Working with files</h2>
-<p>There are several options for interacting with files stored on MinIO.</p>
-<section id="sec-minio-ui" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="sec-minio-ui"><span class="header-section-number">3.1</span> MinIO web interface</h3>
-<p>The minio console located at <a href="https://minio.seabee.sigma2.no/login" class="uri">https://minio.seabee.sigma2.no/login</a> provides a graphical interface to browse, upload and download files (<a href="#fig-minio-console-window">Figure&nbsp;1</a>).</p>
-<div id="fig-minio-console-window" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="./images/minio_console_window.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Figure&nbsp;1: MinIO Console.</figcaption>
-</figure>
+<section id="sec-subfolder-structure" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="sec-subfolder-structure"><span class="header-section-number">2.2</span> Subfolder structure</h3>
+<p>Within the “parent” flight folder, data should be organised into subfolders as follows:</p>
+<pre><code>grouping_area_yyyymmddHHMM/
+├─ annotation/
+├─ dem/
+├─ gcp/
+│  ├─ gcp_list-ODM.txt
+│  ├─ gcp_list-Pix4D.txt
+├─ ground-truth/
+├─ orthophoto/
+├─ other/
+├─ images/
+├─ report/
+│  ├─ report.pdf
+│  ├─ stdout.txt
+├─ texturing/
+config.yaml</code></pre>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
 </div>
-<p>To upload data, navigate to the location you wish to add data to, click <code>Upload</code>, then select either <code>Upload Folder</code> or <code>Upload File</code>. To download, mark the desired folder/files using the checkboxes and click <code>Download</code>.</p>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is <strong>not</strong> necessary to include all the folders - just include what you need. As a minimum, the flight folder <em>must</em> contain a subfolder named <code>images</code> with the raw images and a file named <code>config.yaml</code>. <strong>All other components are optional</strong>. The most basic flight folder is therefore structured as follows:</p>
+<pre><code>grouping_area_yyyymmddHHMM/
+├─ images/
+config.yaml</code></pre>
+</div>
+</div>
+<p>The purpose of each subfolder or file are as follows:</p>
+<ul>
+<li><p><code>annotation</code> (optional). Contains any relevant user-generated annotation not already on the SeaBee platform (e.g.&nbsp;externally generated geopackages).</p></li>
+<li><p><code>dem</code> (optional). Contains elevation datasets generated during orthorectification (DSMs and DTMs etc.). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
+<li><p><code>gcp</code> (optional). Folder containing ground control points in a standard text format. The format used by ODM is different to that used by Pix4D, so <strong>please specify which format has been used in the filename</strong>, as shown above.</p></li>
+<li><p><code>ground_truth</code> (optional). Ground truth data, if available.</p></li>
+<li><p><code>orthophoto</code> (optional). Georeferenced mosaic images. Ideally a single, multi-band GeoTiff. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
+<li><p><code>other</code> (optional). Anything not included in the other folders (reports, logs etc.)</p></li>
+<li><p><code>images</code> (required). Images from a <strong>single flight</strong> (i.e.&nbsp;images that can be orthorectified to produce a single mosaic).</p></li>
+<li><p><code>config.yaml</code> (required). A file containing flight metadata and additional settings to control the processing workflow. See <a href="#sec-config-file">Section&nbsp;2.3</a> for details</p></li>
+</ul>
 </section>
-<section id="sec-machine-access" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="sec-machine-access"><span class="header-section-number">3.2</span> Machine Access</h3>
-<p>To accesss the S3 API on <a href="https://storage.seabee.sigma2.no" class="uri">https://storage.seabee.sigma2.no</a> you first need a service account (generated <a href="https://minio.seabee.sigma2.no/identity/account">here</a>).</p>
-<section id="sec-python" class="level4" data-number="3.2.1">
-<h4 data-number="3.2.1" class="anchored" data-anchor-id="sec-python"><span class="header-section-number">3.2.1</span> Python</h4>
-<p>All python libraries supporting the S3 API will be able to interact with the MinIO storage. One good option for Python is the <a href="https://s3fs.readthedocs.io/en/latest/">S3Fs</a> library. The <a href="https://github.com/SeaBee-no/seabeepy"><code>seabeepy</code></a> package also includes convenience functions designed to make it easier to manipulate SeaBee data hosted on MinIO from Python code. See, for example, the <code>copy_file</code>, <code>delete_file</code>, <code>copy_folder</code> and <code>delete_folder</code> functions in <a href="https://github.com/SeaBee-no/seabeepy/blob/main/seabeepy/storage.py"><code>seabeepy.storage</code> module</a>.</p>
+<section id="sec-config-file" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="sec-config-file"><span class="header-section-number">2.3</span> Configuration file</h3>
+<p>Each flight folder must contain a file named <code>config.yaml</code>, which contains additional flight metadata plus settings/commands to control the data processing. The file should look like the example below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">765</span><span class="co">                            # Total number of files in the 'images' folder</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">collectedby</span><span class="kw">:</span><span class="at"> NINA (Sindre Molværsmyr)</span><span class="co">  # Organisation (pilot name)</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # Whether to mosaic the raw images using ODM (true or false)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to publish the orthophoto to GeoNode (true or false)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>nfiles</code> attribute is important, as it is used to determine whether data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first chaeck that the number of files in the <code>images</code> subfolder matches the <code>nfiles</code> attribute in <code>config.yaml</code>. If it does, it is assumed that data upload is complete and the flight ready to be processed; if it does not, the flight is skipped and checked again later.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The exact structure and content of <code>config.yaml</code> is not yet settled and will likely expand over time. See the issue <a href="https://github.com/SeaBee-no/documentation/issues/32">here</a> for the latest details.</p>
+</div>
+</div>
 </section>
-<section id="sec-rclone" class="level4" data-number="3.2.2">
-<h4 data-number="3.2.2" class="anchored" data-anchor-id="sec-rclone"><span class="header-section-number">3.2.2</span> Rclone</h4>
-<p><a href="https://rclone.org/">Rclone</a> provides a convenient way of synchronising files <code>local -&gt; cloud</code> or <code>cloud -&gt; cloud</code>. Rclone keeps track of the transferred files and will retry if the connection is interrupted. <strong>It is therefore the best option for experienced/advanced users wishing to add large volumes of imagery to Sigma2</strong>.</p>
-<section id="sec-rclone-setup" class="level5" data-number="3.2.2.1">
-<h5 data-number="3.2.2.1" class="anchored" data-anchor-id="sec-rclone-setup"><span class="header-section-number">3.2.2.1</span> Setup</h5>
-<p>To install rclone follow the <a href="https://rclone.org%20install/">instructions</a> for your operating system, it is a single excutable that you can download.</p>
-<p>The quickest way to add SeaBee’s MinIO storage as an rclone “remote” is to edit/create the <code>rclone.conf</code> file. Check the location of this file by running the command</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> config file</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>if the file does not exist, create it. Then add this section</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[seabee-minio]</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>type = s3</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>provider = Minio</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>access_key_id = &lt;ACCESS_KEY_ID&gt;</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>secret_access_key = &lt;SECRET_ACCESS_KEY&gt;</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>endpoint = storage.seabee.sigma2.no</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>where <code>&lt;ACCESS_KEY_ID&gt;</code> can be your user name or a service account, and <code>&lt;SECRET_ACCESS_KEY&gt;</code> is the accompanying password.</p>
-<p>To check that everything is working run this command</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> lsd seabee-minio:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>it should list the buckets on MinIO.</p>
-<p>The configuration setup can also be completed by following rclone’s interactive configuration session. This can be started using</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>For most options, just accept the default. The storage type to select is <code>S3 compliant</code> (i.e.&nbsp;option 5) and the endpoint is <code>storage.seabee.sigma2.no</code>. This also allows you to setup a wide range of other remotes.</p>
+</section>
+<section id="sec-upload" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="sec-upload"><span class="header-section-number">3</span> Manual data upload</h2>
+<p>If you are not using the <a href="https://geonode.seabee.sigma2.no/ddc/#step-1">data upload interface</a>, the first step is to organise the data from each flight into folders on your local system, as described in <a href="#sec-data-structure">Section&nbsp;2</a>. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and Rclone. Both options are described on the <a href="./storage.html">Storage</a> page.</p>
+<p>The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, Rclone is recommended. The big advantage of Rclone is that it tracks which files have been transferred and will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than “standard” data upload via a web interface: using Rclone, it is possible to upload terabytes of data relatively smoothly.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Tip
+Example: Using Rclone and ODM for near-real-time generation of orthophotos
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It is convenient to setup <a href="https://rclone.org/commands/rclone_genautocomplete/">autocomplete for rclone</a>, so it completes commands and paths when you press <code>TAB</code>.</p>
+<p>During spring 2023, Sindre Molværsmyr and colleagues from NINA flew several hundred drone-based seabird surveys in the space of just a few weeks. Raw images were downloaded from the drones each evening and arranged into flight folders with the following structure, as described in <a href="#sec-data-structure">Section&nbsp;2</a>:</p>
+<pre><code>grouping_area_yyyymmddHHMM/
+├─ images/
+config.yaml</code></pre>
+<p>These folders were then synchronised to the SeaBee platform overnight using Rclone, typically involving batch-uploading data from between 20 and 40 flights per day. Around 5 TB of data were uploaded during the first two weeks.</p>
+<p>A script running every hour on the SeaBee platform compared the number of files in the <code>images</code> folders with values specified in <code>config.yaml</code> to determine which flights were ready for processing. These datasets were then submitted as jobs to NodeODM, which ran continuously processing data from four missions in parallel. The orthomosaics were then optimised for viewing online and automatically published to the SeaBee GeoNode - usually within a few hours of the data upload completing. This made it possible for the survey team to check their data while still in the field, which is something we have never previously achieved at this scale.</p>
 </div>
 </div>
-</section>
-<section id="sec-rclone-usage" class="level5" data-number="3.2.2.2">
-<h5 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-rclone-usage"><span class="header-section-number">3.2.2.2</span> Usage</h5>
-<p>See the <a href="https://rclone.org/docs/">Rclone documentation</a> for a full list of available commands. For SeaBee, the most useful commands are likely to be <code>rclone mount --read-only</code>, <code>rclone copy</code> and <code>rclone sync</code>, in addition to standard OS commands such as <code>ls</code> and <code>mkdir</code>. <code>rclone help</code> is also useful.</p>
 
 
-</section>
-</section>
-</section>
 </section>
 
 </main> <!-- /main -->
