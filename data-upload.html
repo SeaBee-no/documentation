@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.353">
+<meta name="generator" content="quarto-1.3.361">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -89,7 +89,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 
@@ -175,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-upload.html">Data upload</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
-      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
     </div>
@@ -389,9 +390,9 @@ Note
 │  ├─ gcp_list-ODM.txt
 │  ├─ gcp_list-Pix4D.txt
 ├─ ground-truth/
+├─ images/
 ├─ orthophoto/
 ├─ other/
-├─ images/
 ├─ report/
 │  ├─ report.pdf
 │  ├─ stdout.txt
@@ -419,7 +420,7 @@ config.yaml</code></pre>
 <li><p><code>dem</code> (optional). Contains elevation datasets generated during orthorectification (DSMs and DTMs etc.). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
 <li><p><code>gcp</code> (optional). Folder containing ground control points in a standard text format. The format used by ODM is different to that used by Pix4D, so <strong>please specify which format has been used in the filename</strong>, as shown above.</p></li>
 <li><p><code>ground_truth</code> (optional). Ground truth data, if available.</p></li>
-<li><p><code>orthophoto</code> (optional). Georeferenced mosaic images. Ideally a single, multi-band GeoTiff. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
+<li><p><code>orthophoto</code> (optional). Georeferenced mosaic images. Ideally a single, multi-band GeoTiff. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D). ODM generates orthophotos named <code>odm_orthophoto.original.tif</code>. <strong>If you are uploading an externally built mosaic from Pix4D, it should be placed in this folder and named <code>pix4d_orthophoto.original.tif</code></strong>.</p></li>
 <li><p><code>other</code> (optional). Anything not included in the other folders.</p></li>
 <li><p><code>report</code> (optional). The PDF report describing results from the orthorectification process, plus any associated logs (e.g.&nbsp;text files and JSON). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
 <li><p><code>texturing</code> (optional). Texture models generated during orthorectification. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
@@ -429,12 +430,37 @@ config.yaml</code></pre>
 </section>
 <section id="sec-config-file" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="sec-config-file"><span class="header-section-number">2.3</span> Configuration file</h3>
-<p>Each flight folder must contain a file named <code>config.yaml</code>, which contains additional flight metadata plus settings/commands to control the data processing. The file should look like the example below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">765</span><span class="co">                            # Total number of files in the 'images' folder</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">collectedby</span><span class="kw">:</span><span class="at"> NINA (Sindre Molværsmyr)</span><span class="co">  # Organisation (pilot name)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # Whether to mosaic the raw images using ODM (true or false)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to publish the orthophoto to GeoNode (true or false)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Each flight folder must contain a file named <code>config.yaml</code>, which contains additional flight metadata plus settings/commands to control the data processing. A minimal example with just the mandatory attributes is shown below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">135</span><span class="co">                           # Total number of files in the 'images' folder</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">organisation</span><span class="kw">:</span><span class="at"> NINA</span><span class="co">                    # Responsible organisation</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">creator_name</span><span class="kw">:</span><span class="at"> Sindre Molværsmyr</span><span class="co">       # Data collector/pilot</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The <code>nfiles</code> attribute is important, as it is used to determine whether the data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the <code>images</code> subfolder matches the <code>nfiles</code> attribute in <code>config.yaml</code>. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.</p>
+<p>In addition, <code>config.yaml</code> may contain optional information to control subsequent processing and to add extra metadata. A complete list of attributes currently supported is shown below. Note that <strong>optional attributes can simply be omitted from the file if they are not relevant</strong>, as in the example above. For further explanation of the <code>odm_options</code>, see the documentation <a href="https://docs.opendronemap.org/arguments/">here</a>.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">135</span><span class="co">                           # Total number of files in the 'images' folder</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">organisation</span><span class="kw">:</span><span class="at"> NINA</span><span class="co">                    # Responsible organisation</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">creator_name</span><span class="kw">:</span><span class="at"> Sindre Molværsmyr</span><span class="co">       # Data collector/pilot</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span><span class="at"> Seabirds2023</span><span class="co">                 # [Optional]. Name of project</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">odm_options</span><span class="kw">:</span><span class="co">                          # [Optional]. Overrides default orthorectification settings</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dsm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dtm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cog</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-compression</span><span class="kw">:</span><span class="at"> LZW</span><span class="co">         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">          # [Optional]. Float. cm/pixel</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dem-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">                 # [Optional]. Float. cm/pixel</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max-concurrency</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span><span class="co">                 # [Optional]. Int</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auto-boundary</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                 # [Optional]. true or false</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">use-3dmesh</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                    # [Optional]. true or false</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fast-orthophoto</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">              # [Optional]. true or false</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split</span><span class="kw">:</span><span class="at"> </span><span class="dv">999999</span><span class="co">                       # [Optional]. Int</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-overlap</span><span class="kw">:</span><span class="at"> </span><span class="dv">150</span><span class="co">                  # [Optional]. Int</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">                    # [Optional]. ultra, high, medium, low, lowest</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">feature-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">               # [Optional]. ultra, high, medium, low, lowest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -445,7 +471,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The exact structure and content of <code>config.yaml</code> is not yet settled and will likely expand over time. See the issue <a href="https://github.com/SeaBee-no/documentation/issues/32">here</a> for the latest details.</p>
+<p>The exact structure and content of <code>config.yaml</code> is not yet settled and will likely expand over time. See the issue <a href="https://github.com/SeaBee-no/documentation/issues/32">here</a> for the latest details, or if you would like to suggest additional options.</p>
 </div>
 </div>
 </section>
