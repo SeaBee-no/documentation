@@ -1,43 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://github.com/SeaBee-no/documentation/annotation.html</loc>
-    <lastmod>2023-05-31T21:46:10.644Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/SeaBee-no/documentation/login.html</loc>
-    <lastmod>2023-05-31T21:46:11.364Z</lastmod>
+    <loc>https://github.com/SeaBee-no/documentation/jupyterhub.html</loc>
+    <lastmod>2023-05-31T21:50:15.120Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/SeaBee-no/documentation/orthorectification.html</loc>
-    <lastmod>2023-05-31T21:46:11.720Z</lastmod>
-  </url>
-  <url>
-    <loc>https://github.com/SeaBee-no/documentation/storage.html</loc>
-    <lastmod>2023-05-31T21:46:12.452Z</lastmod>
+    <lastmod>2023-05-31T21:50:16.036Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/SeaBee-no/documentation/data-upload.html</loc>
-    <lastmod>2023-05-31T21:46:13.112Z</lastmod>
+    <lastmod>2023-05-31T21:50:16.844Z</lastmod>
   </url>
   <url>
-    <loc>https://github.com/SeaBee-no/documentation/jupyterhub.html</loc>
-    <lastmod>2023-05-31T21:46:13.616Z</lastmod>
+    <loc>https://github.com/SeaBee-no/documentation/storage.html</loc>
+    <lastmod>2023-05-31T21:50:17.656Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/SeaBee-no/documentation/index.html</loc>
-    <lastmod>2023-05-31T21:46:13.952Z</lastmod>
+    <lastmod>2023-05-31T21:50:18.072Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/SeaBee-no/documentation/howto.html</loc>
-    <lastmod>2023-05-31T21:46:14.292Z</lastmod>
+    <lastmod>2023-05-31T21:50:18.488Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/SeaBee-no/documentation/standardised-imagery.html</loc>
-    <lastmod>2023-05-31T21:46:14.728Z</lastmod>
+    <lastmod>2023-05-31T21:50:18.980Z</lastmod>
   </url>
   <url>
     <loc>https://github.com/SeaBee-no/documentation/data-products.html</loc>
-    <lastmod>2023-05-31T21:46:15.064Z</lastmod>
+    <lastmod>2023-05-31T21:50:19.360Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/SeaBee-no/documentation/login.html</loc>
+    <lastmod>2023-05-31T21:50:19.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://github.com/SeaBee-no/documentation/annotation.html</loc>
+    <lastmod>2023-05-31T21:50:20.796Z</lastmod>
   </url>
 </urlset>
