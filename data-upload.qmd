@@ -57,9 +57,9 @@ grouping_area_yyyymmddHHMM/
 │  ├─ gcp_list-ODM.txt
 │  ├─ gcp_list-Pix4D.txt
 ├─ ground-truth/
+├─ images/
 ├─ orthophoto/
 ├─ other/
-├─ images/
 ├─ report/
 │  ├─ report.pdf
 │  ├─ stdout.txt
@@ -87,7 +87,7 @@ The purpose of each subfolder or file is as follows:
  
  * `ground_truth` (optional). Ground truth data, if available.
 
- * `orthophoto` (optional). Georeferenced mosaic images. Ideally a single, multi-band GeoTiff. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g. using Pix4D).
+ * `orthophoto` (optional). Georeferenced mosaic images. Ideally a single, multi-band GeoTiff. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g. using Pix4D). ODM generates orthophotos named `odm_orthophoto.original.tif`. **If you are uploading an externally built mosaic from Pix4D, it should be placed in this folder and named `pix4d_orthophoto.original.tif`**.
 
  * `other` (optional). Anything not included in the other folders.
 
@@ -101,19 +101,48 @@ The purpose of each subfolder or file is as follows:
 
 ### Configuration file {#sec-config-file}
 
-Each flight folder must contain a file named `config.yaml`, which contains additional flight metadata plus settings/commands to control the data processing. The file should look like the example below.
+Each flight folder must contain a file named `config.yaml`, which contains additional flight metadata plus settings/commands to control the data processing. A minimal example with just the mandatory attributes is shown below.
 
 ``` yaml
-nfiles: 765                            # Total number of files in the 'images' folder
-collectedby: NINA (Sindre Molværsmyr)  # Organisation (pilot name)
-mosaic: true                           # Whether to mosaic the raw images using ODM (true or false)
-publish: true                          # Whether to publish the orthophoto to GeoNode (true or false)
+nfiles: 135                           # Total number of files in the 'images' folder
+organisation: NINA                    # Responsible organisation
+creator_name: Sindre Molværsmyr       # Data collector/pilot
+mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
+publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
+theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') 
 ```
 
 The `nfiles` attribute is important, as it is used to determine whether the data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the `images` subfolder matches the `nfiles` attribute in `config.yaml`. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.
 
+In addition, `config.yaml` may contain optional information to control subsequent processing and to add extra metadata. A complete list of attributes currently supported is shown below. Note that **optional attributes can simply be omitted from the file if they are not relevant**, as in the example above. For further explanation of the `odm_options`, see the documentation [here](https://docs.opendronemap.org/arguments/).
+
+``` yaml
+nfiles: 135                           # Total number of files in the 'images' folder
+organisation: NINA                    # Responsible organisation
+creator_name: Sindre Molværsmyr       # Data collector/pilot
+mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
+publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
+theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
+project: Seabirds2023                 # [Optional]. Name of project
+odm_options:                          # [Optional]. Overrides default orthorectification settings
+  dsm: true                           # [Optional]. true or false
+  dtm: true                           # [Optional]. true or false
+  cog: true                           # [Optional]. true or false
+  orthophoto-compression: LZW         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE
+  orthophoto-resolution: 0.1          # [Optional]. Float. cm/pixel
+  dem-resolution: 0.1                 # [Optional]. Float. cm/pixel
+  max-concurrency: 16                 # [Optional]. Int
+  auto-boundary: true                 # [Optional]. true or false
+  use-3dmesh: true                    # [Optional]. true or false
+  fast-orthophoto: false              # [Optional]. true or false
+  split: 999999                       # [Optional]. Int
+  split-overlap: 150                  # [Optional]. Int
+  pc-quality: high                    # [Optional]. ultra, high, medium, low, lowest
+  feature-quality: high               # [Optional]. ultra, high, medium, low, lowest
+```
+
 ::: {.callout-note}
-The exact structure and content of `config.yaml` is not yet settled and will likely expand over time. See the issue [here](https://github.com/SeaBee-no/documentation/issues/32) for the latest details.
+The exact structure and content of `config.yaml` is not yet settled and will likely expand over time. See the issue [here](https://github.com/SeaBee-no/documentation/issues/32) for the latest details, or if you would like to suggest additional options.
 :::
 
 ## Manual data upload {#sec-upload}
