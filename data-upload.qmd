@@ -112,11 +112,11 @@ publish: true                         # Whether to publish the orthophoto to Geo
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') 
 ```
 
-The `nfiles` attribute is important, as it is used to determine whether the data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the `images` subfolder matches the `nfiles` attribute in `config.yaml`. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.
+The `nfiles` attribute is important, as it is used to determine whether data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the `images` subfolder matches the `nfiles` attribute in `config.yaml`. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.
 
-In addition, `config.yaml` may contain optional information to control subsequent processing and to add extra metadata. A complete list of attributes currently supported is shown below. Note that **optional attributes can simply be omitted from the file if they are not relevant** (like in the example above). For further explanation of `odm_options`, see the documentation [here](https://docs.opendronemap.org/arguments/). 
+In addition to the mandatory attributes above, `config.yaml` can contain optional information to control subsequent processing and add extra metadata. A complete list of attributes currently supported is shown below. Note that **optional attributes can simply be omitted from the file if they are not relevant**. 
 
-If `mosaic` is `true` and `odm_options` are omitted, the default options defined [here](https://github.com/SeaBee-no/seabeepy/blob/aba458bbc714434e0afaafe4646f9c21f2ba236c/seabeepy/ortho.py#L80) will be used instead.
+For further explanation of `odm_options`, see the documentation [here](https://docs.opendronemap.org/arguments/). If `mosaic` is `true` and `odm_options` are omitted, default options defined [here](https://github.com/SeaBee-no/seabeepy/blob/aba458bbc714434e0afaafe4646f9c21f2ba236c/seabeepy/ortho.py#L80) will be used instead.
 
 ``` yaml
 nfiles: 135                           # Total number of files in the 'images' folder
@@ -151,12 +151,12 @@ The exact structure and content of `config.yaml` is not yet settled and will lik
 
 If you are not using the [data upload interface](https://geonode.seabee.sigma2.no/ddc/#step-1), the first step before uploading anything is to organise the data from each flight into folders on your local system, as described in @sec-data-structure. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and  Rclone, both of which are described on the [Storage](./storage.qmd) page.
 
-The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, Rclone is recommended. The big advantage of Rclone is that it tracks which files have been transferred and will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than "standard" data upload via a web interface: using Rclone, it is possible to upload terabytes of data relatively smoothly.
+The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, Rclone is recommended. The big advantage of Rclone is that it tracks which files have been transferred and it will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than "standard" data upload via a web interface: using Rclone, it is possible to upload terabytes of data relatively smoothly.
 
 ::: {.callout-tip}
 ## Example: Using Rclone and ODM for near-real-time generation of orthophotos
 
-During spring 2023, Sindre Molværsmyr and colleagues from NINA flew several hundred drone-based seabird surveys within a period of just a few weeks. Raw images were downloaded from the drones each evening and arranged into flight folders with the structure shown below (as described in @sec-data-structure):
+During spring 2023, Sindre Molværsmyr and colleagues from NINA flew several hundred drone-based seabird surveys within a period of just a few weeks. Raw images were downloaded from the drones each evening and arranged into flight folders with the structure shown below (described in @sec-data-structure):
 
 ```
 grouping_area_yyyymmddHHMM/
@@ -166,7 +166,7 @@ config.yaml
 
 These folders were synchronised to the SeaBee platform overnight using Rclone, which typically involved batch-uploading data from between 20 and 40 flights per day. Around 5 TB of data were uploaded during the first two weeks.
 
-A script running every hour on the SeaBee platform compared the number of files in the `images` folders with values specified in `config.yaml` files to determine which flights were ready for processing. These datasets were then submitted as jobs to NodeODM, which ran continuously processing data from four missions in parallel. 
+A script running every hour on the SeaBee platform compared the number of files in each `images` folder to the value specified in `config.yaml` to determine when flights were ready for processing. Complete datasets were then submitted as jobs to NodeODM, which ran continuously processing data from four missions in parallel. 
 
 Completed orthomosaics were optimised for viewing online and then automatically published to the SeaBee GeoNode - usually within a few hours of the data upload completing. This made it possible for the survey team to check their data while still in the field, which is something we have never previously achieved at this scale.
 :::
