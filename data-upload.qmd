@@ -106,7 +106,6 @@ Each flight folder must contain a file named `config.yaml`, which contains addit
 ``` yaml
 nfiles: 135                           # Total number of files in the 'images' folder
 organisation: NINA                    # Responsible organisation
-creator_name: Sindre Molværsmyr       # Data collector/pilot
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') 
@@ -121,10 +120,10 @@ For further explanation of `odm_options`, see the documentation [here](https://d
 ``` yaml
 nfiles: 135                           # Total number of files in the 'images' folder
 organisation: NINA                    # Responsible organisation
-creator_name: Sindre Molværsmyr       # Data collector/pilot
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
+creator_name: Sindre Molværsmyr       # [Optional]. Data collector/pilot
 project: Seabirds2023                 # [Optional]. Name of project
 odm_options:                          # [Optional]. Overrides default orthorectification settings
   dsm: true                           # [Optional]. true or false
