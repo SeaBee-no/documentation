@@ -136,8 +136,10 @@ odm_options:                          # [Optional]. Overrides default orthorecti
   auto-boundary: true                 # [Optional]. true or false
   use-3dmesh: true                    # [Optional]. true or false
   fast-orthophoto: false              # [Optional]. true or false
+  pc-rectify: false                   # [Optional]. Bool
   split: 999999                       # [Optional]. Int
   split-overlap: 150                  # [Optional]. Int
+  crop: 3                             # [Optional]. Int or Float (>= 0)
   pc-quality: high                    # [Optional]. ultra, high, medium, low, lowest
   feature-quality: high               # [Optional]. ultra, high, medium, low, lowest
 ```
