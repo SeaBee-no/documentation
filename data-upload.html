@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.361">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -346,7 +346,7 @@ Important
 <h2 data-number="2" class="anchored" data-anchor-id="sec-data-structure"><span class="header-section-number">2</span> Data structure</h2>
 <section id="sec-flight-folder" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="sec-flight-folder"><span class="header-section-number">2.1</span> Flight folder naming</h3>
-<p>The data from each flight should be gathered into a <strong>single folder</strong> named <code>grouping_area_yyyymmddHHMM</code>. Note the use of <strong>underscores</strong> (<code>_</code>) to separate each of the components. Hyphens (<code>-</code>) or <code>CamelCase</code> can be used to further divide each component, if necessary. For example: <code>multipart-group_area-part-1_yyyymmddHHMM</code> or <code>MultipartGroup_AreaPart1_yyyymmddHHMM</code>.</p>
+<p>The data from each flight should be gathered into a <strong>single folder</strong> following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. <strong>The SeaBee platform does not enforce strict requirements for naming flight folders</strong>, because we recognise that different pilots and organisations have their own conventions (see e.g.&nbsp;the issue <a href="https://github.com/SeaBee-no/documentation/issues/23">here</a>). However, a recommended approach is to use <code>grouping_area_yyyymmddHHMM</code> or <code>org_yyyymmddHHMM_group_area_spec_elev</code>. Note the use of <strong>underscores</strong> (<code>_</code>) to separate each of the main components, while hyphens (<code>-</code>) or <code>CamelCase</code> can be used to further divide each part, if necessary. For example: <code>multipart-group_area-part-1_yyyymmddHHMM</code> or <code>MultipartGroup_AreaPart1_yyyymmddHHMM</code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -357,14 +357,17 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p><strong>The folder name must be unique</strong>. If you really have two flights in the same group and area that took off at <em>exactly</em> the same time, consider using e.g.&nbsp;<code>group_area-flight1_yyyymmddHHMM</code> and <code>group_area-flight2_yyyymmddHHMM</code>, or simply adjust one of the start times by a small amount.</p>
+<p>The name of the flight folder is <strong>not used</strong> by any of the automated processing routines on the SeaBee platform. As long as the subfolders are arranged correctly and the details are correct in <code>config.seabee.yaml</code>, the mission will be processed regardless of the flight folder name. The name of the flight folder only matters for people browsing data manually (e.g.&nbsp;using MinIO). It is therefore important that names are human-readable.</p>
 </div>
 </div>
-<p>The three components of the folder name have the following meanings:</p>
+<p>In the recommended structure, the main components of the folder name have the following meanings:</p>
 <ul>
 <li><p><code>grouping</code> is any general identifier linking data from this flight with data from other related flights. For example: the name of a broad region where several flights have taken place (e.g.&nbsp;<code>Runde</code>); the name of a project (e.g.&nbsp;<code>Kelpmap</code>); or the name of a fieldwork team (e.g.&nbsp;<code>Team1</code>, or <code>Team1Day1</code>).</p></li>
 <li><p><code>area</code> is the name of the location (e.g.&nbsp;the name of an island, or a specific stretch of coastline).</p></li>
 <li><p><code>yyyymmddHHMM</code> is the flight start date and time. The date part (<code>yyyymmdd</code>) is mandatory, whereas the time (<code>HHMM</code>) is optional, but recommended. Including the time is often necessary to uniquely distinguish multiple flights taking place in the same group and area on the same day. Note that there are no separators or additional characters in the datetime (i.e.&nbsp;use <code>yyyymmddHHMM</code>, <strong>not</strong> <code>yyyy-mm-dd-HH:MM</code> or any other variant).</p></li>
+<li><p><code>org</code> is the organisation collecting the data.</p></li>
+<li><p><code>spec</code> is the spectrum type e.g.&nbsp;RGB, multispectral or hyperspectral.</p></li>
+<li><p><code>elev</code> is the flight elevation (in metres).</p></li>
 </ul>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -376,7 +379,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The flight folders themselves can be organised however you wish. For example, you may choose to group flight folders into parent folders based on organisation and year (e.g.&nbsp;<code>/niva/2023/flight_folder1</code>, <code>/niva/2023/flight_folder2</code> etc.), or you may wish to group them by project, pilot, or any combination of these. As long as the data <em>within</em> each flight folder is arranged correctly, everything should work OK (see <a href="#sec-subfolder-structure">Section&nbsp;2.2</a>).</p>
+<p>The flight folders themselves can be organised however you wish. For example, you may choose to group flight folders into parent folders based on organisation and year (e.g.&nbsp;<code>/niva/2023/flight_folder1</code>, <code>/niva/2023/flight_folder2</code> etc.), or you may wish to group them by project, pilot, or any combination of these. The automated data processing routines on the SeaBee platform simply scan the file system for folders containing files named <code>config.seabee.yaml</code>. As long as the data within these folders is arranged correctly, everything should work OK (see <a href="#sec-subfolder-structure">Section&nbsp;2.2</a>).</p>
 </div>
 </div>
 </section>
@@ -397,7 +400,7 @@ Note
 │  ├─ report.pdf
 │  ├─ stdout.txt
 ├─ texturing/
-config.yaml</code></pre>
+config.seabee.yaml</code></pre>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -408,10 +411,10 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>It is <strong>not</strong> necessary to include all the folders - just include what you need. As a minimum, the flight folder <em>must</em> contain a subfolder named <code>images</code> with the raw images and a file named <code>config.yaml</code>. <strong>All other components are optional</strong>. The most basic flight folder is therefore:</p>
+<p>It is <strong>not</strong> necessary to include all the folders - just include what you need. As a minimum, the flight folder <em>must</em> contain a subfolder named <code>images</code> with the raw images and a file named <code>config.seabee.yaml</code>. <strong>All other components are optional</strong>. The most basic flight folder is therefore:</p>
 <pre><code>grouping_area_yyyymmddHHMM/
 ├─ images/
-config.yaml</code></pre>
+config.seabee.yaml</code></pre>
 </div>
 </div>
 <p>The purpose of each subfolder or file is as follows:</p>
@@ -424,45 +427,51 @@ config.yaml</code></pre>
 <li><p><code>other</code> (optional). Anything not included in the other folders.</p></li>
 <li><p><code>report</code> (optional). The PDF report describing results from the orthorectification process, plus any associated logs (e.g.&nbsp;text files and JSON). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
 <li><p><code>texturing</code> (optional). Texture models generated during orthorectification. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
-<li><p><code>images</code> (required). Images from a <strong>single flight</strong> (i.e.&nbsp;images that can be orthorectified to produce a single mosaic).</p></li>
-<li><p><code>config.yaml</code> (required). A file containing flight metadata and additional settings to control the processing workflow. See <a href="#sec-config-file">Section&nbsp;2.3</a> for details.</p></li>
+<li><p><code>images</code> (required). Images from a <strong>single flight</strong> (i.e.&nbsp;images that can be orthorectified to produce a single mosaic). The images should <strong>not</strong> be grouped into subfolders.</p></li>
+<li><p><code>config.seabee.yaml</code> (required). A file containing flight metadata and additional settings to control the processing workflow. See <a href="#sec-config-file">Section&nbsp;2.3</a> for details.</p></li>
 </ul>
 </section>
 <section id="sec-config-file" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="sec-config-file"><span class="header-section-number">2.3</span> Configuration file</h3>
-<p>Each flight folder must contain a file named <code>config.yaml</code>, which contains additional flight metadata plus settings/commands to control the data processing. A minimal example with just the mandatory attributes is shown below.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">135</span><span class="co">                           # Total number of files in the 'images' folder</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">organisation</span><span class="kw">:</span><span class="at"> NINA</span><span class="co">                    # Responsible organisation</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>nfiles</code> attribute is important, as it is used to determine whether data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the <code>images</code> subfolder matches the <code>nfiles</code> attribute in <code>config.yaml</code>. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.</p>
-<p>In addition to the mandatory attributes above, <code>config.yaml</code> can contain optional information to control subsequent processing and add extra metadata. A complete list of attributes currently supported is shown below. Note that <strong>optional attributes can simply be omitted from the file if they are not relevant</strong>.</p>
+<p>Each flight folder must contain a file named <code>config.seabee.yaml</code>, which contains flight metadata plus settings/commands to control the data processing. A minimal example with just the 8 mandatory attributes is shown below.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grouping</span><span class="kw">:</span><span class="at"> gronningen</span><span class="co">                  # General identifier linking this flight to related flights</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">area</span><span class="kw">:</span><span class="at"> agder</span><span class="co">                           # Name of specific location</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">datetime</span><span class="kw">:</span><span class="at"> </span><span class="st">'202305230830'</span><span class="co">              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that the quotes are required</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">290</span><span class="co">                           # Total number of files in the 'images' folder</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="fu">organisation</span><span class="kw">:</span><span class="at"> NINA</span><span class="co">                    # Responsible organisation</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>nfiles</code> attribute is important, as it is used to determine whether data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the <code>images</code> subfolder matches the <code>nfiles</code> attribute in <code>config.seabee.yaml</code>. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.</p>
+<p>In addition to the mandatory attributes above, <code>config.seabee.yaml</code> can contain optional information to control subsequent processing and add extra metadata. A complete list of attributes currently supported is shown below. Note that <strong>optional attributes can simply be omitted from the file if they are not relevant</strong>.</p>
 <p>For further explanation of <code>odm_options</code>, see the documentation <a href="https://docs.opendronemap.org/arguments/">here</a>. If <code>mosaic</code> is <code>true</code> and <code>odm_options</code> are omitted, default options defined <a href="https://github.com/SeaBee-no/seabeepy/blob/aba458bbc714434e0afaafe4646f9c21f2ba236c/seabeepy/ortho.py#L80">here</a> will be used instead.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">135</span><span class="co">                           # Total number of files in the 'images' folder</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">organisation</span><span class="kw">:</span><span class="at"> NINA</span><span class="co">                    # Responsible organisation</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">creator_name</span><span class="kw">:</span><span class="at"> Sindre Molværsmyr</span><span class="co">       # [Optional]. Data collector/pilot</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span><span class="at"> Seabirds2023</span><span class="co">                 # [Optional]. Name of project</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">odm_options</span><span class="kw">:</span><span class="co">                          # [Optional]. Overrides default orthorectification settings</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dsm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dtm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cog</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-compression</span><span class="kw">:</span><span class="at"> LZW</span><span class="co">         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">          # [Optional]. Float. cm/pixel</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dem-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">                 # [Optional]. Float. cm/pixel</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max-concurrency</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span><span class="co">                 # [Optional]. Int</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auto-boundary</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                 # [Optional]. true or false</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">use-3dmesh</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                    # [Optional]. true or false</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fast-orthophoto</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">              # [Optional]. true or false</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-rectify</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">                   # [Optional]. Bool</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split</span><span class="kw">:</span><span class="at"> </span><span class="dv">999999</span><span class="co">                       # [Optional]. Int</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-overlap</span><span class="kw">:</span><span class="at"> </span><span class="dv">150</span><span class="co">                  # [Optional]. Int</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">crop</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="co">                             # [Optional]. Int or Float (&gt;= 0)</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">                    # [Optional]. ultra, high, medium, low, lowest</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">feature-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">               # [Optional]. ultra, high, medium, low, lowest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">grouping</span><span class="kw">:</span><span class="at"> gronningen</span><span class="co">                  # General identifier linking this flight to related flights</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">area</span><span class="kw">:</span><span class="at"> agder</span><span class="co">                           # Name of specific location</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">datetime</span><span class="kw">:</span><span class="at"> </span><span class="st">'202305230830'</span><span class="co">              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that the quotes are required</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">nfiles</span><span class="kw">:</span><span class="at"> </span><span class="dv">290</span><span class="co">                           # Total number of files in the 'images' folder</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="fu">organisation</span><span class="kw">:</span><span class="at"> NINA</span><span class="co">                    # Responsible organisation</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">creator_name</span><span class="kw">:</span><span class="at"> Sindre Molværsmyr</span><span class="co">       # [Optional]. Data collector/pilot</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span><span class="at"> Seabirds2023</span><span class="co">                 # [Optional]. Name of project</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">odm_options</span><span class="kw">:</span><span class="co">                          # [Optional]. Overrides default orthorectification settings</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dsm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dtm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cog</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-compression</span><span class="kw">:</span><span class="at"> LZW</span><span class="co">         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">          # [Optional]. Float. cm/pixel</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dem-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">                 # [Optional]. Float. cm/pixel</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max-concurrency</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span><span class="co">                 # [Optional]. Int</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auto-boundary</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                 # [Optional]. true or false</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">use-3dmesh</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                    # [Optional]. true or false</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fast-orthophoto</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">              # [Optional]. true or false</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-rectify</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">                   # [Optional]. Bool</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split</span><span class="kw">:</span><span class="at"> </span><span class="dv">999999</span><span class="co">                       # [Optional]. Int</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-overlap</span><span class="kw">:</span><span class="at"> </span><span class="dv">150</span><span class="co">                  # [Optional]. Int</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">crop</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="co">                             # [Optional]. Int or Float (&gt;= 0)</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">                    # [Optional]. ultra, high, medium, low, lowest</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">feature-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">               # [Optional]. ultra, high, medium, low, lowest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -473,7 +482,7 @@ Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The exact structure and content of <code>config.yaml</code> is not yet settled and will likely expand over time. See the issue <a href="https://github.com/SeaBee-no/documentation/issues/32">here</a> for the latest details, or if you would like to suggest additional options.</p>
+<p>The exact structure and content of <code>config.seabee.yaml</code> will likely expand over time. See the issue <a href="https://github.com/SeaBee-no/documentation/issues/32">here</a> for the latest details, or if you would like to suggest additional options.</p>
 </div>
 </div>
 </section>
@@ -495,9 +504,9 @@ Example: Using Rclone and ODM for near-real-time generation of orthophotos
 <p>During spring 2023, Sindre Molværsmyr and colleagues from NINA flew several hundred drone-based seabird surveys within a period of just a few weeks. Raw images were downloaded from the drones each evening and arranged into flight folders with the structure shown below (described in <a href="#sec-data-structure">Section&nbsp;2</a>):</p>
 <pre><code>grouping_area_yyyymmddHHMM/
 ├─ images/
-config.yaml</code></pre>
+config.seabee.yaml</code></pre>
 <p>These folders were synchronised to the SeaBee platform overnight using Rclone, which typically involved batch-uploading data from between 20 and 40 flights per day. Around 5 TB of data were uploaded during the first two weeks.</p>
-<p>A script running every hour on the SeaBee platform compared the number of files in each <code>images</code> folder to the value specified in <code>config.yaml</code> to determine when flights were ready for processing. Complete datasets were then submitted as jobs to NodeODM, which ran continuously processing data from four missions in parallel.</p>
+<p>A script running every hour on the SeaBee platform compared the number of files in each <code>images</code> folder to the value specified in <code>config.seabee.yaml</code> to determine when flights were ready for processing. Complete datasets were then submitted as jobs to NodeODM, which ran continuously processing data from four missions in parallel.</p>
 <p>Completed orthomosaics were optimised for viewing online and then automatically published to the SeaBee GeoNode - usually within a few hours of the data upload completing. This made it possible for the survey team to check their data while still in the field, which is something we have never previously achieved at this scale.</p>
 </div>
 </div>
