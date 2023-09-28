@@ -346,7 +346,7 @@ Important
 <h2 data-number="2" class="anchored" data-anchor-id="sec-data-structure"><span class="header-section-number">2</span> Data structure</h2>
 <section id="sec-flight-folder" class="level3" data-number="2.1">
 <h3 data-number="2.1" class="anchored" data-anchor-id="sec-flight-folder"><span class="header-section-number">2.1</span> Flight folder naming</h3>
-<p>The data from each flight should be gathered into a <strong>single folder</strong> following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. <strong>The SeaBee platform does not enforce strict requirements for naming flight folders</strong>, because we recognise that different pilots and organisations have their own conventions (see e.g.&nbsp;the issue <a href="https://github.com/SeaBee-no/documentation/issues/23">here</a>). However, a recommended approach is to use <code>grouping_area_yyyymmddHHMM</code> or <code>org_yyyymmddHHMM_group_area_spec_elev</code>. Note the use of <strong>underscores</strong> (<code>_</code>) to separate each of the main components, while hyphens (<code>-</code>) or <code>CamelCase</code> can be used to further divide each part, if necessary. For example: <code>multipart-group_area-part-1_yyyymmddHHMM</code> or <code>MultipartGroup_AreaPart1_yyyymmddHHMM</code>.</p>
+<p>The data from each flight should be gathered into a <strong>single folder</strong> following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. <strong>The SeaBee platform does not enforce strict requirements for naming flight folders</strong>, because we recognise that different pilots and organisations have their own conventions (see e.g.&nbsp;the issue <a href="https://github.com/SeaBee-no/documentation/issues/23">here</a>). However, a recommended approach is to use <code>grouping_area_yyyymmddHHMM</code> or <code>grouping_area_yyyymmddHHMM_organisation_spectrum-type_elevation</code>. Note the use of <strong>underscores</strong> (<code>_</code>) to separate each of the main components, while hyphens (<code>-</code>) or <code>CamelCase</code> can be used to further subdivide each part, if necessary. For example: <code>multipart-group_area-part-1_yyyymmddHHMM</code> or <code>MultipartGroup_AreaPart1_yyyymmddHHMM</code>.</p>
 <div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -357,25 +357,25 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The name of the flight folder is <strong>not used</strong> by any of the automated processing routines on the SeaBee platform. As long as the subfolders are arranged correctly and the details are correct in <code>config.seabee.yaml</code>, the mission will be processed regardless of the flight folder name. The name of the flight folder only matters for people browsing data manually (e.g.&nbsp;using MinIO). It is therefore important that names are human-readable.</p>
+<p>The name of the flight folder is <strong>not used</strong> by any of the automated processing routines on the SeaBee platform. As long as the subfolders are arranged as described below and the details are correct in <code>config.seabee.yaml</code>, the mission will be processed regardless of the flight folder name. The name of the flight folder only matters for people browsing data manually (e.g.&nbsp;using MinIO). It is therefore important that names are human-readable.</p>
 </div>
 </div>
-<p>In the recommended structure, the main components of the folder name have the following meanings:</p>
+<p>Using the recommended structure, the components of the folder name have the following meaning:</p>
 <ul>
 <li><p><code>grouping</code> is any general identifier linking data from this flight with data from other related flights. For example: the name of a broad region where several flights have taken place (e.g.&nbsp;<code>Runde</code>); the name of a project (e.g.&nbsp;<code>Kelpmap</code>); or the name of a fieldwork team (e.g.&nbsp;<code>Team1</code>, or <code>Team1Day1</code>).</p></li>
 <li><p><code>area</code> is the name of the location (e.g.&nbsp;the name of an island, or a specific stretch of coastline).</p></li>
 <li><p><code>yyyymmddHHMM</code> is the flight start date and time. The date part (<code>yyyymmdd</code>) is mandatory, whereas the time (<code>HHMM</code>) is optional, but recommended. Including the time is often necessary to uniquely distinguish multiple flights taking place in the same group and area on the same day. Note that there are no separators or additional characters in the datetime (i.e.&nbsp;use <code>yyyymmddHHMM</code>, <strong>not</strong> <code>yyyy-mm-dd-HH:MM</code> or any other variant).</p></li>
-<li><p><code>org</code> is the organisation collecting the data.</p></li>
-<li><p><code>spec</code> is the spectrum type e.g.&nbsp;RGB, multispectral or hyperspectral.</p></li>
-<li><p><code>elev</code> is the flight elevation (in metres).</p></li>
+<li><p><code>organisation</code> is the organisation collecting the data.</p></li>
+<li><p><code>spectrum-type</code> is the type of spectral information recorded by the drone sensor e.g.&nbsp;RGB, multispectral or hyperspectral.</p></li>
+<li><p><code>elevation</code> is the flight elevation (in metres).</p></li>
 </ul>
-<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout callout-style-default callout-important callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Note
+Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -386,7 +386,7 @@ Note
 <section id="sec-subfolder-structure" class="level3" data-number="2.2">
 <h3 data-number="2.2" class="anchored" data-anchor-id="sec-subfolder-structure"><span class="header-section-number">2.2</span> Subfolder structure</h3>
 <p>Within the “parent” flight folder, data should be organised into subfolders as follows:</p>
-<pre><code>grouping_area_yyyymmddHHMM/
+<pre><code>grouping_area_yyyymmddHHMM_[organisation]_[spectrum-type]_[elevation]/
 ├─ annotation/
 ├─ dem/
 ├─ gcp/
@@ -412,7 +412,7 @@ Note
 </div>
 <div class="callout-body-container callout-body">
 <p>It is <strong>not</strong> necessary to include all the folders - just include what you need. As a minimum, the flight folder <em>must</em> contain a subfolder named <code>images</code> with the raw images and a file named <code>config.seabee.yaml</code>. <strong>All other components are optional</strong>. The most basic flight folder is therefore:</p>
-<pre><code>grouping_area_yyyymmddHHMM/
+<pre><code>grouping_area_yyyymmddHHMM_[organisation]_[spectrum-type]_[elevation]/
 ├─ images/
 config.seabee.yaml</code></pre>
 </div>
@@ -453,25 +453,42 @@ config.seabee.yaml</code></pre>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                          # Whether to mosaic the raw images using ODM (true or false)</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">publish</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                         # Whether to publish the orthophoto to GeoNode (true or false)</span></span>
 <span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme</span><span class="kw">:</span><span class="at"> Seabirds</span><span class="co">                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">creator_name</span><span class="kw">:</span><span class="at"> Sindre Molværsmyr</span><span class="co">       # [Optional]. Data collector/pilot</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span><span class="at"> Seabirds2023</span><span class="co">                 # [Optional]. Name of project</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">odm_options</span><span class="kw">:</span><span class="co">                          # [Optional]. Overrides default orthorectification settings</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dsm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dtm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cog</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-compression</span><span class="kw">:</span><span class="at"> LZW</span><span class="co">         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE</span></span>
-<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">          # [Optional]. Float. cm/pixel</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dem-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">                 # [Optional]. Float. cm/pixel</span></span>
-<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max-concurrency</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span><span class="co">                 # [Optional]. Int</span></span>
-<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auto-boundary</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                 # [Optional]. true or false</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">use-3dmesh</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                    # [Optional]. true or false</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fast-orthophoto</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">              # [Optional]. true or false</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-rectify</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">                   # [Optional]. Bool</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split</span><span class="kw">:</span><span class="at"> </span><span class="dv">999999</span><span class="co">                       # [Optional]. Int</span></span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-overlap</span><span class="kw">:</span><span class="at"> </span><span class="dv">150</span><span class="co">                  # [Optional]. Int</span></span>
-<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">crop</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="co">                             # [Optional]. Int or Float (&gt;= 0)</span></span>
-<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">                    # [Optional]. ultra, high, medium, low, lowest</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">feature-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">               # [Optional]. ultra, high, medium, low, lowest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">spectrum_type</span><span class="kw">:</span><span class="at"> RGB</span><span class="co">                    # Sensor type ('RGB', 'MS' or 'HSI')</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="fu">elevation</span><span class="kw">:</span><span class="at"> </span><span class="dv">40</span><span class="co">                         # Flight elevation (integer in metres)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="fu">creator_name</span><span class="kw">:</span><span class="at"> Sindre Molværsmyr</span><span class="co">       # [Optional]. Data collector/pilot</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="fu">project</span><span class="kw">:</span><span class="at"> Seabirds2023</span><span class="co">                 # [Optional]. Name of project</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="fu">odm_options</span><span class="kw">:</span><span class="co">                          # [Optional]. Overrides default orthorectification settings</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dsm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dtm</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">cog</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                           # [Optional]. true or false</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-compression</span><span class="kw">:</span><span class="at"> LZW</span><span class="co">         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">orthophoto-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">          # [Optional]. Float. cm/pixel</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">dem-resolution</span><span class="kw">:</span><span class="at"> </span><span class="fl">0.1</span><span class="co">                 # [Optional]. Float. cm/pixel</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">max-concurrency</span><span class="kw">:</span><span class="at"> </span><span class="dv">16</span><span class="co">                 # [Optional]. Int</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">auto-boundary</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                 # [Optional]. true or false</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">use-3dmesh</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span><span class="co">                    # [Optional]. true or false</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">fast-orthophoto</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">              # [Optional]. true or false</span></span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-rectify</span><span class="kw">:</span><span class="at"> </span><span class="ch">false</span><span class="co">                   # [Optional]. Bool</span></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split</span><span class="kw">:</span><span class="at"> </span><span class="dv">999999</span><span class="co">                       # [Optional]. Int</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">split-overlap</span><span class="kw">:</span><span class="at"> </span><span class="dv">150</span><span class="co">                  # [Optional]. Int</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">crop</span><span class="kw">:</span><span class="at"> </span><span class="dv">3</span><span class="co">                             # [Optional]. Int or Float (&gt;= 0)</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">pc-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">                    # [Optional]. ultra, high, medium, low, lowest</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a><span class="at">  </span><span class="fu">feature-quality</span><span class="kw">:</span><span class="at"> high</span><span class="co">               # [Optional]. ultra, high, medium, low, lowest</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mosaic datasets created and published to GeoNode will be named by combining information from the configuration file in the following way:</p>
+<pre><code>grouping_area_datetime_[spectrum_type]_[elevation]m</code></pre>
+<p>where <code>grouping</code>, <code>area</code> and <code>datetime</code> are mandatory and <code>spectrum_type</code> and <code>elevation</code> will be included, if provided. <strong>It is important to ensure that this name is unique</strong> to avoid conflicts with other datasets. For this reason, it is strongly recommended to include hours and minutes in the <code>datetime</code> attribute when filling in <code>config.seabee.yaml</code>.</p>
+</div>
+</div>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
