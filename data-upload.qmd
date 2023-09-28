@@ -27,13 +27,13 @@ If you wish to upload data from **multiple missions**, or if your mission is not
 
 ### Flight folder naming {#sec-flight-folder}
 
-The data from each flight should be gathered into a **single folder** following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. **The SeaBee platform does not enforce strict requirements for naming flight folders**, because we recognise that different pilots and organisations have their own conventions (see e.g. the issue [here](https://github.com/SeaBee-no/documentation/issues/23)). However, a recommended approach is to use `grouping_area_yyyymmddHHMM` or `org_yyyymmddHHMM_group_area_spec_elev`. Note the use of **underscores** (`_`) to separate each of the main components, while hyphens (`-`) or `CamelCase` can be used to further divide each part, if necessary. For example: `multipart-group_area-part-1_yyyymmddHHMM` or `MultipartGroup_AreaPart1_yyyymmddHHMM`.
+The data from each flight should be gathered into a **single folder** following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. **The SeaBee platform does not enforce strict requirements for naming flight folders**, because we recognise that different pilots and organisations have their own conventions (see e.g. the issue [here](https://github.com/SeaBee-no/documentation/issues/23)). However, a recommended approach is to use `grouping_area_yyyymmddHHMM` or `grouping_area_yyyymmddHHMM_organisation_spectrum-type_elevation`. Note the use of **underscores** (`_`) to separate each of the main components, while hyphens (`-`) or `CamelCase` can be used to further subdivide each part, if necessary. For example: `multipart-group_area-part-1_yyyymmddHHMM` or `MultipartGroup_AreaPart1_yyyymmddHHMM`.
 
 ::: {.callout-important}
-The name of the flight folder is **not used** by any of the automated processing routines on the SeaBee platform. As long as the subfolders are arranged correctly and the details are correct in `config.seabee.yaml`, the mission will be processed regardless of the flight folder name. The name of the flight folder only matters for people browsing data manually (e.g. using MinIO). It is therefore important that names are human-readable. 
+The name of the flight folder is **not used** by any of the automated processing routines on the SeaBee platform. As long as the subfolders are arranged as described below and the details are correct in `config.seabee.yaml`, the mission will be processed regardless of the flight folder name. The name of the flight folder only matters for people browsing data manually (e.g. using MinIO). It is therefore important that names are human-readable. 
 :::
 
-In the recommended structure, the main components of the folder name have the following meanings:
+Using the recommended structure, the components of the folder name have the following meaning:
 
  * `grouping` is any general identifier linking data from this flight with data from other related flights. For example: the name of a broad region where several flights have taken place (e.g. `Runde`); the name of a project (e.g. `Kelpmap`); or the name of a fieldwork team (e.g. `Team1`, or `Team1Day1`).
 
@@ -41,13 +41,13 @@ In the recommended structure, the main components of the folder name have the fo
 
  * `yyyymmddHHMM` is the flight start date and time. The date part (`yyyymmdd`) is mandatory, whereas the time (`HHMM`) is optional, but recommended. Including the time is often necessary to uniquely distinguish multiple flights taking place in the same group and area on the same day. Note that there are no separators or additional characters in the datetime (i.e. use `yyyymmddHHMM`, **not** `yyyy-mm-dd-HH:MM` or any other variant).
 
- * `org` is the organisation collecting the data.
+ * `organisation` is the organisation collecting the data.
 
- * `spec` is the spectrum type e.g. RGB, multispectral or hyperspectral.
+ * `spectrum-type` is the type of spectral information recorded by the drone sensor e.g. RGB, multispectral or hyperspectral.
 
- * `elev` is the flight elevation (in metres).
+ * `elevation` is the flight elevation (in metres).
 
-::: {.callout-note}
+::: {.callout-important}
 The flight folders themselves can be organised however you wish. For example, you may choose to group flight folders into parent folders based on organisation and year (e.g. `/niva/2023/flight_folder1`, `/niva/2023/flight_folder2` etc.), or you may wish to group them by project, pilot, or any combination of these. The automated data processing routines on the SeaBee platform simply scan the file system for folders containing files named `config.seabee.yaml`. As long as the data within these folders is arranged correctly, everything should work OK (see @sec-subfolder-structure). 
 :::
 
@@ -56,7 +56,7 @@ The flight folders themselves can be organised however you wish. For example, yo
 Within the "parent" flight folder, data should be organised into subfolders as follows:
 
 ```
-grouping_area_yyyymmddHHMM/
+grouping_area_yyyymmddHHMM_[organisation]_[spectrum-type]_[elevation]/
 ├─ annotation/
 ├─ dem/
 ├─ gcp/
@@ -77,7 +77,7 @@ config.seabee.yaml
 It is **not** necessary to include all the folders - just include what you need. As a minimum, the flight folder *must* contain a subfolder named `images` with the raw images and a file named `config.seabee.yaml`. **All other components are optional**. The most basic flight folder is therefore:
 
 ```
-grouping_area_yyyymmddHHMM/
+grouping_area_yyyymmddHHMM_[organisation]_[spectrum-type]_[elevation]/
 ├─ images/
 config.seabee.yaml
 ```
@@ -135,6 +135,8 @@ organisation: NINA                    # Responsible organisation
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
+spectrum_type: RGB                    # Sensor type ('RGB', 'MS' or 'HSI')
+elevation: 40                         # Flight elevation (integer in metres)
 creator_name: Sindre Molværsmyr       # [Optional]. Data collector/pilot
 project: Seabirds2023                 # [Optional]. Name of project
 odm_options:                          # [Optional]. Overrides default orthorectification settings
@@ -155,6 +157,14 @@ odm_options:                          # [Optional]. Overrides default orthorecti
   pc-quality: high                    # [Optional]. ultra, high, medium, low, lowest
   feature-quality: high               # [Optional]. ultra, high, medium, low, lowest
 ```
+
+::: {.callout-important}
+Mosaic datasets created and published to GeoNode will be named by combining information from the configuration file in the following way:
+
+    grouping_area_datetime_[spectrum_type]_[elevation]m
+
+where `grouping`, `area` and `datetime` are mandatory and `spectrum_type` and `elevation` will be included, if provided. **It is important to ensure that this name is unique** to avoid conflicts with other datasets. For this reason, it is strongly recommended to include hours and minutes in the `datetime` attribute when filling in `config.seabee.yaml`.
+:::
 
 ::: {.callout-note}
 The exact structure and content of `config.seabee.yaml` will likely expand over time. See the issue [here](https://github.com/SeaBee-no/documentation/issues/32) for the latest details, or if you would like to suggest additional options.
