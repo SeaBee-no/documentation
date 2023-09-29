@@ -129,14 +129,14 @@ For further explanation of `odm_options`, see the documentation [here](https://d
 ``` yaml
 grouping: gronningen                  # General identifier linking this flight to related flights
 area: agder                           # Name of specific location
-datetime: '202305230830'              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that the quotes are required
+datetime: '202305230830'              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that quotes are required
 nfiles: 290                           # Total number of files in the 'images' folder
 organisation: NINA                    # Responsible organisation
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
-spectrum_type: RGB                    # Sensor type ('RGB', 'MS' or 'HSI')
-elevation: 40                         # Flight elevation (integer in metres)
+spectrum_type: RGB                    # [Optional]. Sensor type ('RGB', 'MS' or 'HSI')
+elevation: 40                         # [Optional]. Flight elevation (integer > 0 in metres)
 creator_name: Sindre Molværsmyr       # [Optional]. Data collector/pilot
 project: Seabirds2023                 # [Optional]. Name of project
 odm_options:                          # [Optional]. Overrides default orthorectification settings
@@ -163,7 +163,7 @@ Mosaic datasets created and published to GeoNode will be named by combining info
 
     grouping_area_datetime_[spectrum_type]_[elevation]m
 
-where `grouping`, `area` and `datetime` are mandatory and `spectrum_type` and `elevation` will be included, if provided. **It is important to ensure that this name is unique** to avoid conflicts with other datasets. For this reason, it is strongly recommended to include hours and minutes in the `datetime` attribute when filling in `config.seabee.yaml`.
+where `grouping`, `area` and `datetime` are mandatory and `spectrum_type` and `elevation` will be included if provided. **It is important to ensure that this name is unique** to avoid conflicts with other datasets. For this reason, it is strongly recommended to include hours and minutes in the `datetime` attribute when filling in `config.seabee.yaml`.
 :::
 
 ::: {.callout-note}
