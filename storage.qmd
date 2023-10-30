@@ -39,11 +39,11 @@ To accesss the S3 API on <https://storage.seabee.sigma2.no> you first need a ser
 
 #### Rclone {#sec-rclone}
 
-[Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of the transferred files and will retry if the connection is interrupted. **It is therefore the best option for experienced/advanced users wishing to add large volumes of imagery to Sigma2**.
+[Rclone](https://rclone.org/) provides a convenient way of synchronising files `local -> cloud` or `cloud -> cloud`. Rclone keeps track of the transferred files and will retry if the connection is interrupted. **It is therefore the best option for users wishing to add large volumes of imagery to Sigma2**.
 
 ##### Setup {#sec-rclone-setup}
 
-To install rclone follow the [instructions](https://rclone.org/install/) for your operating system, it is a single excutable that you can download.
+To install rclone follow the [instructions](https://rclone.org/install/) for your operating system. It is a single excutable that you can download.
 
 ::: {.callout-tip}
 ## Tips for Windows users
@@ -51,16 +51,16 @@ To install rclone follow the [instructions](https://rclone.org/install/) for you
  1. The rclone binary is downloaded as a zip archive. Unzip this to a suitable folder on your system (e.g. `C:\My_Software\rclone-v1.64.2-windows-amd64`).
 
  2. Add rclone to your system's `Path` so it is recognised from the command line:
-    * Right-click on `Computer` or `This PC` on your desktop or in File Explorer, and choose `Properties`
-    * Click on `Advanced system settings`
-    * In the `System Properties` window that appears, click the `Environment Variables…` button
-    * In the Environment Variables window, under `System variables`, find the `Path` variable, select it and click `Edit…`
-    * In the Edit Environment Variable window, click on `New` and then paste the path to the directory where rclone is located (not including `rclone.exe` itself). For example, `C:\My_Software\rclone-v1.64.2-windows-amd64`
-    * Click `OK` in each window to close them
+    * Right-click on **Computer** or **This PC** on your desktop or in **File Explorer**, and choose `Properties`
+    * Click on **Advanced system settings**
+    * In the **System Properties** window that appears, click the **Environment Variables** button
+    * In the Environment Variables window, under **System variables**, find the `Path` variable, select it and click **Edit**
+    * In the **Edit Environment Variable** window, click on **New** and then paste the path to the directory where rclone is located (not including `rclone.exe` itself). For example, `C:\My_Software\rclone-v1.64.2-windows-amd64`
+    * Click **OK** in each window to close them
 
 After completing these steps, you should be able to open PowerShell or a Command prompt and type `rclone`. If everything is working, you’ll see a list of available commands; if not, you'll see an error like `Command not recognised`.
 
- 3. Follow the steps below (common to all OS's) to configure the connection to SeaBee's MinIO.
+ 3. Follow the steps below (common to all OSs) to configure the connection to SeaBee's MinIO.
 :::
 
 The quickest way to add SeaBee's MinIO storage as an rclone "remote" is to create and edit the `rclone.conf` file. Check the location of this file by running the command
@@ -69,7 +69,7 @@ The quickest way to add SeaBee's MinIO storage as an rclone "remote" is to creat
  rclone config file
  ```
 
- If the file does not exist, create it, then add this section
+If the file does not exist, create it, then add this section
 
  ```txt
  [seabee-minio]
@@ -80,9 +80,9 @@ secret_access_key = <SECRET_ACCESS_KEY>
 endpoint = storage.seabee.sigma2.no
 ```   
 
- where `<ACCESS_KEY_ID>` can be your user name or a service account, and `<SECRET_ACCESS_KEY>` is the accompanying password. Remember to save the changes to this file.
+where `<ACCESS_KEY_ID>` can be your MinIO user name or a service account, and `<SECRET_ACCESS_KEY>` is the accompanying password. Remember to save the changes to this file.
 
- To check that everything is working run this command
+To check that everything is working run this command
 
 ```bash
 rclone lsd seabee-minio:
@@ -90,7 +90,7 @@ rclone lsd seabee-minio:
 
 which should list the buckets on MinIO.
 
-The configuration setup can also be completed by following rclone's interactive configuration session. This can be started using
+The configuration setup can also be completed by following rclone's interactive configuration session, which can be started using
 
 ```bash
 rclone config
@@ -102,12 +102,22 @@ For most options, just accept the default. The storage type to select is `S3 com
 It is convenient to setup [autocomplete for rclone](https://rclone.org/commands/rclone_genautocomplete/), so it completes commands and paths when you press `TAB`.
 :::
 
-##### Usage {#sec-rclone-usage}
+##### Command-line usage {#sec-rclone-usage}
 
 See the [Rclone documentation](https://rclone.org/docs/) for a full list of available commands. For SeaBee, the most useful commands are likely to be `rclone mount --read-only`, `rclone copy` and `rclone sync`, in addition to standard OS commands such as `ls` and `mkdir`. `rclone help` is also useful.
 
 As an example, the following command would copy data from a local (Windows) system to a location on MinIO within the NTNU bucket (assuming the user has "write" access)
 
 ```txt
-rclone copy C:\path\to\my\data\flight_folder seabee-minio:ntnu/2022/flight_folder
+rclone copy -P -v "C:\path\to\my\data\flight_folder" seabee-minio:ntnu/2022/flight_folder
 ```
+
+In this example, the `-P` and `-v` flags are optional: the first (`Progress`) prints the progress of the data transfer, while the second (`verbose`) prints additional details that may be useful for debugging.
+
+##### rclone user interface {#sec-rclone-gui}
+
+[RcloneBrowser](https://kapitainsky.github.io/RcloneBrowser/) is a cross-platform application providing a graphical user interface to rclone. For users not comfortable with the command line, it offers a point-and-click interface capable of transferring large volumes of data to/from the SeaBee platform. RcloneBrowser can be installed on your local machine by downloading the appropriate binary for your OS from [here](https://github.com/kapitainsky/RcloneBrowser/releases).
+
+::: {.callout-important}
+To use RcloneBrowser, **you must first install and configure the command line version**, as described @sec-rclone-setup. The GUI simply makes it easier to build rclone commands, which are then submitted to "standard" rclone.
+:::
