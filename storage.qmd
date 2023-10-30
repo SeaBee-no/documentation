@@ -51,16 +51,16 @@ To install rclone follow the [instructions](https://rclone.org/install/) for you
  1. The rclone binary is downloaded as a zip archive. Unzip this to a suitable folder on your system (e.g. `C:\My_Software\rclone-v1.64.2-windows-amd64`).
 
  2. Add rclone to your system's `Path` so it is recognised from the command line:
-   * Right-click on `Computer` or `This PC` on your desktop or in File Explorer, and choose `Properties`
-   * Click on `Advanced system settings`
-   * In the `System Properties` window that appears, click the `Environment Variables…` button
-   * In the Environment Variables window, under `System variables`, find the `Path` variable, select it and click `Edit…`
-   * In the Edit Environment Variable window, click on `New` and then paste the path to the directory where rclone is located (not including `rclone.exe` itself). For example, `C:\My_Software\rclone-v1.64.2-windows-amd64`
-   * Click `OK` in each window to close them
+    * Right-click on `Computer` or `This PC` on your desktop or in File Explorer, and choose `Properties`
+    * Click on `Advanced system settings`
+    * In the `System Properties` window that appears, click the `Environment Variables…` button
+    * In the Environment Variables window, under `System variables`, find the `Path` variable, select it and click `Edit…`
+    * In the Edit Environment Variable window, click on `New` and then paste the path to the directory where rclone is located (not including `rclone.exe` itself). For example, `C:\My_Software\rclone-v1.64.2-windows-amd64`
+    * Click `OK` in each window to close them
 
-    After completing these steps, you should be able to open PowerShell or a Command prompt and type `rclone`. If everything is working, you’ll see a list of available commands; if not, you'll see an error like `Command not recognised`.
+After completing these steps, you should be able to open PowerShell or a Command prompt and type `rclone`. If everything is working, you’ll see a list of available commands; if not, you'll see an error like `Command not recognised`.
 
- 3. Follow the common steps below to configure the connection to SeaBee's MinIO.
+ 3. Follow the steps below (common to all OS's) to configure the connection to SeaBee's MinIO.
 :::
 
 The quickest way to add SeaBee's MinIO storage as an rclone "remote" is to create and edit the `rclone.conf` file. Check the location of this file by running the command
@@ -106,8 +106,8 @@ It is convenient to setup [autocomplete for rclone](https://rclone.org/commands/
 
 See the [Rclone documentation](https://rclone.org/docs/) for a full list of available commands. For SeaBee, the most useful commands are likely to be `rclone mount --read-only`, `rclone copy` and `rclone sync`, in addition to standard OS commands such as `ls` and `mkdir`. `rclone help` is also useful.
 
-As an example, the following command would copy data from a local (Windows) system to a location on MinIO within NTNU bucket (assuming the user has "write" access)
+As an example, the following command would copy data from a local (Windows) system to a location on MinIO within the NTNU bucket (assuming the user has "write" access)
 
-```bash
+```txt
 rclone copy C:\path\to\my\data\flight_folder seabee-minio:ntnu/2022/flight_folder
 ```
