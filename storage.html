@@ -361,10 +361,10 @@ Note
 </section>
 <section id="sec-rclone" class="level4" data-number="3.2.2">
 <h4 data-number="3.2.2" class="anchored" data-anchor-id="sec-rclone"><span class="header-section-number">3.2.2</span> Rclone</h4>
-<p><a href="https://rclone.org/">Rclone</a> provides a convenient way of synchronising files <code>local -&gt; cloud</code> or <code>cloud -&gt; cloud</code>. Rclone keeps track of the transferred files and will retry if the connection is interrupted. <strong>It is therefore the best option for experienced/advanced users wishing to add large volumes of imagery to Sigma2</strong>.</p>
+<p><a href="https://rclone.org/">Rclone</a> provides a convenient way of synchronising files <code>local -&gt; cloud</code> or <code>cloud -&gt; cloud</code>. Rclone keeps track of the transferred files and will retry if the connection is interrupted. <strong>It is therefore the best option for users wishing to add large volumes of imagery to Sigma2</strong>.</p>
 <section id="sec-rclone-setup" class="level5" data-number="3.2.2.1">
 <h5 data-number="3.2.2.1" class="anchored" data-anchor-id="sec-rclone-setup"><span class="header-section-number">3.2.2.1</span> Setup</h5>
-<p>To install rclone follow the <a href="https://rclone.org/install/">instructions</a> for your operating system, it is a single excutable that you can download.</p>
+<p>To install rclone follow the <a href="https://rclone.org/install/">instructions</a> for your operating system. It is a single excutable that you can download.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -379,17 +379,17 @@ Tips for Windows users
 <li><p>The rclone binary is downloaded as a zip archive. Unzip this to a suitable folder on your system (e.g.&nbsp;<code>C:\My_Software\rclone-v1.64.2-windows-amd64</code>).</p></li>
 <li><p>Add rclone to your system’s <code>Path</code> so it is recognised from the command line:</p>
 <ul>
-<li>Right-click on <code>Computer</code> or <code>This PC</code> on your desktop or in File Explorer, and choose <code>Properties</code></li>
-<li>Click on <code>Advanced system settings</code></li>
-<li>In the <code>System Properties</code> window that appears, click the <code>Environment Variables…</code> button</li>
-<li>In the Environment Variables window, under <code>System variables</code>, find the <code>Path</code> variable, select it and click <code>Edit…</code></li>
-<li>In the Edit Environment Variable window, click on <code>New</code> and then paste the path to the directory where rclone is located (not including <code>rclone.exe</code> itself). For example, <code>C:\My_Software\rclone-v1.64.2-windows-amd64</code></li>
-<li>Click <code>OK</code> in each window to close them</li>
+<li>Right-click on <strong>Computer</strong> or <strong>This PC</strong> on your desktop or in <strong>File Explorer</strong>, and choose <code>Properties</code></li>
+<li>Click on <strong>Advanced system settings</strong></li>
+<li>In the <strong>System Properties</strong> window that appears, click the <strong>Environment Variables</strong> button</li>
+<li>In the Environment Variables window, under <strong>System variables</strong>, find the <code>Path</code> variable, select it and click <strong>Edit</strong></li>
+<li>In the <strong>Edit Environment Variable</strong> window, click on <strong>New</strong> and then paste the path to the directory where rclone is located (not including <code>rclone.exe</code> itself). For example, <code>C:\My_Software\rclone-v1.64.2-windows-amd64</code></li>
+<li>Click <strong>OK</strong> in each window to close them</li>
 </ul></li>
 </ol>
 <p>After completing these steps, you should be able to open PowerShell or a Command prompt and type <code>rclone</code>. If everything is working, you’ll see a list of available commands; if not, you’ll see an error like <code>Command not recognised</code>.</p>
 <ol start="3" type="1">
-<li>Follow the steps below (common to all OS’s) to configure the connection to SeaBee’s MinIO.</li>
+<li>Follow the steps below (common to all OSs) to configure the connection to SeaBee’s MinIO.</li>
 </ol>
 </div>
 </div>
@@ -402,11 +402,11 @@ Tips for Windows users
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>access_key_id = &lt;ACCESS_KEY_ID&gt;</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>secret_access_key = &lt;SECRET_ACCESS_KEY&gt;</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>endpoint = storage.seabee.sigma2.no</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>where <code>&lt;ACCESS_KEY_ID&gt;</code> can be your user name or a service account, and <code>&lt;SECRET_ACCESS_KEY&gt;</code> is the accompanying password. Remember to save the changes to this file.</p>
+<p>where <code>&lt;ACCESS_KEY_ID&gt;</code> can be your MinIO user name or a service account, and <code>&lt;SECRET_ACCESS_KEY&gt;</code> is the accompanying password. Remember to save the changes to this file.</p>
 <p>To check that everything is working run this command</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> lsd seabee-minio:</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>which should list the buckets on MinIO.</p>
-<p>The configuration setup can also be completed by following rclone’s interactive configuration session. This can be started using</p>
+<p>The configuration setup can also be completed by following rclone’s interactive configuration session, which can be started using</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">rclone</span> config</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>For most options, just accept the default. The storage type to select is <code>S3 compliant</code> (i.e.&nbsp;option 5) and the endpoint is <code>storage.seabee.sigma2.no</code>. This also allows you to setup a wide range of other remotes.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
@@ -424,10 +424,28 @@ Tip
 </div>
 </section>
 <section id="sec-rclone-usage" class="level5" data-number="3.2.2.2">
-<h5 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-rclone-usage"><span class="header-section-number">3.2.2.2</span> Usage</h5>
+<h5 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-rclone-usage"><span class="header-section-number">3.2.2.2</span> Command-line usage</h5>
 <p>See the <a href="https://rclone.org/docs/">Rclone documentation</a> for a full list of available commands. For SeaBee, the most useful commands are likely to be <code>rclone mount --read-only</code>, <code>rclone copy</code> and <code>rclone sync</code>, in addition to standard OS commands such as <code>ls</code> and <code>mkdir</code>. <code>rclone help</code> is also useful.</p>
 <p>As an example, the following command would copy data from a local (Windows) system to a location on MinIO within the NTNU bucket (assuming the user has “write” access)</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rclone copy C:\path\to\my\data\flight_folder seabee-minio:ntnu/2022/flight_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rclone copy -P -v "C:\path\to\my\data\flight_folder" seabee-minio:ntnu/2022/flight_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this example, the <code>-P</code> and <code>-v</code> flags are optional: the first (<code>Progress</code>) prints the progress of the data transfer, while the second (<code>verbose</code>) prints additional details that may be useful for debugging.</p>
+</section>
+<section id="sec-rclone-gui" class="level5" data-number="3.2.2.3">
+<h5 data-number="3.2.2.3" class="anchored" data-anchor-id="sec-rclone-gui"><span class="header-section-number">3.2.2.3</span> rclone user interface</h5>
+<p><a href="https://kapitainsky.github.io/RcloneBrowser/">RcloneBrowser</a> is a cross-platform application providing a graphical user interface to rclone. For users not comfortable with the command line, it offers a point-and-click interface capable of transferring large volumes of data to/from the SeaBee platform. RcloneBrowser can be installed on your local machine by downloading the appropriate binary for your OS from <a href="https://github.com/kapitainsky/RcloneBrowser/releases">here</a>.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>To use RcloneBrowser, <strong>you must first install and configure the command line version</strong>, as described <a href="#sec-rclone-setup">Section&nbsp;3.2.2.1</a>. The GUI simply makes it easier to build rclone commands, which are then submitted to “standard” rclone.</p>
+</div>
+</div>
 
 
 </section>
