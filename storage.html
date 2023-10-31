@@ -427,8 +427,13 @@ Tip
 <h5 data-number="3.2.2.2" class="anchored" data-anchor-id="sec-rclone-usage"><span class="header-section-number">3.2.2.2</span> Command-line usage</h5>
 <p>See the <a href="https://rclone.org/docs/">Rclone documentation</a> for a full list of available commands. For SeaBee, the most useful commands are likely to be <code>rclone mount --read-only</code>, <code>rclone copy</code> and <code>rclone sync</code>, in addition to standard OS commands such as <code>ls</code> and <code>mkdir</code>. <code>rclone help</code> is also useful.</p>
 <p>As an example, the following command would copy data from a local (Windows) system to a location on MinIO within the NTNU bucket (assuming the user has “write” access)</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rclone copy -P -v "C:\path\to\my\data\flight_folder" seabee-minio:ntnu/2022/flight_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>In this example, the <code>-P</code> and <code>-v</code> flags are optional: the first (<code>Progress</code>) prints the progress of the data transfer, while the second (<code>verbose</code>) prints additional details that may be useful for debugging.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode txt code-with-copy"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rclone copy -P -v -i "C:\path\to\my\data\flight_folder" seabee-minio:ntnu/2022/flight_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>In this example, the <code>-P</code>, <code>-v</code> and <code>-i</code> flags are optional:</p>
+<ul>
+<li><code>-P</code> (<code>--Progress</code>) prints the progress of the data transfer</li>
+<li><code>-v</code> (<code>--verbose</code>) prints additional details that may be useful for debugging</li>
+<li><code>-i</code> (<code>--interactive</code>) is <strong>useful for beginners learning to use rclone</strong>. With this flag enabled, rclone will ask for confirmation before performing certain tasks. This is useful for new users because the wrong command could accidentally delete/replace a lot of data. <strong>It is recommended to start off using the <code>-i</code> flag and then remove it once you have gained confidence</strong>. The <code>--dry-run</code> flag can also be helpful: it prints a detailed plan for what rclone will do when you run the command, but does not actually make any changes.</li>
+</ul>
 </section>
 <section id="sec-rclone-gui" class="level5" data-number="3.2.2.3">
 <h5 data-number="3.2.2.3" class="anchored" data-anchor-id="sec-rclone-gui"><span class="header-section-number">3.2.2.3</span> rclone user interface</h5>
