@@ -109,10 +109,14 @@ See the [Rclone documentation](https://rclone.org/docs/) for a full list of avai
 As an example, the following command would copy data from a local (Windows) system to a location on MinIO within the NTNU bucket (assuming the user has "write" access)
 
 ```txt
-rclone copy -P -v "C:\path\to\my\data\flight_folder" seabee-minio:ntnu/2022/flight_folder
+rclone copy -P -v -i "C:\path\to\my\data\flight_folder" seabee-minio:ntnu/2022/flight_folder
 ```
 
-In this example, the `-P` and `-v` flags are optional: the first (`Progress`) prints the progress of the data transfer, while the second (`verbose`) prints additional details that may be useful for debugging.
+In this example, the `-P`, `-v` and `-i` flags are optional: 
+
+ * `-P` (`--Progress`) prints the progress of the data transfer
+ * `-v` (`--verbose`) prints additional details that may be useful for debugging
+ * `-i` (`--interactive`) is **useful for beginners learning to use rclone**. With this flag enabled, rclone will ask for confirmation before performing certain tasks. This is useful for new users because the wrong command could accidentally delete/replace a lot of data. **It is recommended to start off using the `-i` flag and then remove it once you have gained confidence**. The `--dry-run` flag can also be helpful: it prints a detailed plan for what rclone will do when you run the command, but does not actually make any changes.
 
 ##### rclone user interface {#sec-rclone-gui}
 
