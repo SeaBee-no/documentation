@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.450">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -22,7 +22,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -79,7 +79,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -88,6 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -102,9 +109,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
-      <div class="navbar-brand-container">
+      <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">SeaBee Documentation</span>
     </a>
@@ -116,66 +123,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
- <span class="menu-text">Home</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./login.html" rel="" target="">
- <span class="menu-text">Login</span></a>
+    <a class="nav-link" href="./login.html"> 
+<span class="menu-text">Login</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./storage.html" rel="" target="">
- <span class="menu-text">Storage</span></a>
+    <a class="nav-link" href="./storage.html"> 
+<span class="menu-text">Storage</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data-upload.html" rel="" target="">
- <span class="menu-text">Data upload</span></a>
+    <a class="nav-link" href="./data-upload.html"> 
+<span class="menu-text">Data upload</span></a>
   </li>  
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Processing</span>
     </a>
     <ul class="dropdown-menu" aria-labelledby="nav-menu-processing">    
         <li>
-    <a class="dropdown-item" href="./orthorectification.html" rel="" target="">
+    <a class="dropdown-item" href="./orthorectification.html">
  <span class="dropdown-text">Orthorectification</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./standardised-imagery.html" rel="" target="">
+    <a class="dropdown-item" href="./standardised-imagery.html">
  <span class="dropdown-text">Standardised imagery</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./jupyterhub.html" rel="" target="">
+    <a class="dropdown-item" href="./jupyterhub.html">
  <span class="dropdown-text">JupyterHub</span></a>
   </li>  
     </ul>
   </li>
   <li class="nav-item">
-    <a class="nav-link" href="./annotation.html" rel="" target="">
- <span class="menu-text">Annotation</span></a>
+    <a class="nav-link" href="./annotation.html"> 
+<span class="menu-text">Annotation</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./data-products.html" rel="" target="">
- <span class="menu-text">Data products</span></a>
+    <a class="nav-link" href="./data-products.html"> 
+<span class="menu-text">Data products</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./howto.html" rel="" target="">
- <span class="menu-text">How to</span></a>
+    <a class="nav-link" href="./howto.html"> 
+<span class="menu-text">How to</span></a>
   </li>  
 </ul>
-            <div class="quarto-navbar-tools ms-auto">
-</div>
           </div> <!-- /navcollapse -->
+          <div class="quarto-navbar-tools">
+</div>
       </div> <!-- /container-fluid -->
     </nav>
   <nav class="quarto-secondary-nav">
     <div class="container-fluid d-flex">
-      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-upload.html">Data upload</a></li></ol></nav>
-      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
-      </a>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./data-upload.html">Data upload</a></li></ol></nav>
+        <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
       <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
         <i class="bi bi-search"></i>
       </button>
@@ -185,7 +192,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
-  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation docked overflow-auto">
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
         <div class="mt-2 flex-shrink-0 align-items-center">
         <div class="sidebar-search">
         <div id="quarto-search" class="" title="Search"></div>
@@ -279,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     </ul>
     </div>
 </nav>
-<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         <nav id="TOC" role="doc-toc" class="toc-active">
@@ -315,7 +322,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
+
 </header>
+
 
 <p>The information on this page is primarily aimed at <strong>drone pilots</strong> wishing to add mission data to the SeaBee platform. For a more general overview of SeaBee data storage, see <a href="./storage.html">here</a>.</p>
 <section id="sec-overview" class="level2" data-number="1">
@@ -379,7 +388,7 @@ Important
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>The flight folders themselves can be organised however you wish. For example, you may choose to group flight folders into parent folders based on organisation and year (e.g.&nbsp;<code>/niva/2023/flight_folder1</code>, <code>/niva/2023/flight_folder2</code> etc.), or you may wish to group them by project, pilot, or any combination of these. The automated data processing routines on the SeaBee platform simply scan the file system for folders containing files named <code>config.seabee.yaml</code>. As long as the data within these folders is arranged correctly, everything should work OK (see <a href="#sec-subfolder-structure">Section&nbsp;2.2</a>).</p>
+<p>The flight folders themselves can be organised however you wish. For example, you may choose to group flight folders into parent folders based on organisation and year (e.g.&nbsp;<code>/niva/2023/flight_folder1</code>, <code>/niva/2023/flight_folder2</code> etc.), or you may wish to group them by project, pilot, or any combination of these. The automated data processing routines on the SeaBee platform simply scan the file system for folders containing files named <code>config.seabee.yaml</code>. As long as the data within these folders is arranged correctly, everything should work OK (see <a href="#sec-subfolder-structure" class="quarto-xref">Section&nbsp;2.2</a>).</p>
 </div>
 </div>
 </section>
@@ -428,7 +437,7 @@ config.seabee.yaml</code></pre>
 <li><p><code>report</code> (optional). The PDF report describing results from the orthorectification process, plus any associated logs (e.g.&nbsp;text files and JSON). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
 <li><p><code>texturing</code> (optional). Texture models generated during orthorectification. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g.&nbsp;using Pix4D).</p></li>
 <li><p><code>images</code> (required). Images from a <strong>single flight</strong> (i.e.&nbsp;images that can be orthorectified to produce a single mosaic). The images should <strong>not</strong> be grouped into subfolders.</p></li>
-<li><p><code>config.seabee.yaml</code> (required). A file containing flight metadata and additional settings to control the processing workflow. See <a href="#sec-config-file">Section&nbsp;2.3</a> for details.</p></li>
+<li><p><code>config.seabee.yaml</code> (required). A file containing flight metadata and additional settings to control the processing workflow. See <a href="#sec-config-file" class="quarto-xref">Section&nbsp;2.3</a> for details.</p></li>
 </ul>
 </section>
 <section id="sec-config-file" class="level3" data-number="2.3">
@@ -506,7 +515,7 @@ Note
 </section>
 <section id="sec-upload" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-upload"><span class="header-section-number">3</span> Manual data upload</h2>
-<p>If you are not using the <a href="https://geonode.seabee.sigma2.no/ddc/#step-1">data upload interface</a>, the first step before uploading anything is to organise the data from each flight into folders on your local system, as described in <a href="#sec-data-structure">Section&nbsp;2</a>. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and Rclone, both of which are described on the <a href="./storage.html">Storage</a> page.</p>
+<p>If you are not using the <a href="https://geonode.seabee.sigma2.no/ddc/#step-1">data upload interface</a>, the first step before uploading anything is to organise the data from each flight into folders on your local system, as described in <a href="#sec-data-structure" class="quarto-xref">Section&nbsp;2</a>. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and Rclone, both of which are described on the <a href="./storage.html">Storage</a> page.</p>
 <p>The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, Rclone is recommended. The big advantage of Rclone is that it tracks which files have been transferred and it will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than “standard” data upload via a web interface: using Rclone, it is possible to upload terabytes of data relatively smoothly.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
@@ -518,7 +527,7 @@ Example: Using Rclone and ODM for near-real-time generation of orthophotos
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>During spring 2023, Sindre Molværsmyr and colleagues from NINA flew several hundred drone-based seabird surveys within a period of just a few weeks. Raw images were downloaded from the drones each evening and arranged into flight folders with the structure shown below (described in <a href="#sec-data-structure">Section&nbsp;2</a>):</p>
+<p>During spring 2023, Sindre Molværsmyr and colleagues from NINA flew several hundred drone-based seabird surveys within a period of just a few weeks. Raw images were downloaded from the drones each evening and arranged into flight folders with the structure shown below (described in <a href="#sec-data-structure" class="quarto-xref">Section&nbsp;2</a>):</p>
 <pre><code>grouping_area_yyyymmddHHMM/
 ├─ images/
 config.seabee.yaml</code></pre>
@@ -611,10 +620,27 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn) {
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/SeaBee-no\.github\.io\/documentation\/");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
-      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -624,8 +650,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start'
+      placement: 'bottom-start',
     };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -637,7 +672,130 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -681,6 +839,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -706,6 +865,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -766,6 +951,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
+
 
 
 
