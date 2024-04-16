@@ -163,16 +163,46 @@ The following tips should help you to create good quality annotation:
 
 ### Packaging annotation {#sec-packaging}
 
-Once all subareas have been digitised, each person should upload their annotation shapefiles to an agreed folder on Teams (eventually, on Sigma2). **Make sure each subarea is included only once**.
+Once all subareas have been digitised, each person should upload their annotation shapefiles to MinIO using the following structure:
 
- 1. Work through the notebook [here](https://nbviewer.org/github/SeaBee-no/annotation/blob/main/code/annotation_workflow.ipynb), specifically Sections 3 to 6. This will:
+```
+niva-tidy/annotation/
+├─ campaign_year/
+│  ├─ annotation_by_subarea
+│  │  ├─ annotation_area1.shp
+│  │  ├─ annotation_area1.shx
+│  │  ├─ annotation_area1.dbf
+│  │  ├─ annotation_area1.prj
+│  │  ├─ annotation_area1.cpg
+│  │  ├─ annotation_area2.shp
+│  │  ├─ etc.
+│  ├─ region_of_interest
+│  │  ├─ roi.shp
+│  │  ├─ roi.shx
+│  │  ├─ roi.dbf
+│  │  ├─ roi.prj
+│  │  ├─ roi.cpg
+│  ├─ subarea_boundaries
+│  │  ├─ subarea_bounds.shp
+│  │  ├─ subarea_bounds.shx
+│  │  ├─ subarea_bounds.dbf
+│  │  ├─ subarea_bounds.prj
+│  │  ├─ subarea_bounds.cpg
+```
+
+Note the following:
+
+ * `campaign_year` represents an entire campaign, which may involve multiple drone flights e.g. `remoy_2022` or `kelpmap_2022`.
+ * The folder `annotation_by_subarea` should contain **one polygon shapefile per subarea**. Make sure each subarea is included only once.
+ * The `region_of_interest` subfolder should contain a **single polygon shapefile** defining the region of interest.
+ * The `subarea_boundaries` subfolder should contain a **single polygon shapefile** with one polygon feature per subarea.
  
-    (i) Merge the annotation shapefiles for each subarea or group of subareas into a single dataset.
-    
-    (ii) Tag each of the annotation polygons with the subarea ID, making it easier to filter/subdivide the training data.
-    
-    (iii) Reconstruct the original, three-column class hierarchy from the single-column ArcGIS output. This makes it easy to generate raster annotation for any of the three "levels".
-    
-    (iv) Create a geopackage combining the annotation data, the subarea polygons and the region of interest.
-    
- 2. The geopackage should be uploaded to Teams/Sharepoint and shared with NR, together with links to the relevant orthomosaics.
+ Once the data are uploaded to MinIO in the correct format, work through the notebook [here](https://nbviewer.org/github/SeaBee-no/annotation/blob/main/code/annotation_workflow.ipynb). This will:
+ 
+ 1. Merge the annotation shapefiles for each subarea into a single dataset.
+ 
+ 2. Tag each of the annotation polygons with the subarea ID, making it easier to filter/subdivide the training data.
+ 
+ 3. Reconstruct the original, three-column class hierarchy from the single-column ArcGIS output. This makes it easy to generate raster annotation for any of the three "levels".
+ 
+ 4. Create a geopackage combining the annotation data, the subarea polygons and the region of interest. The geopackage will be saved to MinIO in the `campaign_year` folder. This can then be shared with NR, together with links to the relevant orthomosaics.
