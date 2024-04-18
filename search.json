@@ -1,5 +1,188 @@
 [
   {
+    "objectID": "orthorectification.html",
+    "href": "orthorectification.html",
+    "title": "Orthorectification",
+    "section": "",
+    "text": "Orthorectification within SeaBee is currently performed using two main tools: Open Drone Map (ODM), which is Open Source, and Pix4D, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.\nPix4D-Engine is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the NodeODM API. PyODM and CloudODM are also provided.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "Orthorectification"
+    ]
+  },
+  {
+    "objectID": "orthorectification.html#open-drone-map",
+    "href": "orthorectification.html#open-drone-map",
+    "title": "Orthorectification",
+    "section": "1 Open Drone Map",
+    "text": "1 Open Drone Map\nOpen Drone Map is accessible from the SeaBee JupyterHub via NodeODM, which provides a convenient API for scheduling and executing jobs. SeaBee’s NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used in combination with Rclone, this makes it possible to create and publish orthomosaics in near-real-time.\n\n\n\n\n\n\nTip\n\n\n\nBecause NodeODM has its resources allocated separately, you can use it from the Standard SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please do not use the more powerful Hubs for orthomosaicing - they will not run any faster and will block resources from other users.\n\n\nOnce you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use task.info().progress to periodically check the status of your job. For a more detailed example, see the notebook here.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "Orthorectification"
+    ]
+  },
+  {
+    "objectID": "annotation.html",
+    "href": "annotation.html",
+    "title": "Annotation",
+    "section": "",
+    "text": "Repository on GitHub",
+    "crumbs": [
+      "Home",
+      "Annotation"
+    ]
+  },
+  {
+    "objectID": "annotation.html#sec-overview",
+    "href": "annotation.html#sec-overview",
+    "title": "Annotation",
+    "section": "1 Overview",
+    "text": "1 Overview\nThis document describes the preliminary SeaBee annotation workflow for habitat mapping. The aim of these notes is to help new users get started with annotation using ArcGIS Pro and to avoid common mistakes/pitfalls.",
+    "crumbs": [
+      "Home",
+      "Annotation"
+    ]
+  },
+  {
+    "objectID": "annotation.html#sec-workflow",
+    "href": "annotation.html#sec-workflow",
+    "title": "Annotation",
+    "section": "2 Workflow",
+    "text": "2 Workflow\n\n2.1 Install ArcGIS Pro\nFollow the steps below to download and install ArcGIS Pro on your local machine.\n\nContact Debhasish Bhakta to obtain login details for ArcGIS Online. You need access to ArcGIS Pro with the Image Analyst extension.\nLogin to ArcGIS Online and, under your profile, choose Settings &gt; Licenses. Check that Image Analyst is available to you under ArcGIS Pro extensions, then click the link to Download ArcGIS Pro (Figure 1).\nObtain an administrator password from IT-Vakt and run the installer. You should then be able to start ArcGIS Pro and login to the application using your ArcGIS Online credentials.\n\n\n\n\n\n\n\nFigure 1: Download ArcGIS Pro\n\n\n\n\n\n2.2 Setup project\nThe next step is to create a new project within ArcGIS and add SeaBee data to it.\n\nIn ArcGIS Pro, create a new Map project. The Name should describe the mission/area you’re annotating and Location should be an existing local folder on your PC.\n\n\n\n\n\n\n\nTip\n\n\n\nArcGIS may run slowly if you set Location to be a network folder or a folder that is synchronised to an external server (e.g. DropBox, OneDrive, GoogleDrive).\n\n\n\nWithin your project folder, create three new subfolders: class_definitions, vector and raster. This can either be done using the Catalog pane in ArcGIS or using Windows’ File Explorer.\nDownload relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a class definition file, a georeferenced orthomosaic (or WMS layer) and a region of interest (ROI) file. Optionally, you may include a ground truth dataset and any pre-existing annotation for your area of interest. See Section 2.3 to Section 2.6 for details.\n\n\n\n2.3 Class definition files\nArcGIS Pro supports hierarchical class definitions, which can be defined manually via the Training Samples Manager. Class definitions are saved as ESRI Classification Schema files (.ecs), which are JSON files with a specific structure.\nThe classes of interest to SeaBee are complex and creating them manually via the user interface is cumbersome. Section 2 of the notebook here includes code to build an .ecs file with the correct schema from an Excel table, which is more convenient in most cases.\nAs far as possible, SeaBee will use a standard set of class definitions for habitat mapping. The latest versions are available online here in both Excel and .ecs formats.\nThe workflow for class definition files is as follows:\n\nBefore starting to annotate a new area, everyone involved must agree on which set of class definitions (i.e. which version) to use. If necessary, class definitions can be updated in Excel and a new version of the .ecs file created using the code linked above.\nEveryone should download the same .ecs file and add it to the class_definitions folder in their ArcGIS project (created in Section 2.2).\n\n\n\n\n\n\n\nImportant\n\n\n\nUsing a standard set of classes is important if the machine learning algorithms created by SeaBee are to be transferable/re-trainable. It is likely that some changes to the class schema will be necessary initially, but we are hoping to converge on a standard set of habitat classes if possible. Proposed changes should be discussed with Hege Gundersen and Kristina Øie Kvile.\n\n\n\n\n2.4 Orthomosaics\nOrthomosaics for your area of interest should be added to your map. You can either download them via MinIO and add them to the raster folder within your ArcGIS project, or connect to the SeaBee WMS and add them as web service layers. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.\n\n\n\n\n\n\nTip\n\n\n\nDownloading large files from MinIO can be slow and unstable. If you wish to store the data locally, consider using RClone (see ?@sec-rclone). Using WMS layers is generally easier, but unfortunately they are not recognised by Image Analyst. If you wish to use the WMS, you will need to add at least one local raster file to your map covering your area of interest.\n\n\n\n\n2.5 Ground truth data\nPoint shapefiles of ground truth data are available for most missions. These are typically stored in the mission folders on MinIO within subfolders called ground-truth, or at a higher level find the folder structure (e.g. a single ground truth dataset for an entire SeaBee campaign).\nIf available, download the shapefile and add it to the vector folder within your in ArcGIS project.\n\n\n2.6 Region of interest and training subareas\nFor each mission, you should create shapefiles defining (i) your region of interest (ROI), and (ii) a set of subareas that will be used to divide the annotation data into “blocks”. When you create these shapefiles, be sure to use the same co-ordinate reference system (CRS) as the orthomosaic you wish to annotate.\n\nThe ROI defines the area that you would eventually like to classify. This will typically cover a large proportion of the total image, but excluding anything not covered by your class definition file (see Section 2.3). As an example, see the black dashed line defining the ROI for Remøy on Figure 2.\nMachine learning algorithms only learn based on the training samples you provide, so if the prediction area includes things not present in the training data you will get poor results. If possible, use the ROI file to define an area excluding things like roads, buildings and bridges that you are not interested in. You can then ignore these at the annotation stage and focus instead on annotating classes of ecological interest.\n\n\n\n\n\n\n\nImportant\n\n\n\nIf your area includes lots of man-made objects and you can’t exclude them using an ROI for some reason, make sure you annotate a representative selection of each type of object and tag them all as ANTHRO.\n\n\n\nThe training subareas are a set of rectangles (say, 1 to 10) that define discrete areas within which you create annotation. See the red rectangles on Figure 2 for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g. Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we’re satisfied, we can use data from Area 6 to get a independent assessment of the model’s performance.\nDefining training subareas is also a convenient way of dividing the annotation workload between several people: each person agrees to annotate one or two specific subareas. This avoids accidental duplication of effort (although at times it may also be useful for several people to annotate the same area to assess consistency).\n\n\n\n\n\n\n\nFigure 2: Region of interest and training subareas used for Remøy\n\n\n\nIf you do not wish to use subareas, simply create files named roi.shp and subarea_bounds.shp and add a single polygon to each defining the area to be annotated.\n\n\n2.7 Styling the map\nOnce you have download all the relevant datasets and added them to your project folder in ArcGIS, you can add layers to your map and style them appropriately. Figure 3 shows an example.\n\nDrag each layer from the Catalog pane (right-most column in Figure 3) to the ArcGIS Table of contents (left-most pane in Figure 3). The order of layers in the Table of contents defines the drawing order on the map, so put the orthomosaic at the bottom and the other layers on top.\nRight-click each vector layer in the Table of contents and choose Symbology. This will allow you to define fill and outline colours for the vector layers on your map.\n[Optional] Right-click the ground truth dataset and choose Labelling Properties. Set the Expression to be $feature.Kode, where Kode is the name of the column in the ground truth attribute table containing the labels you want to use. When you click Apply, you should see each point in the ground truth dataset labelled with its class code.\n\n\n\n\n\n\n\nTip\n\n\n\nWhenever you’re working with anything GIS-related, remember to save your work regularly!\n\n\n\n\n\n\n\n\nFigure 3: Example ArcGIS layout\n\n\n\n\n\n2.8 Creating annotation\nWith the ArcGIS project configured, you can begin creating annotation.\n\nIn the ArcGIS Table of contents (left-most pane in Figure 3), select one of your orthomosaic layers. This will activate the Image Analyst extension. Note that if you’re using WMS layers, these are not recognised by Image Analyst. In this case, select a local TIFF file for your area of interest and use this instead (see tip above).\nOn the “ribbon” (i.e. menu bar), select the Imagery tab and choose Classification Tools &gt; Training Samples Manager. A new pane should appear at the right side of the window.\nIn the upper part of the new pane, click the folder icon (which has a tooltip saying Classification schema) and load your class definition file (see Section 2.3). You should see the class hierarchy added to the upper half of the window.\nIdentify the training area you wish to annotate and zoom in on a feature (e.g. a boulder or patch of algae). In the class hierarchy, select the class you wish to annotate, choose one of drawing tools from the top of the window and begin digitising. In most cases, the Freehand tool is likely to be most useful.\n\nEach polygon you draw will appear in the lower half of the Image Classification pane (see Figure 4). The Pixels (%) column shows what proportion of the pixels digitised so far belong to each class.\n\n\n\n\n\n\nFigure 4: The Training Samples Manager\n\n\n\n\nIt is a good idea to periodically group polygons of the same class. This is done by selecting the rows you wish to group in the lower pane (using SHIFT + Click or CTRL + Click) and then clicking the Collapse icon (two arrows coming together). You can also ungroup using the Expand button (one arrow splitting into two).\nWhen you have finished your digitising session, click the Save icon in the lower pane of the Training Samples Manager to save your training samples as a shapefile in the vector folder of your ArcGIS project. You should also save the entire ArcGIS project before closing down.\nIf you wish to continue annotating using a shapefile created previously, first open your ArcGIS project and load the class definitions file (steps 1 to 3 above). Then, instead of creating new annotation from scratch, click the folder icon in the lower part of the Image Classification pane (labelled Load training samples) and browse to the annotation shapefile created previously. You can now continue annotating and save changes back to the original shapefile.\n\n\n\n\n\n\n\nTip\n\n\n\nThe following tips should help you to create good quality annotation:\n\nAlways assign the most detailed level in the class hierarchy that you can confidently identify. If you are not sure, assign the level above.\nGroup your polygons by class regularly and get into the habit of clicking Save immediately before each grouping operation.\nUse the Pixels (%) column to prioritise which classes to focus on. Given the classes of interest, you will probably not be able to produce a “balanced” training dataset, but if you have e.g. 90% BOULDER there’s no point digitising more boulders.\nYou don’t need to digitise everything within each training subarea (but the more the better).\nDo not annotate anything outside of the training subareas and do not draw polygons that cross subarea boundaries.\nDo not draw overlapping polygons or polygons that touch one another (ideally, there should be at least one pixel between adjacent polygons).\nDo not draw self-intersecting polygons (i.e. when the line you’re drawing crosses itself, such as when drawing a figure-of-eight or bow-tie shape). Such polygons are invalid and they cause problems later in the workflow. In particular, there is a bug/lack of error handling in ArcGIS Pro’s Training Samples Manager that causes the application to crash hard if you attempt to group invalid polygons.\nIf you’re not sure how to assign something, or where a boundary should be drawn, the key question to ask yourself is: “Would I be happy if an algorithm classified this entire polygon as X?” If the answer is “Yes”, it is reasonable to tag the whole polygon as X; if the answer is “No” consider subdividing or deleting it.\n\n\n\n\n\n2.9 Packaging annotation\nOnce all subareas have been digitised, each person should upload their annotation shapefiles to MinIO using the following structure:\nniva-tidy/annotation/\n├─ campaign_year/\n│  ├─ annotation_by_subarea\n│  │  ├─ annotation_area1.shp\n│  │  ├─ annotation_area1.shx\n│  │  ├─ annotation_area1.dbf\n│  │  ├─ annotation_area1.prj\n│  │  ├─ annotation_area1.cpg\n│  │  ├─ annotation_area2.shp\n│  │  ├─ etc.\n│  ├─ region_of_interest\n│  │  ├─ roi.shp\n│  │  ├─ roi.shx\n│  │  ├─ roi.dbf\n│  │  ├─ roi.prj\n│  │  ├─ roi.cpg\n│  ├─ subarea_boundaries\n│  │  ├─ subarea_bounds.shp\n│  │  ├─ subarea_bounds.shx\n│  │  ├─ subarea_bounds.dbf\n│  │  ├─ subarea_bounds.prj\n│  │  ├─ subarea_bounds.cpg\nNote the following:\n\ncampaign_year represents an entire campaign, which may involve multiple drone flights e.g. remoy_2022 or kelpmap_2022.\nThe folder annotation_by_subarea should contain one polygon shapefile per subarea. Make sure each subarea is included only once.\nThe region_of_interest subfolder should contain a single polygon shapefile defining the region of interest.\nThe subarea_boundaries subfolder should contain a single polygon shapefile with one polygon feature per subarea.\n\nOnce the data are uploaded to MinIO in the correct format, work through the notebook here. This will:\n\nMerge the annotation shapefiles for each subarea into a single dataset.\nTag each of the annotation polygons with the subarea ID, making it easier to filter/subdivide the training data.\nReconstruct the original, three-column class hierarchy from the single-column ArcGIS output. This makes it easy to generate raster annotation for any of the three “levels”.\nCreate a geopackage combining the annotation data, the subarea polygons and the region of interest. The geopackage will be saved to MinIO in the campaign_year folder. This can then be shared with NR, together with links to the relevant orthomosaics.",
+    "crumbs": [
+      "Home",
+      "Annotation"
+    ]
+  },
+  {
+    "objectID": "jupyterhub.html",
+    "href": "jupyterhub.html",
+    "title": "JupyterHub",
+    "section": "",
+    "text": "Choose the resources you need from the links below and login using your Feide credentials.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "jupyterhub.html#sec-overview",
+    "href": "jupyterhub.html#sec-overview",
+    "title": "JupyterHub",
+    "section": "1 Overview",
+    "text": "1 Overview\nThe SeaBee JupyterHub provides a central access point for data processing on the SeaBee platform. It can be used to access data stored on MinIO, to push new datasets to GeoServer & GeoNode, to train & apply machine learning algorithms, and to perform general data processing tasks. See the simplified architecture diagram for an indication of where the Hub fits in relation to other platform components.\n\n1.1 Programming languages\nThe Hub provides access to three programming languages: Python, R and Julia. Most of the development work so far has been done using Python, but since R is popular with many SeaBee ecologists it has been included to facilitate better collaboration between developers and researchers. Julia is typically faster than Python or R for intensive number crunching, but it is not (yet) used in any SeaBee workflows.\nThe Python environment includes everything most users will need for typical geospatial data processing and machine learning tasks. See Section 4 for some example notebooks illustrating various SeaBee workflows.\n\n\n1.2 Integrated Development Environments\nThe Hub provides access to three Integrated Development Environments (IDEs): JupyterLab, VSCode and R-Studio. Users may work with one or all of these (and switch between them), depending on their experience, preferences and the task being undertaken. JupyterLab provides a familiar interface for many Python-orientated data scientists, while R-Studio will be familiar to most users of R. VSCode offers a more traditional IDE, with a richer set of tools for developers. In addition, all users have access to an Ubuntu terminal, providing access to Bash and various other command-line tools.\nJupyter Notebooks and scripts can be created for any of the 3 languages described. Notebooks can be edited using either JupyterLab or VSCode, and they provide an excellent way to develop and test workflows and to share examples with colleagues. Similarly, R-Studio can be used to create R-Markdown documents, which combine working code and descriptive text is an analogous way to Jupyter Notebooks. See Section 4 for some examples.\n\n\n1.3 Extensions\nThe Hub includes the following extensions and add-ins:\n\njupyter-archive provides context menu options for creating and extracting .zip archives (the zip and unzip terminal commands are also available).\njupyterlab-lsp provides language server protocol integration.\njupyterlab_code_formatter offers code auto-formatting (using black for Python).\njupyterlab-spellchecker provides spell-checking within Markdown and notebook documents.\njupyterlab-spreadsheet supports read-only exploration of Excel files, which is useful for quickly inspecting files while coding, without having to download open them in Excel.\njupyterlab-git provides a Git graphical user interface (GUI) in JupyterLab (see Section 3). Note that Git integration is also available in R-Studio and VSCode, as well as via the terminal.\n\n\n\n1.4 Resources\nAll SeaBee components are deployed within a single Kubernetes namespace. The JupyterHub shares resources in this namespace with other components of the platform. Some memory and CPUs are permanently reserved for running e.g. GeoServer and Open Drone Map, but the rest is available to JupyterHub. Resources on the Hub can be increased if necessary. If you believe your workflows are being limited by lack of memory or processing power, please create an issue and we will try to help.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "jupyterhub.html#sec-login",
+    "href": "jupyterhub.html#sec-login",
+    "title": "JupyterHub",
+    "section": "2 Access and login",
+    "text": "2 Access and login\nTo use the JupyterHub, you first need to create a Feide account and ask for you Feide username to be added to the list of JupyterHub users. See the Login page for details.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "jupyterhub.html#sec-git",
+    "href": "jupyterhub.html#sec-git",
+    "title": "JupyterHub",
+    "section": "3 Configure Git",
+    "text": "3 Configure Git\nIt is strongly recommended that all users store and version their code within GitHub repositories. GitHub provides backup in case anything goes wrong, and also makes it easier to work collaboratively and share results.\nGit interfaces are available in JupyterLab, R-Studio and VSCode. You can also work with Git from the command line if you prefer. In order to pull and push from private GitHub repositories, you will need to store your GitHub credentials on the Hub so that Git can authenticate correctly. To do this, follow the steps below:\n\nLogin to GitHub and create a Personal Access Token (PAT) by following the steps described here.\nLogin to JupyterHub, open a terminal and attempt to clone a private repository. When prompted for your username enter your GitHub username, and when prompted for your password enter the PAT (not your GitHub password).\nOnce the repository has been cloned, run git config --global credential.helper store and then git pull\n\nThis should create a hidden file called .git-credentials within your $HOME directory (the file will be not be visible in JupyterLab, but it will show in VSCode, which displays hidden files by default). This file contains your username and your personal access token, which Git will use in future to authenticate on GitHub.\nNote that you should only need to perform these steps once. After your credentials are stored, you can use any of the four available Git interfaces in future JupyterHub sessions and your credentials will be used automatically.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "jupyterhub.html#sec-resources",
+    "href": "jupyterhub.html#sec-resources",
+    "title": "JupyterHub",
+    "section": "4 Useful resources",
+    "text": "4 Useful resources\nThe workflow_examples repository includes example notebooks illustrating different parts of the SeaBee workflow. The snippets repository also contains some useful tips. You can clone these repositories to your $HOME directory and use them as a starting point for your own work. If you create a new workflow (e.g. a notebook or script) that you think might be useful for others, please consider adding it to one of these repositories (workflow_examples should be fairly well documented and explained; snippets can be brief). The aim is to build up a library of examples to help new users to get started.",
+    "crumbs": [
+      "Home",
+      "Processing",
+      "JupyterHub"
+    ]
+  },
+  {
+    "objectID": "howto.html",
+    "href": "howto.html",
+    "title": "How to",
+    "section": "",
+    "text": "I want to…",
+    "crumbs": [
+      "Home",
+      "How to"
+    ]
+  },
+  {
+    "objectID": "howto.html#sec-create-account",
+    "href": "howto.html#sec-create-account",
+    "title": "How to",
+    "section": "1 Create a user account",
+    "text": "1 Create a user account\nYou need to create a Feide account and then request access to the resources you will need. See the Login page for details.",
+    "crumbs": [
+      "Home",
+      "How to"
+    ]
+  },
+  {
+    "objectID": "howto.html#sec-file-transfer",
+    "href": "howto.html#sec-file-transfer",
+    "title": "How to",
+    "section": "2 Upload or download files",
+    "text": "2 Upload or download files\nThe best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the MinIO web interface or the SeaBee data upload portal. For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as Rclone are preferable. See Uploading and downloading files for details.",
+    "crumbs": [
+      "Home",
+      "How to"
+    ]
+  },
+  {
+    "objectID": "howto.html#sec-orthorectification",
+    "href": "howto.html#sec-orthorectification",
+    "title": "How to",
+    "section": "3 Mosaic geotagged raw images to georeferenced mosaics",
+    "text": "3 Mosaic geotagged raw images to georeferenced mosaics\nYou can use Open Drone Map (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the Orthorectification page for details. If you are a drone pilot wishing to upload mission data for automatic processing, see data preparation guide here.",
+    "crumbs": [
+      "Home",
+      "How to"
+    ]
+  },
+  {
+    "objectID": "howto.html#sec-annotation",
+    "href": "howto.html#sec-annotation",
+    "title": "How to",
+    "section": "4 Create training data for machine learning (annotation)",
+    "text": "4 Create training data for machine learning (annotation)\nThe recommended workflow for image segmentation tasks is to use ArcGIS Pro and the Image Analyst extension - see the Annotation page for details.",
+    "crumbs": [
+      "Home",
+      "How to"
+    ]
+  },
+  {
+    "objectID": "howto.html#explore-and-download-seabee-datasets",
+    "href": "howto.html#explore-and-download-seabee-datasets",
+    "title": "How to",
+    "section": "5 Explore and download SeaBee datasets",
+    "text": "5 Explore and download SeaBee datasets\nOrthomosaics from aerial drones and data products from the machine learning are available via the SeaBee GeoNode. See the Data products page for details.",
+    "crumbs": [
+      "Home",
+      "How to"
+    ]
+  },
+  {
     "objectID": "login.html",
     "href": "login.html",
     "title": "Login",
@@ -99,99 +282,6 @@
     ]
   },
   {
-    "objectID": "annotation.html",
-    "href": "annotation.html",
-    "title": "Annotation",
-    "section": "",
-    "text": "Repository on GitHub",
-    "crumbs": [
-      "Home",
-      "Annotation"
-    ]
-  },
-  {
-    "objectID": "annotation.html#sec-overview",
-    "href": "annotation.html#sec-overview",
-    "title": "Annotation",
-    "section": "1 Overview",
-    "text": "1 Overview\nThis document describes the SeaBee annotation workflow developed and tested using the Runde/Remøy dataset during December 2022.\nThe current workflow is preliminary and should become smoother once integrated with Sigma2. The aim of these notes is to help new users get started with annotation using ArcGIS Pro and to avoid common mistakes/pitfalls.",
-    "crumbs": [
-      "Home",
-      "Annotation"
-    ]
-  },
-  {
-    "objectID": "annotation.html#sec-workflow",
-    "href": "annotation.html#sec-workflow",
-    "title": "Annotation",
-    "section": "2 Workflow",
-    "text": "2 Workflow\n\n2.1 Install ArcGIS Pro\nFollow the steps below to download and install ArcGIS Pro on your local machine.\n\nContact Jan Karud to obtain login details for ArcGIS Online. You need access to ArcGIS Pro with the Image Analyst extension.\nLogin to ArcGIS Online and, under your profile, choose Settings &gt; Licenses. Check that Image Analyst is available to you under ArcGIS Pro extensions, then click the link to Download ArcGIS Pro (Figure 1).\nObtain an administrator password from IT-Vakt and run the installer. You should then be able to start ArcGIS Pro and login to the application using your ArcGIS Online credentials.\n\n\n\n\n\n\n\nFigure 1: Download ArcGIS Pro\n\n\n\n\n\n2.2 Setup project\nThe next step is to create a new project within ArcGIS and add SeaBee data to it.\n\nIn ArcGIS Pro, create a new Map project. The Name should describe the mission/area you’re annotating and Location should be an existing local folder on your PC.\n\n\n\n\n\n\n\nTip\n\n\n\nArcGIS may run slowly if you set Location to be a network folder or a folder that is synchronised to an external server (e.g. DropBox, OneDrive, GoogleDrive).\n\n\n\nWithin your project folder, create three new subfolders: class_definitions, vector and raster. This can either be done using the Catalog pane in ArcGIS or using Windows’ File Explorer.\nDownload relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a class definition file and a georeferenced orthomosaic. Optionally, you may include a ground truth dataset, a region of interest (ROI) file and any pre-existing annotation for your area of interest. See Section 2.3 to Section 2.6 for details.\n\n\n\n\n\n\n\nNote\n\n\n\nAt present, most mission data is hosted on OneDrive/Sharepoint, which means it must be downloaded locally for use with ArcGIS. For large files, this can be slow. Eventually, datasets should be hosted on Sigma2 and exposed as web mapping services (WMS). This will make it possible to add the orthomosaics to your map without having to download large volumes of raw imagery.\n\n\n\n\n2.3 Class definition files\nArcGIS Pro supports hierarchical class definitions, which can be defined manually via the Training Samples Manager. Class definitions are saved as ESRI Classification Schema files (.ecs), which are JSON files with a specific structure.\nThe classes of interest to SeaBee are complex and creating them manually via the user interface is cumbersome. Section 2 of the notebook here includes code to build an .ecs file with the correct schema from an Excel table, which is more convenient in most cases.\nAs far as possible, SeaBee will use a standard set of class definitions for habitat mapping. The latest versions are available online here in both Excel and .ecs formats.\nThe workflow for class definition files is as follows:\n\nBefore starting to annotate a new area, everyone involved must agree on which set of class definitions (i.e. which version) to use. If necessary, class definitions can be updated in Excel and a new version of the .ecs file created using the code linked above.\nEveryone should download the same .ecs file and add it to the class_definitions folder in their ArcGIS project (created in Section 2.2).\n\n\n\n\n\n\n\nImportant\n\n\n\nUsing a standard set of classes is important if the machine learning algorithms created by SeaBee are to be transferable/re-trainable. It is likely that some changes to the class schema will be necessary initially, but we are hoping to converge on a standard set of habitat classes if possible. Proposed changes should be discussed with Hege Gundersen and Kristina Øie Kvile.\n\n\n\n\n2.4 Orthomosaics\nOrthomosaics for your area of interest should be downloaded and added to the raster folder within your ArcGIS project. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.\nData are currently available via Sharepoint/Teams in a folder structure that typically looks something like this:\nWP4 &gt; 1_DATA-SeaBee &gt; {year} &gt; {mission} &gt; 1_drone &gt; {pilot/organisation} &gt; {time_spec_altitude} &gt; Mosaics\nA direct link to the 1_DATA-SeaBee folder is here.\n\n\n\n\n\n\nTip\n\n\n\nDownloading large files from Teams/Sharepoint via the UI can be slow and unstable. Experience with the Runde data suggests the Python API is faster and more reliable. The notebook here shows an example of this.\n\n\n\n\n\n\n\n\nNote\n\n\n\nEventually, it is hoped that all SeaBee orthomosiacs will be available as WMS layers from Geoserver running on Sigma2. This will make it possible to add raster imagery to ArcGIS without downloading it locally.\n\n\n\n\n2.5 Ground truth data\nPoint shapefiles of ground truth data are available for most missions. These are typically stored in the mission folder on Sharepoint/Teams within a subfolder named GT.\nIf available, download the shapefile and add it to the vector folder within your in ArcGIS project.\n\n\n2.6 Region of interest and training subareas\nFor each mission, you should create shapefiles defining (i) your region of interest (ROI), and (ii) a set of subareas that will be used to divide the annotation data into “blocks”. When you create these shapefiles, be sure to use the same co-ordinate reference system (CRS) as the orthomosaic you wish to annotate.\n\nThe ROI defines the area that you would eventually like to classify. This will typically cover a large proportion of the total image, but excluding anything not covered by your class definition file (see Section 2.3). As an example, see the black dashed line defining the ROI for Remøy on Figure 2.\nMachine learning algorithms only learn based on the training samples you provide, so if the prediction area includes things not present in the training data you will get poor results. If possible, use the ROI file to define an area excluding things like roads, buildings and bridges that you are not interested in. You can then ignore these at the annotation stage and focus instead on annotating classes of ecological interest.\n\n\n\n\n\n\n\nImportant\n\n\n\nIf your area includes lots of man-made objects and you can’t exclude them using an ROI for some reason, make sure you annotate a representative selection of each type of object and tag them all as ANTHRO.\n\n\n\nThe training subareas are a set of rectangles (say, 5 to 10) that define discrete areas within which you create annotation. See the red rectangles on Figure 2 for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g. Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we’re satisfied, we can use data from Area 6 to get a independent assessment of the model’s performance.\nDefining training subareas is also a convenient way of dividing the annotation workload between several people: each person agrees to annotate one or two specific subareas. This avoids accidental duplication of effort (although at times it may also be useful for several people to annotate the same area to assess consistency).\n\n\n\n\n\n\n\nFigure 2: Region of interest and training subareas used for Remøy\n\n\n\n\n\n2.7 Styling the map\nOnce you have download all the relevant datasets and added them to your project folder in ArcGIS, you can add layers to your map and style them appropriately. Figure 3 shows an example.\n\nDrag each layer from the Catalog pane (right-most column in Figure 3) to the ArcGIS Table of contents (left-most pane in Figure 3). The order of layers in the Table of contents defines the drawing order on the map, so put the orthomosaic at the bottom and the other layers on top.\nRight-click each vector layer in the Table of contents and choose Symbology. This will allow you to define fill and outline colours for the vector layers on your map.\n[Optional] Right-click the ground truth dataset and choose Labelling Properties. Set the Expression to be $feature.Kode, where Kode is the name of the column in the ground truth attribute table containing the labels you want to use. When you click Apply, you should see each point in the ground truth dataset labelled with its class code.\n\n\n\n\n\n\n\nTip\n\n\n\nWhenever you’re working with anything GIS-related, remember to save your work regularly!\n\n\n\n\n\n\n\n\nFigure 3: Example ArcGIS layout\n\n\n\n\n\n2.8 Creating annotation\nWith the ArcGIS project configured, you can begin creating annotation.\n\nIn the ArcGIS Table of contents (left-most pane in Figure 3), select one of your orthomosaic layers. This will activate the Image Analyst extension.\nOn the “ribbon” (i.e. menu bar), select the Imagery tab and choose Classification Tools &gt; Training Samples Manager. A new pane should appear at the right side of the window.\nIn the upper part of the new pane, click the folder icon (which has a tooltip saying Classification schema) and load your class definition file (see Section 2.3). You should see the class hierarchy added to the upper half of the window.\nIdentify the training area you wish to annotate and zoom in on a feature (e.g. a boulder or patch of algae). In the class hierarchy, select the class you wish to annotate, choose one of drawing tools from the top of the window and begin digitising. In most cases, the Freehand tool is likely to be most useful.\n\nEach polygon you draw will appear in the lower half of the Image Classification pane (see Figure 4). The Pixels (%) column shows what proportion of the pixels digitised so far belong to each class.\n\n\n\n\n\n\nFigure 4: The Training Samples Manager\n\n\n\n\nIt is a good idea to periodically group polygons of the same class. This is done by selecting the rows you wish to group in the lower pane (using SHIFT + Click or CTRL + Click) and then clicking the Collapse icon (two arrows coming together). You can also ungroup using the Expand button (one arrow splitting into two).\nWhen you have finished your digitising session, click the Save icon in the lower pane of the Training Samples Manager to save your training samples as a shapefile in the vector folder of your ArcGIS project. You should also save the entire ArcGIS project before closing down.\nIf you wish to continue annotating using a shapefile created previously, first open your ArcGIS project and load the class definitions file (steps 1 to 3 above). Then, instead of creating new annotation from scratch, click the folder icon in the lower part of the Image Classification pane (labelled Load training samples) and browse to the annotation shapefile created previously. You can now continue annotating and save changes back to the original shapefile.\n\n\n\n\n\n\n\nTip\n\n\n\nThe following tips should help you to create good quality annotation:\n\nAlways assign the most detailed level in the class hierarchy that you can confidently identify. If you are not sure, assign the level above.\nGroup your polygons by class regularly and get into the habit of clicking Save immediately before each grouping operation.\nUse the Pixels (%) column to prioritise which classes to focus on. Given the classes of interest, you will probably not be able to produce a “balanced” training dataset, but if you have e.g. 90% BOULDER there’s no point digitising more boulders.\nYou don’t need to digitise everything within each training subarea (but the more the better).\nDo not annotate anything outside of the training subareas and do not draw polygons that cross subarea boundaries.\nDo not draw overlapping polygons or polygons that touch one another (ideally, there should be at least one pixel between adjacent polygons).\nDo not draw self-intersecting polygons (i.e. when the line you’re drawing crosses itself, such as when drawing a figure-of-eight or bow-tie shape). Such polygons are invalid and they cause problems later in the workflow. In particular, there is a bug/lack of error handling in ArcGIS Pro’s Training Samples Manager that causes the application to crash hard if you attempt to group invalid polygons.\nIf you’re not sure how to assign something, or where a boundary should be drawn, the key question to ask yourself is: “Would I be happy if an algorithm classified this entire polygon as X?” If the answer is “Yes”, it is reasonable to tag the whole polygon as X; if the answer is “No” consider subdividing or deleting it.\n\n\n\n\n\n2.9 Packaging annotation\nOnce all subareas have been digitised, each person should upload their annotation shapefiles to MinIO using the following structure:\nniva-tidy/annotation/\n├─ campaign_year/\n│  ├─ annotation_by_subarea\n│  │  ├─ annotation_area1.shp\n│  │  ├─ annotation_area1.shx\n│  │  ├─ annotation_area1.dbf\n│  │  ├─ annotation_area1.prj\n│  │  ├─ annotation_area1.cpg\n│  │  ├─ annotation_area2.shp\n│  │  ├─ etc.\n│  ├─ region_of_interest\n│  │  ├─ roi.shp\n│  │  ├─ roi.shx\n│  │  ├─ roi.dbf\n│  │  ├─ roi.prj\n│  │  ├─ roi.cpg\n│  ├─ subarea_boundaries\n│  │  ├─ subarea_bounds.shp\n│  │  ├─ subarea_bounds.shx\n│  │  ├─ subarea_bounds.dbf\n│  │  ├─ subarea_bounds.prj\n│  │  ├─ subarea_bounds.cpg\nNote the following:\n\ncampaign_year represents an entire campaign, which may involve multiple drone flights e.g. remoy_2022 or kelpmap_2022.\nThe folder annotation_by_subarea should contain one polygon shapefile per subarea. Make sure each subarea is included only once.\nThe region_of_interest subfolder should contain a single polygon shapefile defining the region of interest.\nThe subarea_boundaries subfolder should contain a single polygon shapefile with one polygon feature per subarea.\n\nOnce the data are uploaded to MinIO in the correct format, work through the notebook here. This will:\n\nMerge the annotation shapefiles for each subarea into a single dataset.\nTag each of the annotation polygons with the subarea ID, making it easier to filter/subdivide the training data.\nReconstruct the original, three-column class hierarchy from the single-column ArcGIS output. This makes it easy to generate raster annotation for any of the three “levels”.\nCreate a geopackage combining the annotation data, the subarea polygons and the region of interest. The geopackage will be saved to MinIO in the campaign_year folder. This can then be shared with NR, together with links to the relevant orthomosaics.",
-    "crumbs": [
-      "Home",
-      "Annotation"
-    ]
-  },
-  {
-    "objectID": "jupyterhub.html",
-    "href": "jupyterhub.html",
-    "title": "JupyterHub",
-    "section": "",
-    "text": "Choose the resources you need from the links below and login using your Feide credentials.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "jupyterhub.html#sec-overview",
-    "href": "jupyterhub.html#sec-overview",
-    "title": "JupyterHub",
-    "section": "1 Overview",
-    "text": "1 Overview\nThe SeaBee JupyterHub provides a central access point for data processing on the SeaBee platform. It can be used to access data stored on MinIO, to push new datasets to GeoServer & GeoNode, to train & apply machine learning algorithms, and to perform general data processing tasks. See the simplified architecture diagram for an indication of where the Hub fits in relation to other platform components.\n\n1.1 Programming languages\nThe Hub provides access to three programming languages: Python, R and Julia. Most of the development work so far has been done using Python, but since R is popular with many SeaBee ecologists it has been included to facilitate better collaboration between developers and researchers. Julia is typically faster than Python or R for intensive number crunching, but it is not (yet) used in any SeaBee workflows.\nThe Python environment includes everything most users will need for typical geospatial data processing and machine learning tasks. See Section 4 for some example notebooks illustrating various SeaBee workflows.\n\n\n1.2 Integrated Development Environments\nThe Hub provides access to three Integrated Development Environments (IDEs): JupyterLab, VSCode and R-Studio. Users may work with one or all of these (and switch between them), depending on their experience, preferences and the task being undertaken. JupyterLab provides a familiar interface for many Python-orientated data scientists, while R-Studio will be familiar to most users of R. VSCode offers a more traditional IDE, with a richer set of tools for developers. In addition, all users have access to an Ubuntu terminal, providing access to Bash and various other command-line tools.\nJupyter Notebooks and scripts can be created for any of the 3 languages described. Notebooks can be edited using either JupyterLab or VSCode, and they provide an excellent way to develop and test workflows and to share examples with colleagues. Similarly, R-Studio can be used to create R-Markdown documents, which combine working code and descriptive text is an analogous way to Jupyter Notebooks. See Section 4 for some examples.\n\n\n1.3 Extensions\nThe Hub includes the following extensions and add-ins:\n\njupyter-archive provides context menu options for creating and extracting .zip archives (the zip and unzip terminal commands are also available).\njupyterlab-lsp provides language server protocol integration.\njupyterlab_code_formatter offers code auto-formatting (using black for Python).\njupyterlab-spellchecker provides spell-checking within Markdown and notebook documents.\njupyterlab-spreadsheet supports read-only exploration of Excel files, which is useful for quickly inspecting files while coding, without having to download open them in Excel.\njupyterlab-git provides a Git graphical user interface (GUI) in JupyterLab (see Section 3). Note that Git integration is also available in R-Studio and VSCode, as well as via the terminal.\n\n\n\n1.4 Resources\nAll SeaBee components are deployed within a single Kubernetes namespace. The JupyterHub shares resources in this namespace with other components of the platform. Some memory and CPUs are permanently reserved for running e.g. GeoServer and Open Drone Map, but the rest is available to JupyterHub. Resources on the Hub can be increased if necessary. If you believe your workflows are being limited by lack of memory or processing power, please create an issue and we will try to help.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "jupyterhub.html#sec-login",
-    "href": "jupyterhub.html#sec-login",
-    "title": "JupyterHub",
-    "section": "2 Access and login",
-    "text": "2 Access and login\nTo use the JupyterHub, you first need to create a Feide account and ask for you Feide username to be added to the list of JupyterHub users. See the Login page for details.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "jupyterhub.html#sec-git",
-    "href": "jupyterhub.html#sec-git",
-    "title": "JupyterHub",
-    "section": "3 Configure Git",
-    "text": "3 Configure Git\nIt is strongly recommended that all users store and version their code within GitHub repositories. GitHub provides backup in case anything goes wrong, and also makes it easier to work collaboratively and share results.\nGit interfaces are available in JupyterLab, R-Studio and VSCode. You can also work with Git from the command line if you prefer. In order to pull and push from private GitHub repositories, you will need to store your GitHub credentials on the Hub so that Git can authenticate correctly. To do this, follow the steps below:\n\nLogin to GitHub and create a Personal Access Token (PAT) by following the steps described here.\nLogin to JupyterHub, open a terminal and attempt to clone a private repository. When prompted for your username enter your GitHub username, and when prompted for your password enter the PAT (not your GitHub password).\nOnce the repository has been cloned, run git config --global credential.helper store and then git pull\n\nThis should create a hidden file called .git-credentials within your $HOME directory (the file will be not be visible in JupyterLab, but it will show in VSCode, which displays hidden files by default). This file contains your username and your personal access token, which Git will use in future to authenticate on GitHub.\nNote that you should only need to perform these steps once. After your credentials are stored, you can use any of the four available Git interfaces in future JupyterHub sessions and your credentials will be used automatically.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "JupyterHub"
-    ]
-  },
-  {
-    "objectID": "jupyterhub.html#sec-resources",
-    "href": "jupyterhub.html#sec-resources",
-    "title": "JupyterHub",
-    "section": "4 Useful resources",
-    "text": "4 Useful resources\nThe workflow_examples repository includes example notebooks illustrating different parts of the SeaBee workflow. The snippets repository also contains some useful tips. You can clone these repositories to your $HOME directory and use them as a starting point for your own work. If you create a new workflow (e.g. a notebook or script) that you think might be useful for others, please consider adding it to one of these repositories (workflow_examples should be fairly well documented and explained; snippets can be brief). The aim is to build up a library of examples to help new users to get started.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "JupyterHub"
-    ]
-  },
-  {
     "objectID": "standardised-imagery.html",
     "href": "standardised-imagery.html",
     "title": "Standardised imagery",
@@ -240,60 +330,6 @@
     ]
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "SeaBee documentation",
-    "section": "",
-    "text": "This website provides technical documentation for various aspects of the SeaBee workflow.\nTo learn more about the SeaBee project itself, please visit https://seabee.no/.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#sec-overview",
-    "href": "index.html#sec-overview",
-    "title": "SeaBee documentation",
-    "section": "1 Overview",
-    "text": "1 Overview\nA simplified version of the SeaBee data flow is illustrated in Figure 1. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.\nGround-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the SeaBee GeoNode.\n\n\n\n\n\n\nFigure 1: Simplified SeaBee workflow.\n\n\n\nThe full SeaBee workflow is more complex than illustrated above. In particular:\n\nStandard aerial drones are flown with both RGB and multispectral cameras. In addition, the project includes hyperspectral data as well as imagery from other types of drone, such as the Otter (an unmanned surface vehicle).\nTypical data products from the machine learning include both image segmentation (e.g. habitat mapping) and object identification (e.g. seabird or mammal counts).",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "index.html#sec-sigma2",
-    "href": "index.html#sec-sigma2",
-    "title": "SeaBee documentation",
-    "section": "2 Sigma2",
-    "text": "2 Sigma2\nAs far as possible, data handling for the SeaBee project is hosted by Sigma2 on NIRD, the National Infrastructure for Research Data. The SeaBee project has its own Kubernetes namespace on Sigma2. A high-level schematic of the current configuration is shown in Figure 2.\n\n\n\n\n\n\nFigure 2: Simplified Sigma2 architecture.",
-    "crumbs": [
-      "Home"
-    ]
-  },
-  {
-    "objectID": "orthorectification.html",
-    "href": "orthorectification.html",
-    "title": "Orthorectification",
-    "section": "",
-    "text": "Orthorectification within SeaBee is currently performed using two main tools: Open Drone Map (ODM), which is Open Source, and Pix4D, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.\nPix4D-Engine is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the NodeODM API. PyODM and CloudODM are also provided.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "Orthorectification"
-    ]
-  },
-  {
-    "objectID": "orthorectification.html#open-drone-map",
-    "href": "orthorectification.html#open-drone-map",
-    "title": "Orthorectification",
-    "section": "1 Open Drone Map",
-    "text": "1 Open Drone Map\nOpen Drone Map is accessible from the SeaBee JupyterHub via NodeODM, which provides a convenient API for scheduling and executing jobs. SeaBee’s NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used in combination with Rclone, this makes it possible to create and publish orthomosaics in near-real-time.\n\n\n\n\n\n\nTip\n\n\n\nBecause NodeODM has its resources allocated separately, you can use it from the Standard SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please do not use the more powerful Hubs for orthomosaicing - they will not run any faster and will block resources from other users.\n\n\nOnce you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use task.info().progress to periodically check the status of your job. For a more detailed example, see the notebook here.",
-    "crumbs": [
-      "Home",
-      "Processing",
-      "Orthorectification"
-    ]
-  },
-  {
     "objectID": "data-upload.html",
     "href": "data-upload.html",
     "title": "Data upload",
@@ -338,69 +374,33 @@
     ]
   },
   {
-    "objectID": "howto.html",
-    "href": "howto.html",
-    "title": "How to",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "SeaBee documentation",
     "section": "",
-    "text": "I want to…",
+    "text": "This website provides technical documentation for various aspects of the SeaBee workflow.\nTo learn more about the SeaBee project itself, please visit https://seabee.no/.",
     "crumbs": [
-      "Home",
-      "How to"
+      "Home"
     ]
   },
   {
-    "objectID": "howto.html#sec-create-account",
-    "href": "howto.html#sec-create-account",
-    "title": "How to",
-    "section": "1 Create a user account",
-    "text": "1 Create a user account\nYou need to create a Feide account and then request access to the resources you will need. See the Login page for details.",
+    "objectID": "index.html#sec-overview",
+    "href": "index.html#sec-overview",
+    "title": "SeaBee documentation",
+    "section": "1 Overview",
+    "text": "1 Overview\nA simplified version of the SeaBee data flow is illustrated in Figure 1. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.\nGround-truth data collected in the field are used to aid annotation of the mosaics to create training datasets for machine learning algorithms. These algorithms are applied to generate data products, which are made available via the SeaBee GeoNode.\n\n\n\n\n\n\nFigure 1: Simplified SeaBee workflow.\n\n\n\nThe full SeaBee workflow is more complex than illustrated above. In particular:\n\nStandard aerial drones are flown with both RGB and multispectral cameras. In addition, the project includes hyperspectral data as well as imagery from other types of drone, such as the Otter (an unmanned surface vehicle).\nTypical data products from the machine learning include both image segmentation (e.g. habitat mapping) and object identification (e.g. seabird or mammal counts).",
     "crumbs": [
-      "Home",
-      "How to"
+      "Home"
     ]
   },
   {
-    "objectID": "howto.html#sec-file-transfer",
-    "href": "howto.html#sec-file-transfer",
-    "title": "How to",
-    "section": "2 Upload or download files",
-    "text": "2 Upload or download files\nThe best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the MinIO web interface or the SeaBee data upload portal. For larger volumes of data (e.g. raw imagery for whole missions), command-line solutions such as Rclone are preferable. See Uploading and downloading files for details.",
+    "objectID": "index.html#sec-sigma2",
+    "href": "index.html#sec-sigma2",
+    "title": "SeaBee documentation",
+    "section": "2 Sigma2",
+    "text": "2 Sigma2\nAs far as possible, data handling for the SeaBee project is hosted by Sigma2 on NIRD, the National Infrastructure for Research Data. The SeaBee project has its own Kubernetes namespace on Sigma2. A high-level schematic of the current configuration is shown in Figure 2.\n\n\n\n\n\n\nFigure 2: Simplified Sigma2 architecture.",
     "crumbs": [
-      "Home",
-      "How to"
-    ]
-  },
-  {
-    "objectID": "howto.html#sec-orthorectification",
-    "href": "howto.html#sec-orthorectification",
-    "title": "How to",
-    "section": "3 Mosaic geotagged raw images to georeferenced mosaics",
-    "text": "3 Mosaic geotagged raw images to georeferenced mosaics\nYou can use Open Drone Map (ODM) via either PyODM or CloudODM (e.g. via the SeaBee JupyterHub). See the Orthorectification page for details. If you are a drone pilot wishing to upload mission data for automatic processing, see data preparation guide here.",
-    "crumbs": [
-      "Home",
-      "How to"
-    ]
-  },
-  {
-    "objectID": "howto.html#sec-annotation",
-    "href": "howto.html#sec-annotation",
-    "title": "How to",
-    "section": "4 Create training data for machine learning (annotation)",
-    "text": "4 Create training data for machine learning (annotation)\nThe recommended workflow for image segmentation tasks is to use ArcGIS Pro and the Image Analyst extension - see the Annotation page for details.",
-    "crumbs": [
-      "Home",
-      "How to"
-    ]
-  },
-  {
-    "objectID": "howto.html#explore-and-download-seabee-datasets",
-    "href": "howto.html#explore-and-download-seabee-datasets",
-    "title": "How to",
-    "section": "5 Explore and download SeaBee datasets",
-    "text": "5 Explore and download SeaBee datasets\nOrthomosaics from aerial drones and data products from the machine learning are available via the SeaBee GeoNode. See the Data products page for details.",
-    "crumbs": [
-      "Home",
-      "How to"
+      "Home"
     ]
   },
   {

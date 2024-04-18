@@ -300,8 +300,7 @@ ul.task-list li input[type="checkbox"] {
 <p><a href="https://github.com/SeaBee-no/annotation">Repository on GitHub</a></p>
 <section id="sec-overview" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="sec-overview"><span class="header-section-number">1</span> Overview</h2>
-<p>This document describes the SeaBee annotation workflow developed and tested using the <strong>Runde/Remøy</strong> dataset during December 2022.</p>
-<p>The current workflow is preliminary and should become smoother once integrated with Sigma2. The aim of these notes is to help new users get started with annotation using ArcGIS Pro and to avoid common mistakes/pitfalls.</p>
+<p>This document describes the preliminary SeaBee annotation workflow for <strong>habitat mapping</strong>. The aim of these notes is to help new users get started with annotation using ArcGIS Pro and to avoid common mistakes/pitfalls.</p>
 </section>
 <section id="sec-workflow" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="sec-workflow"><span class="header-section-number">2</span> Workflow</h2>
@@ -309,7 +308,7 @@ ul.task-list li input[type="checkbox"] {
 <h3 data-number="2.1" class="anchored" data-anchor-id="sec-install-arcgis"><span class="header-section-number">2.1</span> Install ArcGIS Pro</h3>
 <p>Follow the steps below to download and install ArcGIS Pro on your local machine.</p>
 <ol type="1">
-<li><p>Contact Jan Karud to obtain login details for ArcGIS Online. You need access to <strong>ArcGIS Pro</strong> with the <strong>Image Analyst</strong> extension.</p></li>
+<li><p>Contact Debhasish Bhakta to obtain login details for ArcGIS Online. You need access to <strong>ArcGIS Pro</strong> with the <strong>Image Analyst</strong> extension.</p></li>
 <li><p><a href="https://www.arcgis.com/index.html">Login to ArcGIS Online</a> and, under your profile, choose <code>Settings &gt; Licenses</code>. Check that Image Analyst is available to you under <code>ArcGIS Pro extensions</code>, then click the link to <code>Download ArcGIS Pro</code> (<a href="#fig-download-arcgis-pro" class="quarto-xref">Figure&nbsp;1</a>).</p></li>
 <li><p>Obtain an administrator password from IT-Vakt and run the installer. You should then be able to start ArcGIS Pro and login to the application using your ArcGIS Online credentials.</p></li>
 </ol>
@@ -345,21 +344,8 @@ Tip
 </div>
 <ol start="2" type="1">
 <li><p>Within your project folder, create three new subfolders: <code>class_definitions</code>, <code>vector</code> and <code>raster</code>. This can either be done using the <code>Catalog</code> pane in ArcGIS or using Windows’ File Explorer.</p></li>
-<li><p>Download relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a <strong>class definition file</strong> and a <strong>georeferenced orthomosaic</strong>. Optionally, you may include a <strong>ground truth dataset</strong>, a <strong>region of interest (ROI) file</strong> and any <strong>pre-existing annotation</strong> for your area of interest. See <a href="#sec-class-definitions" class="quarto-xref">Section&nbsp;2.3</a> to <a href="#sec-roi" class="quarto-xref">Section&nbsp;2.6</a> for details.</p></li>
+<li><p>Download relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a <strong>class definition file</strong>, a <strong>georeferenced orthomosaic</strong> (or WMS layer) and a <strong>region of interest (ROI) file</strong>. Optionally, you may include a <strong>ground truth dataset</strong> and any <strong>pre-existing annotation</strong> for your area of interest. See <a href="#sec-class-definitions" class="quarto-xref">Section&nbsp;2.3</a> to <a href="#sec-roi" class="quarto-xref">Section&nbsp;2.6</a> for details.</p></li>
 </ol>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>At present, most mission data is hosted on OneDrive/Sharepoint, which means it must be downloaded locally for use with ArcGIS. For large files, this can be slow. Eventually, datasets should be hosted on Sigma2 and exposed as web mapping services (WMS). This will make it possible to add the orthomosaics to your map without having to download large volumes of raw imagery.</p>
-</div>
-</div>
 </section>
 <section id="sec-class-definitions" class="level3" data-number="2.3">
 <h3 data-number="2.3" class="anchored" data-anchor-id="sec-class-definitions"><span class="header-section-number">2.3</span> Class definition files</h3>
@@ -387,10 +373,7 @@ Important
 </section>
 <section id="sec-mosaics" class="level3" data-number="2.4">
 <h3 data-number="2.4" class="anchored" data-anchor-id="sec-mosaics"><span class="header-section-number">2.4</span> Orthomosaics</h3>
-<p>Orthomosaics for your area of interest should be downloaded and added to the <code>raster</code> folder within your ArcGIS project. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.</p>
-<p>Data are currently available via Sharepoint/Teams in a folder structure that typically looks something like this:</p>
-<pre><code>WP4 &gt; 1_DATA-SeaBee &gt; {year} &gt; {mission} &gt; 1_drone &gt; {pilot/organisation} &gt; {time_spec_altitude} &gt; Mosaics</code></pre>
-<p>A direct link to the <code>1_DATA-SeaBee</code> folder is <a href="https://niva365.sharepoint.com/:f:/r/sites/pro_200067/Shared%20Documents/WP4/1_DATA-SeaBee?csf=1&amp;web=1&amp;e=pf2Z5h">here</a>.</p>
+<p>Orthomosaics for your area of interest should be added to your map. You can either download them via MinIO and add them to the <code>raster</code> folder within your ArcGIS project, or connect to the SeaBee WMS and add them as web service layers. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -401,26 +384,13 @@ Tip
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Downloading large files from Teams/Sharepoint via the UI can be slow and unstable. Experience with the Runde data suggests the Python API is faster and more reliable. The notebook <a href="https://nbviewer.org/github/SeaBee-no/annotation/blob/main/code/download_sharepoint.ipynb">here</a> shows an example of this.</p>
-</div>
-</div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Note
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Eventually, it is hoped that all SeaBee orthomosiacs will be available as WMS layers from Geoserver running on Sigma2. This will make it possible to add raster imagery to ArcGIS without downloading it locally.</p>
+<p>Downloading large files from MinIO can be slow and unstable. If you wish to store the data locally, consider using <strong>RClone</strong> (see <strong>?@sec-rclone</strong>). Using WMS layers is generally easier, but unfortunately they are not recognised by Image Analyst. If you wish to use the WMS, you will need to add at least one local raster file to your map covering your area of interest.</p>
 </div>
 </div>
 </section>
 <section id="sec-ground-truth" class="level3" data-number="2.5">
 <h3 data-number="2.5" class="anchored" data-anchor-id="sec-ground-truth"><span class="header-section-number">2.5</span> Ground truth data</h3>
-<p>Point shapefiles of ground truth data are available for most missions. These are typically stored in the mission folder on Sharepoint/Teams within a subfolder named <code>GT</code>.</p>
+<p>Point shapefiles of ground truth data are available for most missions. These are typically stored in the mission folders on MinIO within subfolders called <code>ground-truth</code>, or at a higher level find the folder structure (e.g.&nbsp;a single ground truth dataset for an entire SeaBee campaign).</p>
 <p>If available, download the shapefile and add it to the <code>vector</code> folder within your in ArcGIS project.</p>
 </section>
 <section id="sec-roi" class="level3" data-number="2.6">
@@ -444,7 +414,7 @@ Important
 </div>
 </div>
 <ul>
-<li><p>The training subareas are a set of rectangles (say, 5 to 10) that define discrete areas within which you create annotation. See the red rectangles on <a href="#fig-training-subareas" class="quarto-xref">Figure&nbsp;2</a> for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g.&nbsp;Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we’re satisfied, we can use data from Area 6 to get a independent assessment of the model’s performance.</p>
+<li><p>The training subareas are a set of rectangles (say, 1 to 10) that define discrete areas within which you create annotation. See the red rectangles on <a href="#fig-training-subareas" class="quarto-xref">Figure&nbsp;2</a> for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g.&nbsp;Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we’re satisfied, we can use data from Area 6 to get a independent assessment of the model’s performance.</p>
 <p>Defining training subareas is also a convenient way of dividing the annotation workload between several people: each person agrees to annotate one or two specific subareas. This avoids accidental duplication of effort (although at times it may also be useful for several people to annotate the same area to assess consistency).</p></li>
 </ul>
 <div id="fig-training-subareas" class="quarto-figure quarto-figure-center quarto-float anchored">
@@ -457,6 +427,7 @@ Figure&nbsp;2: Region of interest and training subareas used for Remøy
 </figcaption>
 </figure>
 </div>
+<p>If you do not wish to use subareas, simply create files named <code>roi.shp</code> and <code>subarea_bounds.shp</code> and add a single polygon to each defining the area to be annotated.</p>
 </section>
 <section id="sec-styling" class="level3" data-number="2.7">
 <h3 data-number="2.7" class="anchored" data-anchor-id="sec-styling"><span class="header-section-number">2.7</span> Styling the map</h3>
@@ -494,7 +465,7 @@ Figure&nbsp;3: Example ArcGIS layout
 <h3 data-number="2.8" class="anchored" data-anchor-id="sec-annotation"><span class="header-section-number">2.8</span> Creating annotation</h3>
 <p>With the ArcGIS project configured, you can begin creating annotation.</p>
 <ol type="1">
-<li><p>In the ArcGIS <code>Table of contents</code> (left-most pane in <a href="#fig-project-window" class="quarto-xref">Figure&nbsp;3</a>), select one of your orthomosaic layers. This will activate the Image Analyst extension.</p></li>
+<li><p>In the ArcGIS <code>Table of contents</code> (left-most pane in <a href="#fig-project-window" class="quarto-xref">Figure&nbsp;3</a>), select one of your orthomosaic layers. This will activate the Image Analyst extension. Note that if you’re using WMS layers, these are not recognised by Image Analyst. In this case, select a local TIFF file for your area of interest and use this instead (see tip above).</p></li>
 <li><p>On the “ribbon” (i.e.&nbsp;menu bar), select the <code>Imagery</code> tab and choose <code>Classification Tools &gt; Training Samples Manager</code>. A new pane should appear at the right side of the window.</p></li>
 <li><p>In the upper part of the new pane, click the folder icon (which has a tooltip saying <code>Classification schema</code>) and load your class definition file (see <a href="#sec-class-definitions" class="quarto-xref">Section&nbsp;2.3</a>). You should see the class hierarchy added to the upper half of the window.</p></li>
 <li><p>Identify the training area you wish to annotate and zoom in on a feature (e.g.&nbsp;a boulder or patch of algae). In the class hierarchy, select the class you wish to annotate, choose one of drawing tools from the top of the window and begin digitising. In most cases, the <code>Freehand</code> tool is likely to be most useful.</p></li>
