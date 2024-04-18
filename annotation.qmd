@@ -7,9 +7,7 @@ number-sections: true
 
 ## Overview {#sec-overview}
 
-This document describes the SeaBee annotation workflow developed and tested using the **Runde/Remøy** dataset during December 2022. 
-
-The current workflow is preliminary and should become smoother once integrated with Sigma2. The aim of these notes is to help new users get started with annotation using ArcGIS Pro and to avoid common mistakes/pitfalls.
+This document describes the preliminary SeaBee annotation workflow for **habitat mapping**. The aim of these notes is to help new users get started with annotation using ArcGIS Pro and to avoid common mistakes/pitfalls.
 
 ## Workflow {#sec-workflow}
 
@@ -17,7 +15,7 @@ The current workflow is preliminary and should become smoother once integrated w
 
 Follow the steps below to download and install ArcGIS Pro on your local machine.
 
- 1. Contact Jan Karud to obtain login details for ArcGIS Online. You need access to **ArcGIS Pro** with the **Image Analyst** extension.
+ 1. Contact Debhasish Bhakta to obtain login details for ArcGIS Online. You need access to **ArcGIS Pro** with the **Image Analyst** extension.
  
  2. [Login to ArcGIS Online](https://www.arcgis.com/index.html) and, under your profile, choose `Settings > Licenses`. Check that Image Analyst is available to you under `ArcGIS Pro extensions`, then click the link to `Download ArcGIS Pro` (@fig-download-arcgis-pro).
  
@@ -37,11 +35,7 @@ ArcGIS may run slowly if you set `Location` to be a network folder or a folder t
 
  2. Within your project folder, create three new subfolders: `class_definitions`, `vector` and `raster`. This can either be done using the `Catalog` pane in ArcGIS or using Windows' File Explorer.
  
- 3. Download relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a **class definition file** and a **georeferenced orthomosaic**. Optionally, you may include a **ground truth dataset**, a **region of interest (ROI) file** and any **pre-existing annotation** for your area of interest. See @sec-class-definitions to @sec-roi for details.
- 
-:::{.callout-note}
-At present, most mission data is hosted on OneDrive/Sharepoint, which means it must be downloaded locally for use with ArcGIS. For large files, this can be slow. Eventually, datasets should be hosted on Sigma2 and exposed as web mapping services (WMS). This will make it possible to add the orthomosaics to your map without having to download large volumes of raw imagery.
-:::
+ 3. Download relevant mission datasets and add them to the appropriate subfolders. As a minimum, you will need a **class definition file**, a **georeferenced orthomosaic** (or WMS layer) and a **region of interest (ROI) file**. Optionally, you may include a **ground truth dataset** and any **pre-existing annotation** for your area of interest. See @sec-class-definitions to @sec-roi for details.
  
 ### Class definition files {#sec-class-definitions}
 
@@ -63,25 +57,15 @@ Using a standard set of classes is important if the machine learning algorithms 
 
 ### Orthomosaics {#sec-mosaics}
 
-Orthomosaics for your area of interest should be downloaded and added to the `raster` folder within your ArcGIS project. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.
-
-Data are currently available via Sharepoint/Teams in a folder structure that typically looks something like this:
-
-    WP4 > 1_DATA-SeaBee > {year} > {mission} > 1_drone > {pilot/organisation} > {time_spec_altitude} > Mosaics
-
-A direct link to the `1_DATA-SeaBee` folder is [here](https://niva365.sharepoint.com/:f:/r/sites/pro_200067/Shared%20Documents/WP4/1_DATA-SeaBee?csf=1&web=1&e=pf2Z5h).
+Orthomosaics for your area of interest should be added to your map. You can either download them via MinIO and add them to the `raster` folder within your ArcGIS project, or connect to the SeaBee WMS and add them as web service layers. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.
 
 :::{.callout-tip}
-Downloading large files from Teams/Sharepoint via the UI can be slow and unstable. Experience with the Runde data suggests the Python API is faster and more reliable. The notebook [here](https://nbviewer.org/github/SeaBee-no/annotation/blob/main/code/download_sharepoint.ipynb) shows an example of this.
-:::
-
-:::{.callout-note}
-Eventually, it is hoped that all SeaBee orthomosiacs will be available as WMS layers from Geoserver running on Sigma2. This will make it possible to add raster imagery to ArcGIS without downloading it locally.
+Downloading large files from MinIO can be slow and unstable. If you wish to store the data locally, consider using **RClone** (see @sec-rclone). Using WMS layers is generally easier, but unfortunately they are not recognised by Image Analyst. If you wish to use the WMS, you will need to add at least one local raster file to your map covering your area of interest.
 :::
 
 ### Ground truth data {#sec-ground-truth}
 
-Point shapefiles of ground truth data are available for most missions. These are typically stored in the mission folder on Sharepoint/Teams within a subfolder named `GT`.
+Point shapefiles of ground truth data are available for most missions. These are typically stored in the mission folders on MinIO within subfolders called `ground-truth`, or at a higher level find the folder structure (e.g. a single ground truth dataset for an entire SeaBee campaign).
 
 If available, download the shapefile and add it to the `vector` folder within your in ArcGIS project.
 
@@ -97,11 +81,13 @@ For each mission, you should create shapefiles defining (i) your region of inter
 If your area includes lots of man-made objects and you can't exclude them using an ROI for some reason, make sure you annotate a representative selection of each type of object and tag them all as `ANTHRO`.
 :::
 
- * The training subareas are a set of rectangles (say, 5 to 10) that define discrete areas within which you create annotation. See the red rectangles on @fig-training-subareas for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g. Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we're satisfied, we can use data from Area 6 to get a independent assessment of the model's performance.
+ * The training subareas are a set of rectangles (say, 1 to 10) that define discrete areas within which you create annotation. See the red rectangles on @fig-training-subareas for an example from Remøy. Defining subareas is helpful because we might want to train an algorithm using annotations from e.g. Areas 1 to 3, then iteratively evaluate it against data from Areas 4 and 5. Once we're satisfied, we can use data from Area 6 to get a independent assessment of the model's performance.
  
    Defining training subareas is also a convenient way of dividing the annotation workload between several people: each person agrees to annotate one or two specific subareas. This avoids accidental duplication of effort (although at times it may also be useful for several people to annotate the same area to assess consistency). 
 
 ![Region of interest and training subareas used for Remøy](./images/roi_training_subareas.png){#fig-training-subareas}
+
+If you do not wish to use subareas, simply create files named `roi.shp` and `subarea_bounds.shp` and add a single polygon to each defining the area to be annotated.
 
 ### Styling the map {#sec-styling}
 
@@ -123,7 +109,7 @@ Whenever you're working with anything GIS-related, remember to **save your work 
 
 With the ArcGIS project configured, you can begin creating annotation.
 
- 1. In the ArcGIS `Table of contents` (left-most pane in @fig-project-window), select one of your orthomosaic layers. This will activate the Image Analyst extension.
+ 1. In the ArcGIS `Table of contents` (left-most pane in @fig-project-window), select one of your orthomosaic layers. This will activate the Image Analyst extension. Note that if you're using WMS layers, these are not recognised by Image Analyst. In this case, select a local TIFF file for your area of interest and use this instead (see tip above).
  
  2. On the "ribbon" (i.e. menu bar), select the `Imagery` tab and choose `Classification Tools > Training Samples Manager`. A new pane should appear at the right side of the window.
  
