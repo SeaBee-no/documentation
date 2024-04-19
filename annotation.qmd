@@ -192,3 +192,5 @@ Note the following:
  3. Reconstruct the original, three-column class hierarchy from the single-column ArcGIS output. This makes it easy to generate raster annotation for any of the three "levels".
  
  4. Create a geopackage combining the annotation data, the subarea polygons and the region of interest. The geopackage will be saved to MinIO in the `campaign_year` folder. This can then be shared with NR, together with links to the relevant orthomosaics.
+ 
+ 5. Publish the annotation to GeoNode, using the same colour schemes as defined in the Excel templates and `.ecs` files.
