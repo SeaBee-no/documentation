@@ -11,13 +11,13 @@ website:
       - login.qmd
       - storage.qmd
       - data-upload.qmd
+      - annotation.qmd
+      - data-products.qmd
       - text: "Processing"
         menu:
           - orthorectification.qmd
           - standardised-imagery.qmd
-          - jupyterhub.qmd 
-      - annotation.qmd
-      - data-products.qmd
+          - jupyterhub.qmd
       - howto.qmd
 
   sidebar:
@@ -34,13 +34,13 @@ website:
       - login.qmd
       - storage.qmd
       - data-upload.qmd
+      - annotation.qmd
+      - data-products.qmd
       - section: "Processing"
         contents:
           - orthorectification.qmd
           - standardised-imagery.qmd
-          - jupyterhub.qmd 
-      - annotation.qmd
-      - data-products.qmd
+          - jupyterhub.qmd
       - howto.qmd
 
 format:

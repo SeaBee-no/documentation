@@ -60,7 +60,7 @@ Using a standard set of classes is important if the machine learning algorithms 
 Orthomosaics for your area of interest should be added to your map. You can either download them via MinIO and add them to the `raster` folder within your ArcGIS project, or connect to the SeaBee WMS and add them as web service layers. In most cases, the RGB mosaics are most useful for annotation, since they look familiar and have the highest resolution. Multispectral data may be worth including in some cases, although it has not been used much for annotation so far.
 
 :::{.callout-tip}
-Downloading large files from MinIO can be slow and unstable. If you wish to store the data locally, consider [using RClone](https://seabee-no.github.io/documentation/storage.html#sec-rclone). Using WMS layers is generally easier, but unfortunately they are not recognised by Image Analyst. If you wish to use the WMS, you will need to add at least one local raster file to your map covering your area of interest.
+Downloading large files from MinIO can be slow and unstable. If you wish to store the data locally, consider [using RClone](./storage.qmd#sec-rclone). Using WMS layers is generally easier, but unfortunately they are not recognised by Image Analyst. If you wish to use the WMS, you will need to add at least one local raster file to your map covering your area of interest.
 :::
 
 ### Ground truth data {#sec-ground-truth}

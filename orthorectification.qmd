@@ -7,12 +7,50 @@ Orthorectification within SeaBee is currently performed using two main tools: [O
 
 [Pix4D-Engine](https://developer.pix4d.com/cloud-api/index.html#) is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the [NodeODM API](https://github.com/OpenDroneMap/NodeODM). [PyODM](https://github.com/OpenDroneMap/PyODM) and [CloudODM](https://github.com/OpenDroneMap/CloudODM) are also provided. 
 
-## Open Drone Map
+## Open Drone Map {#sec-odm}
 
-Open Drone Map is accessible from the SeaBee JupyterHub via [NodeODM](https://github.com/OpenDroneMap/NodeODM), which provides a convenient API for scheduling and executing jobs. SeaBee's NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used [in combination with Rclone](./storage.qmd#sec-rclone), this makes it possible to create and publish orthomosaics in near-real-time.
+In addition to the automated workflow, Open Drone Map is accessible from the SeaBee [JupyterHubs](./jupyterhub.qmd) via [NodeODM](https://github.com/OpenDroneMap/NodeODM), which provides a convenient API for scheduling and executing jobs. SeaBee's NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used [in combination with Rclone](./storage.qmd#sec-rclone), this makes it possible to create and publish orthomosaics in near-real-time.
 
 :::{.callout-tip}
 Because NodeODM has its resources allocated separately, you can use it from the [Standard](https://hub-standard.seabee.sigma2.no/) SeaBee JupyterHub, even though this Hub does not have enough resources to do the processing itself. Please **do not use the more powerful Hubs for orthomosaicing** - they will not run any faster and will block resources from other users.
 :::
  
 Once you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you're using PyODM, use `task.info().progress` to periodically check the status of your job. For a more detailed example, see the notebook [here](https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb).
+
+## Standardised imagery {#sec-stan-img}
+
+Orthorectified images published on the SeaBee platform are standardised for consistency. This section provides an overview of requirements and recommendations for SeaBee datasets.
+
+:::{.callout-tip}
+The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation required.
+:::
+
+### Band order {#sec-band-order}
+
+For multiband images, **bands should be stacked in order of descending wavelength** (i.e. band 1 corresponds to the longest wavelength and band $n$ to the shortest):
+
+ * For RGB datasets, `R, G, B = bands 1, 2, 3`.
+ 
+ * For typical multispectral data, `NIR, RedEdge, R, G, B = bands 1, 2, 3, 4, 5` (where `NIR` corresponds to "near infrared").
+
+Note that GeoTiffs support band-level metadata via [set_band_description](https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html#rasterio.io.BufferedDatasetWriter.set_band_description), as well as band-specific [colour interpretations](https://rasterio.readthedocs.io/en/stable/topics/color.html). It is strongly recommended to use these features to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.
+
+:::{.callout-tip}
+By default, most GIS software will display bands 1, 2 and 3 as R, G and B, respectively. However, it is usually easy to change these settings and assign colours to whichever bands you wish:
+
+ * In ArcGIS Desktop, use the [Symbology](https://resources.arcgis.com/en/help/main/10.2/index.html#/Drawing_a_multiband_raster_dataset_as_an_RGB_composite/009t00000073000000/) tab
+ * In ArcGIS Pro, use the [Raster Layer](https://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/setting-the-default-bands-to-display-multiband-rasters.htm) tab
+ * For QGIS, see the [Raster Properties](https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/raster_properties.html?highlight=multiband#multiband-color) dialog
+:::
+
+### Missing data {#sec-nodata}
+
+There are several common approaches for representing "no data" in raster imagery, such as setting a `nodata` value or using an "alpha channel". Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range of values for the data type. However, alpha masks are not supported by some software and image compression algorithms. 
+
+For SeaBee workflows - especially those involving machine learning - it is recommended to **discard any alpha channels and explicitly set a `nodata` value**.
+
+### Bit depth {#sec-bit-depth}
+
+8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recommended to **convert each band to 8-bit integer type**. Be sure to scale - rather than truncate - the values when converting.
+
+SeaBee workflows are not limited to 8-bits per band. Please let us know if you believe your workflow will benefit from using higher bit depths.

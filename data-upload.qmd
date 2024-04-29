@@ -15,19 +15,11 @@ There are two main use cases for pilots adding data to the SeaBee platform:
 
 **Option 1 should be preferred where possible** as it ensures a consistent and traceable processing pipeline for the entire workflow, and in most cases it should be faster and easier from a pilot's perspective too. The main reason for choosing Option 2 is if pilots want to use commercial software (such as Pix4D) instead of Open Drone Map (ODM) for orthorectification. In this case, pilots must have a separate Pix4D licence to create the orthophoto(s), then upload the finished mosaics together with supporting metadata.
 
-The easiest way to upload data for a **single mission** is to use the [data upload interface](https://geonode.seabee.sigma2.no/ddc/#step-1). This will guide you through the process of adding mission data and metadata, regardless of whether you want to upload raw files or partially processed data.
-
-::: {.callout-important}
-The data upload interface assumes the mission has already been registered in SeaBee's [Dronelogbook](https://www.dronelogbook.com/hp/1/index.html) during the mission planning stage. **If the mission is not registered in Dronelogbook, you will not be able to use the upload interface** (see below for alternatives). 
-:::
-
-If you wish to upload data from **multiple missions**, or if your mission is not registered in Dronelogbook, you will need to organise the data into folders yourself and then upload it to the platform using the method of your choice (see below for details).
-
 ## Data structure {#sec-data-structure}
 
 ### Flight folder naming {#sec-flight-folder}
 
-The data from each flight should be gathered into a **single folder** following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. **The SeaBee platform does not enforce strict requirements for naming flight folders**, because we recognise that different pilots and organisations have their own conventions (see e.g. the issue [here](https://github.com/SeaBee-no/documentation/issues/23)). However, a recommended approach is to use `grouping_area_yyyymmddHHMM` or `grouping_area_yyyymmddHHMM_organisation_spectrum-type_elevation`. Note the use of **underscores** (`_`) to separate each of the main components, while hyphens (`-`) or `CamelCase` can be used to further subdivide each part, if necessary. For example: `multipart-group_area-part-1_yyyymmddHHMM` or `MultipartGroup_AreaPart1_yyyymmddHHMM`.
+The data from each flight should be gathered into a **single folder** following the subfolder structure described below. The name of the flight folder itself can be anything you choose, but it must be unique and, from a user perspective, it helps to include standard information such as location, date etc. **The SeaBee platform does not enforce strict requirements for naming flight folders**, because we recognise that different pilots and organisations have their own conventions. However, a recommended approach is to use `grouping_area_yyyymmddHHMM` or `grouping_area_yyyymmddHHMM_organisation_spectrum-type_elevation`. Note the use of **underscores** (`_`) to separate each of the main components, while hyphens (`-`) or `CamelCase` can be used to further subdivide each part, if necessary. For example: `multipart-group_area-part-1_yyyymmddHHMM` or `MultipartGroup_AreaPart1_yyyymmddHHMM`.
 
 ::: {.callout-important}
 The name of the flight folder is **not used** by any of the automated processing routines on the SeaBee platform. As long as the subfolders are arranged as described below and the details are correct in `config.seabee.yaml`, the mission will be processed regardless of the flight folder name. The name of the flight folder only matters for people browsing data manually (e.g. using MinIO). It is therefore important that names are human-readable. 
@@ -57,7 +49,6 @@ Within the "parent" flight folder, data should be organised into subfolders as f
 
 ```
 grouping_area_yyyymmddHHMM_[organisation]_[spectrum-type]_[elevation]/
-├─ annotation/
 ├─ dem/
 ├─ gcp/
 │  ├─ gcp_list-ODM.txt
@@ -85,15 +76,17 @@ config.seabee.yaml
 
 The purpose of each subfolder or file is as follows:
 
- * `annotation` (optional). Contains any relevant user-generated annotation not already on the SeaBee platform (e.g. externally generated geopackages).
-
  * `dem` (optional). Contains elevation datasets generated during orthorectification (DSMs and DTMs etc.). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g. using Pix4D).
 
- * `gcp` (optional). Folder containing ground control points in a standard text format. The format used by ODM is different to that used by Pix4D, so **please specify which format has been used in the filename**, as shown above.
+ * `gcp` (optional). Folder containing ground control points in a standard text format. The format used by ODM is different to that used by Pix4D, so **please specify which format has been used in the filename**, as shown above. Ground control points are usually not necessary if you are flying with differential GPS (RTK etc.), in which case this folder can be omitted..
  
  * `ground_truth` (optional). Ground truth data, if available.
 
  * `orthophoto` (optional). Georeferenced mosaic images. Ideally a single, multi-band GeoTiff. This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g. using Pix4D). ODM generates orthophotos named `odm_orthophoto.original.tif`. **If you are uploading an externally built mosaic from Pix4D, it should be placed in this folder and named `pix4d_orthophoto.original.tif`**.
+ 
+::: {.callout-important}
+If you are uploading a mosaic generated off the platform (e.g by Pix4D), it is important that the GeoTiff file includes proper metadata, such as band descriptions, colour interpretations and NoData values. The SeaBee pipeline will reorganise datasets into a standard format before publishing them to the GeoNode. However, this step will fail (or produce incorrect results) if externally generated mosaics are added with incomplete or incorrect metadata.
+:::
 
  * `other` (optional). Anything not included in the other folders.
 
@@ -107,7 +100,7 @@ The purpose of each subfolder or file is as follows:
 
 ### Configuration file {#sec-config-file}
 
-Each flight folder must contain a file named `config.seabee.yaml`, which contains flight metadata plus settings/commands to control the data processing. A minimal example with just the 8 mandatory attributes is shown below.
+Each flight folder must contain a file named `config.seabee.yaml`, which contains flight metadata plus settings/commands to control the data processing. A minimal example with just the 9 mandatory attributes is shown below.
 
 ``` yaml
 grouping: gronningen                  # General identifier linking this flight to related flights
@@ -116,6 +109,7 @@ datetime: '202305230830'              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that 
 nfiles: 290                           # Total number of files in the 'images' folder
 organisation: NINA                    # Responsible organisation
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
+classify: true                        # Whether to classify the orthomosaic using machine learning (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') 
 ```
@@ -124,7 +118,7 @@ The `nfiles` attribute is important, as it is used to determine whether data upl
 
 In addition to the mandatory attributes above, `config.seabee.yaml` can contain optional information to control subsequent processing and add extra metadata. A complete list of attributes currently supported is shown below. Note that **optional attributes can simply be omitted from the file if they are not relevant**. 
 
-For further explanation of `odm_options`, see the documentation [here](https://docs.opendronemap.org/arguments/). If `mosaic` is `true` and `odm_options` are omitted, default options defined [here](https://github.com/SeaBee-no/seabeepy/blob/aba458bbc714434e0afaafe4646f9c21f2ba236c/seabeepy/ortho.py#L80) will be used instead.
+For further explanation of `odm_options`, see the documentation [here](https://docs.opendronemap.org/arguments/). If `mosaic` is `true` and `odm_options` are omitted, default options defined [here](https://github.com/SeaBee-no/seabeepy/blob/ba0dbe99b9406ae5e1794a1e35fbcd67f12de53e/seabeepy/ortho.py#L161) will be used instead. Similarly, if `classify` is `true` but `ml_options` is omitted, the machine learning step will default to attempting object detection using the most recent algorithm available.
 
 ``` yaml
 grouping: gronningen                  # General identifier linking this flight to related flights
@@ -133,6 +127,7 @@ datetime: '202305230830'              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that 
 nfiles: 290                           # Total number of files in the 'images' folder
 organisation: NINA                    # Responsible organisation
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
+classify: true                        # Whether to classify the orthomosaic using machine learning (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
 spectrum_type: RGB                    # [Optional]. Sensor type ('RGB', 'MS' or 'HSI')
@@ -156,6 +151,9 @@ odm_options:                          # [Optional]. Overrides default orthorecti
   crop: 3                             # [Optional]. Int or Float (>= 0)
   pc-quality: high                    # [Optional]. ultra, high, medium, low, lowest
   feature-quality: high               # [Optional]. ultra, high, medium, low, lowest
+ml_options:                           # [Optional]. Overrides default machine learning settings
+  task:                               # [Optional]. detection, segmentation
+  model:                              # [Optional]. Name/version of machine learning model to use
 ```
 
 ::: {.callout-important}
@@ -166,15 +164,11 @@ Mosaic datasets created and published to GeoNode will be named by combining info
 where `grouping`, `area` and `datetime` are mandatory and `spectrum_type` and `elevation` will be included if provided. **It is important to ensure that this name is unique** to avoid conflicts with other datasets. For this reason, it is strongly recommended to include hours and minutes in the `datetime` attribute when filling in `config.seabee.yaml`.
 :::
 
-::: {.callout-note}
-The exact structure and content of `config.seabee.yaml` will likely expand over time. See the issue [here](https://github.com/SeaBee-no/documentation/issues/32) for the latest details, or if you would like to suggest additional options.
-:::
+## Data upload {#sec-upload}
 
-## Manual data upload {#sec-upload}
+The first step before uploading anything is to organise the data from each flight into folders on your local system, as described in @sec-data-structure. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and  Rclone, both of which are described on the [Storage](./storage.qmd) page.
 
-If you are not using the [data upload interface](https://geonode.seabee.sigma2.no/ddc/#step-1), the first step before uploading anything is to organise the data from each flight into folders on your local system, as described in @sec-data-structure. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and  Rclone, both of which are described on the [Storage](./storage.qmd) page.
-
-The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, Rclone is recommended. The big advantage of Rclone is that it tracks which files have been transferred and it will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than "standard" data upload via a web interface: using Rclone, it is possible to upload terabytes of data relatively smoothly.
+The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, **Rclone is recommended**. The big advantage of Rclone is that it tracks which files have been transferred and it will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than "standard" data upload via a web interface; using Rclone, it is possible to upload terabytes of data relatively smoothly.
 
 ::: {.callout-tip}
 ## Example: Using Rclone and ODM for near-real-time generation of orthophotos

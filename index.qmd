@@ -5,7 +5,7 @@ number-sections: true
 
 This website provides technical documentation for various aspects of the SeaBee workflow. 
 
-To learn more about the SeaBee project itself, please visit <https://seabee.no/>.
+To learn more about the SeaBee project itself, please visit <https://seabee.no/>. To explore SeaBee data products, use the [SeaBee GeoNode](https://geonode.seabee.sigma2.no/).
 
 ## Overview {#sec-overview}
 
@@ -15,14 +15,16 @@ Ground-truth data collected in the field are used to aid annotation of the mosai
 
 ![Simplified SeaBee workflow.](./images/simple_workflow.png){#fig-simple-workflow}
 
-The full SeaBee workflow is more complex than illustrated above. In particular:
+SeaBee aerial drones are flown with both **RGB** and **multispectral** cameras. In addition, the project includes **hyperspectral** data as well as imagery from other types of drone, such as the [**Otter**](https://www.maritimerobotics.com/otter) (an unmanned surface vehicle). 
 
- * Standard aerial drones are flown with both **RGB** and **multispectral** cameras. In addition, the project includes **hyperspectral** data as well as imagery from other types of drone, such as the [**Otter**](https://www.maritimerobotics.com/otter) (an unmanned surface vehicle). 
-
- * Typical data products from the machine learning include both **image segmentation** (e.g. habitat mapping) and **object identification** (e.g. seabird or mammal counts).
+Typical data products from the machine learning include both **image segmentation** (e.g. habitat mapping) and **object identification** (e.g. seabird or mammal counts).
 
 ## Sigma2 {#sec-sigma2}
 
 As far as possible, data handling for the SeaBee project is hosted by Sigma2 on [NIRD](https://documentation.sigma2.no/files_storage/nird.html), the National Infrastructure for Research Data. The SeaBee project has its own [Kubernetes](https://kubernetes.io/) namespace on Sigma2. A high-level schematic of the current configuration is shown in @fig-sigma2-outline.
 
 ![Simplified Sigma2 architecture.](./images/sigma2_outline_2023-01-06.png){#fig-sigma2-outline}
+
+SeaBee uses [MinIO](https://min.io/) running on Sigma2 to provide S3-compatible file storage for all SeaBee datasets. Users with MinIO accounts can upload and download data using any S3-compliant software (e.g. Rclone), as well as various web interfaces. On the platform itself, **orthorectification** is performed using [Open Drone Map](https://www.opendronemap.org/) and [NodeODM](https://github.com/OpenDroneMap/NodeODM), while **machine learning** is implemented using [PyTorch](https://pytorch.org/).
+
+Finished datasets are uploaded to [GeoServer](https://geoserver.org/) and then published to the [SeaBee GeoNode](https://geonode.seabee.sigma2.no/), where users can search, explore and combine SeaBee data products.
