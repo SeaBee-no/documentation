@@ -104,6 +104,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./data-upload.html"> 
 <span class="menu-text">Data upload</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./annotation.html"> 
+<span class="menu-text">Annotation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./data-products.html"> 
+<span class="menu-text">Data products</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Processing</span>
@@ -113,24 +121,13 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./orthorectification.html">
  <span class="dropdown-text">Orthorectification</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./standardised-imagery.html">
- <span class="dropdown-text">Standardised imagery</span></a>
-  </li>  
+        <li class="dropdown-header">standardised-imagery.qmd</li>
         <li>
     <a class="dropdown-item" href="./jupyterhub.html">
  <span class="dropdown-text">JupyterHub</span></a>
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./annotation.html"> 
-<span class="menu-text">Annotation</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./data-products.html"> 
-<span class="menu-text">Data products</span></a>
-  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./howto.html"> 
 <span class="menu-text">How to</span></a>
@@ -202,6 +199,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Data upload</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-products.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data products</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -218,11 +227,8 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./standardised-imagery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Standardised imagery</span></a>
-  </div>
-</li>
+ <span class="menu-text">standardised-imagery.qmd</span>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./jupyterhub.html" class="sidebar-item-text sidebar-link">
@@ -231,18 +237,6 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./annotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Annotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./data-products.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data products</span></a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
@@ -287,7 +281,7 @@ ul.task-list li input[type="checkbox"] {
 
 
 <p>This website provides technical documentation for various aspects of the SeaBee workflow.</p>
-<p>To learn more about the SeaBee project itself, please visit <a href="https://seabee.no/" class="uri">https://seabee.no/</a>.</p>
+<p>To learn more about the SeaBee project itself, please visit <a href="https://seabee.no/" class="uri">https://seabee.no/</a>. To explore SeaBee data products, use the <a href="https://geonode.seabee.sigma2.no/">SeaBee GeoNode</a>.</p>
 <section id="sec-overview" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="sec-overview"><span class="header-section-number">1</span> Overview</h2>
 <p>A simplified version of the SeaBee data flow is illustrated in <a href="#fig-simple-workflow" class="quarto-xref">Figure&nbsp;1</a>. Geotagged images from aerial drones are combined with ground control points using orthorectification software to produce georeferenced image mosaics.</p>
@@ -302,11 +296,8 @@ Figure&nbsp;1: Simplified SeaBee workflow.
 </figcaption>
 </figure>
 </div>
-<p>The full SeaBee workflow is more complex than illustrated above. In particular:</p>
-<ul>
-<li><p>Standard aerial drones are flown with both <strong>RGB</strong> and <strong>multispectral</strong> cameras. In addition, the project includes <strong>hyperspectral</strong> data as well as imagery from other types of drone, such as the <a href="https://www.maritimerobotics.com/otter"><strong>Otter</strong></a> (an unmanned surface vehicle).</p></li>
-<li><p>Typical data products from the machine learning include both <strong>image segmentation</strong> (e.g.&nbsp;habitat mapping) and <strong>object identification</strong> (e.g.&nbsp;seabird or mammal counts).</p></li>
-</ul>
+<p>SeaBee aerial drones are flown with both <strong>RGB</strong> and <strong>multispectral</strong> cameras. In addition, the project includes <strong>hyperspectral</strong> data as well as imagery from other types of drone, such as the <a href="https://www.maritimerobotics.com/otter"><strong>Otter</strong></a> (an unmanned surface vehicle).</p>
+<p>Typical data products from the machine learning include both <strong>image segmentation</strong> (e.g.&nbsp;habitat mapping) and <strong>object identification</strong> (e.g.&nbsp;seabird or mammal counts).</p>
 </section>
 <section id="sec-sigma2" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="sec-sigma2"><span class="header-section-number">2</span> Sigma2</h2>
@@ -321,6 +312,8 @@ Figure&nbsp;2: Simplified Sigma2 architecture.
 </figcaption>
 </figure>
 </div>
+<p>SeaBee uses <a href="https://min.io/">MinIO</a> running on Sigma2 to provide S3-compatible file storage for all SeaBee datasets. Users with MinIO accounts can upload and download data using any S3-compliant software (e.g.&nbsp;Rclone), as well as various web interfaces. On the platform itself, <strong>orthorectification</strong> is performed using <a href="https://www.opendronemap.org/">Open Drone Map</a> and <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM</a>, while <strong>machine learning</strong> is implemented using <a href="https://pytorch.org/">PyTorch</a>.</p>
+<p>Finished datasets are uploaded to <a href="https://geoserver.org/">GeoServer</a> and then published to the <a href="https://geonode.seabee.sigma2.no/">SeaBee GeoNode</a>, where users can search, explore and combine SeaBee data products.</p>
 
 
 </section>

@@ -104,6 +104,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./data-upload.html"> 
 <span class="menu-text">Data upload</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./annotation.html"> 
+<span class="menu-text">Annotation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./data-products.html"> 
+<span class="menu-text">Data products</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Processing</span>
@@ -113,24 +121,13 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./orthorectification.html">
  <span class="dropdown-text">Orthorectification</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./standardised-imagery.html">
- <span class="dropdown-text">Standardised imagery</span></a>
-  </li>  
+        <li class="dropdown-header">standardised-imagery.qmd</li>
         <li>
     <a class="dropdown-item" href="./jupyterhub.html">
  <span class="dropdown-text">JupyterHub</span></a>
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./annotation.html"> 
-<span class="menu-text">Annotation</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./data-products.html"> 
-<span class="menu-text">Data products</span></a>
-  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./howto.html"> 
 <span class="menu-text">How to</span></a>
@@ -202,6 +199,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Data upload</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-products.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data products</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -218,11 +227,8 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./standardised-imagery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Standardised imagery</span></a>
-  </div>
-</li>
+ <span class="menu-text">standardised-imagery.qmd</span>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./jupyterhub.html" class="sidebar-item-text sidebar-link">
@@ -231,18 +237,6 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./annotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Annotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./data-products.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data products</span></a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link active">
@@ -263,7 +257,8 @@ ul.task-list li input[type="checkbox"] {
   <li><a href="#sec-file-transfer" id="toc-sec-file-transfer" class="nav-link" data-scroll-target="#sec-file-transfer"><span class="header-section-number">2</span> Upload or download files</a></li>
   <li><a href="#sec-orthorectification" id="toc-sec-orthorectification" class="nav-link" data-scroll-target="#sec-orthorectification"><span class="header-section-number">3</span> Mosaic geotagged raw images to georeferenced mosaics</a></li>
   <li><a href="#sec-annotation" id="toc-sec-annotation" class="nav-link" data-scroll-target="#sec-annotation"><span class="header-section-number">4</span> Create training data for machine learning (annotation)</a></li>
-  <li><a href="#explore-and-download-seabee-datasets" id="toc-explore-and-download-seabee-datasets" class="nav-link" data-scroll-target="#explore-and-download-seabee-datasets"><span class="header-section-number">5</span> Explore and download SeaBee datasets</a></li>
+  <li><a href="#sec-explore-data" id="toc-sec-explore-data" class="nav-link" data-scroll-target="#sec-explore-data"><span class="header-section-number">5</span> Explore and download SeaBee datasets</a></li>
+  <li><a href="#sec-share-maps" id="toc-sec-share-maps" class="nav-link" data-scroll-target="#sec-share-maps"><span class="header-section-number">6</span> Create shareable maps combining multiple datasets</a></li>
   </ul>
 </nav>
     </div>
@@ -296,19 +291,23 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="sec-file-transfer" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="sec-file-transfer"><span class="header-section-number">2</span> Upload or download files</h2>
-<p>The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the <a href="https://minio.seabee.sigma2.no/">MinIO web interface</a> or the <a href="https://geonode.seabee.sigma2.no/ddc/#step-1">SeaBee data upload portal</a>. For larger volumes of data (e.g.&nbsp;raw imagery for whole missions), command-line solutions such as <strong>Rclone</strong> are preferable. See <a href="./storage.html#uploading-and-downloading-files">Uploading and downloading files</a> for details.</p>
+<p>The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the <a href="https://minio.seabee.sigma2.no/">MinIO web interface</a> or the <a href="https://geonode.seabee.sigma2.no/ddc/#step-1">SeaBee data upload portal</a>. For larger volumes of data (e.g.&nbsp;raw imagery for whole missions), dedicated software such as <strong>Rclone</strong> and <strong>RcloneBrowser</strong> are preferable. See <a href="./storage.html#uploading-and-downloading-files">Uploading and downloading files</a> for details.</p>
 </section>
 <section id="sec-orthorectification" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-orthorectification"><span class="header-section-number">3</span> Mosaic geotagged raw images to georeferenced mosaics</h2>
-<p>You can use <strong>Open Drone Map</strong> (ODM) via either PyODM or CloudODM (e.g.&nbsp;via the SeaBee JupyterHub). See the <a href="./orthorectification.html">Orthorectification</a> page for details. If you are a drone pilot wishing to upload mission data for automatic processing, see data preparation guide <a href="./data-upload.html">here</a>.</p>
+<p>If you are a drone pilot wishing to upload mission data for automatic processing, see the data preparation guide <a href="./data-upload.html">here</a>. The basic procedure involves uploading your raw images in a single folder, together with a plain text file called <code>config.seabee.yaml</code> containing simple metadata. If you wish to have more control over the exact processing workflow, you can use NodeODM/Open Drone Map via PyODM from any of the SeaBee JupyterHubs. See the <a href="./orthorectification.html">Orthorectification</a> page for details.</p>
 </section>
 <section id="sec-annotation" class="level2" data-number="4">
 <h2 data-number="4" class="anchored" data-anchor-id="sec-annotation"><span class="header-section-number">4</span> Create training data for machine learning (annotation)</h2>
 <p>The recommended workflow for <strong>image segmentation</strong> tasks is to use ArcGIS Pro and the Image Analyst extension - see the <a href="./annotation.html">Annotation</a> page for details.</p>
 </section>
-<section id="explore-and-download-seabee-datasets" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="explore-and-download-seabee-datasets"><span class="header-section-number">5</span> Explore and download SeaBee datasets</h2>
-<p>Orthomosaics from aerial drones and data products from the machine learning are available via the <strong>SeaBee GeoNode</strong>. See the <a href="./data-products.html">Data products</a> page for details.</p>
+<section id="sec-explore-data" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="sec-explore-data"><span class="header-section-number">5</span> Explore and download SeaBee datasets</h2>
+<p>Orthomosaics from aerial drones and data products from machine learning are available via the <a href="https://geonode.seabee.sigma2.no/">SeaBee GeoNode</a>. See the <a href="./data-products.html">Data products</a> page for details.</p>
+</section>
+<section id="sec-share-maps" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="sec-share-maps"><span class="header-section-number">6</span> Create shareable maps combining multiple datasets</h2>
+<p>You first need to <strong>register</strong> as a user of the GeoNode (click the button near the top-right of <a href="https://geonode.seabee.sigma2.no/catalogue/#/search/?f=dataset">this</a> page). Once signed in, you can use the <code>Add resource</code> button to create a new <code>Map</code>, where you can choose which layers to add and then adjust their styling etc. Maps you create are linked to your username and will become visible on the <a href="https://geonode.seabee.sigma2.no/catalogue/#/search/?f=map">Maps</a> page. All user-generated maps are public and can be shared online.</p>
 
 
 </section>

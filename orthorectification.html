@@ -67,6 +67,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -104,6 +133,14 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="./data-upload.html"> 
 <span class="menu-text">Data upload</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./annotation.html"> 
+<span class="menu-text">Annotation</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./data-products.html"> 
+<span class="menu-text">Data products</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-processing" role="button" data-bs-toggle="dropdown" aria-expanded="false">
  <span class="menu-text">Processing</span>
@@ -113,24 +150,13 @@ ul.task-list li input[type="checkbox"] {
     <a class="dropdown-item" href="./orthorectification.html">
  <span class="dropdown-text">Orthorectification</span></a>
   </li>  
-        <li>
-    <a class="dropdown-item" href="./standardised-imagery.html">
- <span class="dropdown-text">Standardised imagery</span></a>
-  </li>  
+        <li class="dropdown-header">standardised-imagery.qmd</li>
         <li>
     <a class="dropdown-item" href="./jupyterhub.html">
  <span class="dropdown-text">JupyterHub</span></a>
   </li>  
     </ul>
   </li>
-  <li class="nav-item">
-    <a class="nav-link" href="./annotation.html"> 
-<span class="menu-text">Annotation</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./data-products.html"> 
-<span class="menu-text">Data products</span></a>
-  </li>  
   <li class="nav-item">
     <a class="nav-link" href="./howto.html"> 
 <span class="menu-text">How to</span></a>
@@ -202,6 +228,18 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Data upload</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./annotation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Annotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./data-products.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Data products</span></a>
+  </div>
+</li>
         <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true">
@@ -218,11 +256,8 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./standardised-imagery.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Standardised imagery</span></a>
-  </div>
-</li>
+ <span class="menu-text">standardised-imagery.qmd</span>
+  </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./jupyterhub.html" class="sidebar-item-text sidebar-link">
@@ -231,18 +266,6 @@ ul.task-list li input[type="checkbox"] {
 </li>
       </ul>
   </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./annotation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Annotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./data-products.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Data products</span></a>
-  </div>
-</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./howto.html" class="sidebar-item-text sidebar-link">
@@ -259,7 +282,13 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#open-drone-map" id="toc-open-drone-map" class="nav-link active" data-scroll-target="#open-drone-map"><span class="header-section-number">1</span> Open Drone Map</a></li>
+  <li><a href="#sec-odm" id="toc-sec-odm" class="nav-link active" data-scroll-target="#sec-odm"><span class="header-section-number">1</span> Open Drone Map</a></li>
+  <li><a href="#sec-stan-img" id="toc-sec-stan-img" class="nav-link" data-scroll-target="#sec-stan-img"><span class="header-section-number">2</span> Standardised imagery</a>
+  <ul class="collapse">
+  <li><a href="#sec-band-order" id="toc-sec-band-order" class="nav-link" data-scroll-target="#sec-band-order"><span class="header-section-number">2.1</span> Band order</a></li>
+  <li><a href="#sec-nodata" id="toc-sec-nodata" class="nav-link" data-scroll-target="#sec-nodata"><span class="header-section-number">2.2</span> Missing data</a></li>
+  <li><a href="#sec-bit-depth" id="toc-sec-bit-depth" class="nav-link" data-scroll-target="#sec-bit-depth"><span class="header-section-number">2.3</span> Bit depth</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -287,9 +316,9 @@ ul.task-list li input[type="checkbox"] {
 
 <p>Orthorectification within SeaBee is currently performed using two main tools: <a href="https://opendronemap.org/">Open Drone Map (ODM)</a>, which is Open Source, and <a href="https://www.pix4d.com/">Pix4D</a>, which is proprietary. To date, orthorectification for habitat mapping (image segmentation) has been handled by drone pilots using Pix4D, whereas orthorectification for seabird counts (object identification) has been done by researchers using ODM.</p>
 <p><a href="https://developer.pix4d.com/cloud-api/index.html#">Pix4D-Engine</a> is not currently deployed on Sigma2 due to licensing restrictions, but ODM is available via the <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM API</a>. <a href="https://github.com/OpenDroneMap/PyODM">PyODM</a> and <a href="https://github.com/OpenDroneMap/CloudODM">CloudODM</a> are also provided.</p>
-<section id="open-drone-map" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="open-drone-map"><span class="header-section-number">1</span> Open Drone Map</h2>
-<p>Open Drone Map is accessible from the SeaBee JupyterHub via <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM</a>, which provides a convenient API for scheduling and executing jobs. SeaBee’s NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used <a href="./storage.html#sec-rclone">in combination with Rclone</a>, this makes it possible to create and publish orthomosaics in near-real-time.</p>
+<section id="sec-odm" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="sec-odm"><span class="header-section-number">1</span> Open Drone Map</h2>
+<p>In addition to the automated workflow, Open Drone Map is accessible from the SeaBee <a href="./jupyterhub.html">JupyterHubs</a> via <a href="https://github.com/OpenDroneMap/NodeODM">NodeODM</a>, which provides a convenient API for scheduling and executing jobs. SeaBee’s NodeODM setup is capable of processing several jobs simultaneously and it can automatically scan folders for new imagery. When used <a href="./storage.html#sec-rclone">in combination with Rclone</a>, this makes it possible to create and publish orthomosaics in near-real-time.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -304,8 +333,62 @@ Tip
 </div>
 </div>
 <p>Once you have submitted a job to ODM via NodeODM, it will run in the background on the SeaBee platform so you can continue with other work. If you’re using PyODM, use <code>task.info().progress</code> to periodically check the status of your job. For a more detailed example, see the notebook <a href="https://nbviewer.org/github/SeaBee-no/snippets/blob/main/nodeodm.ipynb">here</a>.</p>
+</section>
+<section id="sec-stan-img" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="sec-stan-img"><span class="header-section-number">2</span> Standardised imagery</h2>
+<p>Orthorectified images published on the SeaBee platform are standardised for consistency. This section provides an overview of requirements and recommendations for SeaBee datasets.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The easiest way to ensure your data matches the formats and standards expected is to upload your raw images to the SeaBee platform and perform all subsequent processing (orthomosaicing etc.) there, instead of on your local machine. The SeaBee data pipeline will then automatically take care of any standardisation required.</p>
+</div>
+</div>
+<section id="sec-band-order" class="level3" data-number="2.1">
+<h3 data-number="2.1" class="anchored" data-anchor-id="sec-band-order"><span class="header-section-number">2.1</span> Band order</h3>
+<p>For multiband images, <strong>bands should be stacked in order of descending wavelength</strong> (i.e.&nbsp;band 1 corresponds to the longest wavelength and band <span class="math inline">\(n\)</span> to the shortest):</p>
+<ul>
+<li><p>For RGB datasets, <code>R, G, B = bands 1, 2, 3</code>.</p></li>
+<li><p>For typical multispectral data, <code>NIR, RedEdge, R, G, B = bands 1, 2, 3, 4, 5</code> (where <code>NIR</code> corresponds to “near infrared”).</p></li>
+</ul>
+<p>Note that GeoTiffs support band-level metadata via <a href="https://rasterio.readthedocs.io/en/stable/api/rasterio.io.html#rasterio.io.BufferedDatasetWriter.set_band_description">set_band_description</a>, as well as band-specific <a href="https://rasterio.readthedocs.io/en/stable/topics/color.html">colour interpretations</a>. It is strongly recommended to use these features to explicitly set the band name or wavelength interval for each band. This makes it easy to check whether a file matches the recommended format.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>By default, most GIS software will display bands 1, 2 and 3 as R, G and B, respectively. However, it is usually easy to change these settings and assign colours to whichever bands you wish:</p>
+<ul>
+<li>In ArcGIS Desktop, use the <a href="https://resources.arcgis.com/en/help/main/10.2/index.html#/Drawing_a_multiband_raster_dataset_as_an_RGB_composite/009t00000073000000/">Symbology</a> tab</li>
+<li>In ArcGIS Pro, use the <a href="https://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/setting-the-default-bands-to-display-multiband-rasters.htm">Raster Layer</a> tab</li>
+<li>For QGIS, see the <a href="https://docs.qgis.org/3.22/en/docs/user_manual/working_with_raster/raster_properties.html?highlight=multiband#multiband-color">Raster Properties</a> dialog</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="sec-nodata" class="level3" data-number="2.2">
+<h3 data-number="2.2" class="anchored" data-anchor-id="sec-nodata"><span class="header-section-number">2.2</span> Missing data</h3>
+<p>There are several common approaches for representing “no data” in raster imagery, such as setting a <code>nodata</code> value or using an “alpha channel”. Using an alpha channel avoids reserving a specific pixel value for no data, making it possible to use the full range of values for the data type. However, alpha masks are not supported by some software and image compression algorithms.</p>
+<p>For SeaBee workflows - especially those involving machine learning - it is recommended to <strong>discard any alpha channels and explicitly set a <code>nodata</code> value</strong>.</p>
+</section>
+<section id="sec-bit-depth" class="level3" data-number="2.3">
+<h3 data-number="2.3" class="anchored" data-anchor-id="sec-bit-depth"><span class="header-section-number">2.3</span> Bit depth</h3>
+<p>8-bits per band is considered sufficient for most machine learning applications on the SeaBee platform. Raw data with higher bit depths should be stored on MinIO, but for machine learning it is recommended to <strong>convert each band to 8-bit integer type</strong>. Be sure to scale - rather than truncate - the values when converting.</p>
+<p>SeaBee workflows are not limited to 8-bits per band. Please let us know if you believe your workflow will benefit from using higher bit depths.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
