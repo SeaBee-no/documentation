@@ -16,7 +16,6 @@ website:
       - text: "Processing"
         menu:
           - orthorectification.qmd
-          - standardised-imagery.qmd
           - jupyterhub.qmd
       - howto.qmd
 
@@ -39,7 +38,6 @@ website:
       - section: "Processing"
         contents:
           - orthorectification.qmd
-          - standardised-imagery.qmd
           - jupyterhub.qmd
       - howto.qmd
 
