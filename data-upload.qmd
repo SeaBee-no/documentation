@@ -166,9 +166,9 @@ where `grouping`, `area` and `datetime` are mandatory and `spectrum_type` and `e
 
 ## Data upload {#sec-upload}
 
-The first step before uploading anything is to organise the data from each flight into folders on your local system, as described in @sec-data-structure. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and  Rclone, both of which are described on the [Storage](./storage.qmd) page.
+The first step before uploading anything is to organise the data from each flight into folders on your local system, as described in @sec-data-structure. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and Rclone, both of which are described on the [Storage](./storage.qmd) page.
 
-The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, **Rclone is recommended**. The big advantage of Rclone is that it tracks which files have been transferred and it will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than "standard" data upload via a web interface; using Rclone, it is possible to upload terabytes of data relatively smoothly.
+The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, **Rclone or RcloneBrowser are recommended**. The big advantage of these is that they track which files have been transferred and retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than "standard" data upload via a web interface: using Rclone or RcloneBrowser, it is possible to upload terabytes of data relatively smoothly.
 
 ::: {.callout-tip}
 ## Example: Using Rclone and ODM for near-real-time generation of orthophotos
@@ -187,3 +187,21 @@ A script running every hour on the SeaBee platform compared the number of files 
 
 Completed orthomosaics were optimised for viewing online and then automatically published to the SeaBee GeoNode - usually within a few hours of the data upload completing. This made it possible for the survey team to check their data while still in the field, which is something we have never previously achieved at this scale.
 :::
+
+### Data upload using RcloneBrowser {#sec-rclone-browser}
+
+First install Rclone and RcloneBrowser as described [here](./storage.qmd#sec-rclone), then follow the steps below to upload data to the SeaBee platform.
+
+ 1. Download data from the drone to a local folder on your PC.
+
+ 2. Organise the local data as described in @sec-data-structure. For a “standard” mission flown with RTK positioning, this often just means putting all the raw images in a subfolder called `images` and adding a configuration file (see @sec-config-file).
+
+ 3. Open RcloneBrowser and connect to the SeaBee MinIO "remote". Navigate to the folder where you want to upload the files, right-click and choose `Upload` (@fig-rclonebrowser-upload).
+ 
+![RcloneBrowser upload](./images/rclone_browser_upload.jpg){#fig-rclonebrowser-upload}
+ 
+ 4. On the `source` row, click the **Choose folder** icon and select the tidied mission folder on your local PC. Check that the `destination` looks correct and click `Run` (@fig-rclonebrowser-upload-options).
+ 
+![RcloneBrowser upload options](./images/rclone_browser_upload_options.jpg){#fig-rclonebrowser-upload-options}
+
+ 5. You can follow the progress of the data transfer on the `Jobs` tab.
