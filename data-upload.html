@@ -290,7 +290,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#sec-subfolder-structure" id="toc-sec-subfolder-structure" class="nav-link" data-scroll-target="#sec-subfolder-structure"><span class="header-section-number">2.2</span> Subfolder structure</a></li>
   <li><a href="#sec-config-file" id="toc-sec-config-file" class="nav-link" data-scroll-target="#sec-config-file"><span class="header-section-number">2.3</span> Configuration file</a></li>
   </ul></li>
-  <li><a href="#sec-upload" id="toc-sec-upload" class="nav-link" data-scroll-target="#sec-upload"><span class="header-section-number">3</span> Data upload</a></li>
+  <li><a href="#sec-upload" id="toc-sec-upload" class="nav-link" data-scroll-target="#sec-upload"><span class="header-section-number">3</span> Data upload</a>
+  <ul class="collapse">
+  <li><a href="#sec-rclone-browser" id="toc-sec-rclone-browser" class="nav-link" data-scroll-target="#sec-rclone-browser"><span class="header-section-number">3.1</span> Data upload using RcloneBrowser</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -496,7 +499,7 @@ Important
 <section id="sec-upload" class="level2" data-number="3">
 <h2 data-number="3" class="anchored" data-anchor-id="sec-upload"><span class="header-section-number">3</span> Data upload</h2>
 <p>The first step before uploading anything is to organise the data from each flight into folders on your local system, as described in <a href="#sec-data-structure" class="quarto-xref">Section&nbsp;2</a>. Once you have done this, there are two options for getting the data onto the SeaBee platform: the MinIO web interface and Rclone, both of which are described on the <a href="./storage.html">Storage</a> page.</p>
-<p>The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, <strong>Rclone is recommended</strong>. The big advantage of Rclone is that it tracks which files have been transferred and it will retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than “standard” data upload via a web interface; using Rclone, it is possible to upload terabytes of data relatively smoothly.</p>
+<p>The MinIO web interface is convenient if you only need to upload data for a single, small mission. For most other cases, <strong>Rclone or RcloneBrowser are recommended</strong>. The big advantage of these is that they track which files have been transferred and retry if the network connection is interrupted. For transferring large volumes of high resolution imagery, it is therefore much more reliable than “standard” data upload via a web interface: using Rclone or RcloneBrowser, it is possible to upload terabytes of data relatively smoothly.</p>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -516,8 +519,43 @@ config.seabee.yaml</code></pre>
 <p>Completed orthomosaics were optimised for viewing online and then automatically published to the SeaBee GeoNode - usually within a few hours of the data upload completing. This made it possible for the survey team to check their data while still in the field, which is something we have never previously achieved at this scale.</p>
 </div>
 </div>
+<section id="sec-rclone-browser" class="level3" data-number="3.1">
+<h3 data-number="3.1" class="anchored" data-anchor-id="sec-rclone-browser"><span class="header-section-number">3.1</span> Data upload using RcloneBrowser</h3>
+<p>First install Rclone and RcloneBrowser as described <a href="./storage.html#sec-rclone">here</a>, then follow the steps below to upload data to the SeaBee platform.</p>
+<ol type="1">
+<li><p>Download data from the drone to a local folder on your PC.</p></li>
+<li><p>Organise the local data as described in <a href="#sec-data-structure" class="quarto-xref">Section&nbsp;2</a>. For a “standard” mission flown with RTK positioning, this often just means putting all the raw images in a subfolder called <code>images</code> and adding a configuration file (see <a href="#sec-config-file" class="quarto-xref">Section&nbsp;2.3</a>).</p></li>
+<li><p>Open RcloneBrowser and connect to the SeaBee MinIO “remote”. Navigate to the folder where you want to upload the files, right-click and choose <code>Upload</code> (<a href="#fig-rclonebrowser-upload" class="quarto-xref">Figure&nbsp;1</a>).</p></li>
+</ol>
+<div id="fig-rclonebrowser-upload" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rclonebrowser-upload-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/rclone_browser_upload.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rclonebrowser-upload-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: RcloneBrowser upload
+</figcaption>
+</figure>
+</div>
+<ol start="4" type="1">
+<li>On the <code>source</code> row, click the <strong>Choose folder</strong> icon and select the tidied mission folder on your local PC. Check that the <code>destination</code> looks correct and click <code>Run</code> (<a href="#fig-rclonebrowser-upload-options" class="quarto-xref">Figure&nbsp;2</a>).</li>
+</ol>
+<div id="fig-rclonebrowser-upload-options" class="quarto-figure quarto-figure-center quarto-float anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rclonebrowser-upload-options-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./images/rclone_browser_upload_options.jpg" class="img-fluid figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rclonebrowser-upload-options-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: RcloneBrowser upload options
+</figcaption>
+</figure>
+</div>
+<ol start="5" type="1">
+<li>You can follow the progress of the data transfer on the <code>Jobs</code> tab.</li>
+</ol>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

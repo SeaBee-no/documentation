@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://SeaBee-no.github.io/documentation/orthorectification.html</loc>
-    <lastmod>2024-05-06T07:05:45.832Z</lastmod>
-  </url>
-  <url>
-    <loc>https://SeaBee-no.github.io/documentation/annotation.html</loc>
-    <lastmod>2024-05-06T07:05:45.808Z</lastmod>
+    <loc>https://SeaBee-no.github.io/documentation/data-products.html</loc>
+    <lastmod>2024-05-22T13:20:01.879Z</lastmod>
   </url>
   <url>
     <loc>https://SeaBee-no.github.io/documentation/jupyterhub.html</loc>
-    <lastmod>2024-05-06T07:05:45.832Z</lastmod>
-  </url>
-  <url>
-    <loc>https://SeaBee-no.github.io/documentation/howto.html</loc>
-    <lastmod>2024-05-06T07:05:45.808Z</lastmod>
-  </url>
-  <url>
-    <loc>https://SeaBee-no.github.io/documentation/data-products.html</loc>
-    <lastmod>2024-05-06T07:05:45.808Z</lastmod>
-  </url>
-  <url>
-    <loc>https://SeaBee-no.github.io/documentation/login.html</loc>
-    <lastmod>2024-05-06T07:05:45.832Z</lastmod>
-  </url>
-  <url>
-    <loc>https://SeaBee-no.github.io/documentation/data-upload.html</loc>
-    <lastmod>2024-05-06T07:05:45.808Z</lastmod>
-  </url>
-  <url>
-    <loc>https://SeaBee-no.github.io/documentation/index.html</loc>
-    <lastmod>2024-05-06T07:05:45.832Z</lastmod>
+    <lastmod>2024-05-22T13:20:01.907Z</lastmod>
   </url>
   <url>
     <loc>https://SeaBee-no.github.io/documentation/storage.html</loc>
-    <lastmod>2024-05-06T07:05:45.832Z</lastmod>
+    <lastmod>2024-05-22T13:20:01.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://SeaBee-no.github.io/documentation/index.html</loc>
+    <lastmod>2024-05-22T13:20:01.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://SeaBee-no.github.io/documentation/annotation.html</loc>
+    <lastmod>2024-05-22T13:20:01.879Z</lastmod>
+  </url>
+  <url>
+    <loc>https://SeaBee-no.github.io/documentation/howto.html</loc>
+    <lastmod>2024-05-22T13:20:01.879Z</lastmod>
+  </url>
+  <url>
+    <loc>https://SeaBee-no.github.io/documentation/orthorectification.html</loc>
+    <lastmod>2024-05-22T13:20:01.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://SeaBee-no.github.io/documentation/login.html</loc>
+    <lastmod>2024-05-22T13:20:01.907Z</lastmod>
+  </url>
+  <url>
+    <loc>https://SeaBee-no.github.io/documentation/data-upload.html</loc>
+    <lastmod>2024-05-22T13:20:01.879Z</lastmod>
   </url>
 </urlset>
