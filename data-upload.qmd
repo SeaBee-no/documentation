@@ -198,10 +198,10 @@ First install Rclone and RcloneBrowser as described [here](./storage.qmd#sec-rcl
 
  3. Open RcloneBrowser and connect to the SeaBee MinIO "remote". Navigate to the folder where you want to upload the files, right-click and choose `Upload` (@fig-rclonebrowser-upload).
  
-![RcloneBrowser upload](./images/rclone_browser_upload.jpg){#fig-rclonebrowser-upload}
+![Uploading to a folder on MinIO using RcloneBrowser.](./images/rclone_browser_upload.jpg){#fig-rclonebrowser-upload}
  
- 4. On the `source` row, click the **Choose folder** icon and select the tidied mission folder on your local PC. Check that the `destination` looks correct and click `Run` (@fig-rclonebrowser-upload-options).
+ 4. On the `source` row, click the **Choose folder** icon and select the tidied mission folder on your local PC. Double-check the `destination` looks correct and then click `Run` (@fig-rclonebrowser-upload-options).
  
-![RcloneBrowser upload options](./images/rclone_browser_upload_options.jpg){#fig-rclonebrowser-upload-options}
+![Upload options in RcloneBrowser.](./images/rclone_browser_upload_options.jpg){#fig-rclonebrowser-upload-options}
 
  5. You can follow the progress of the data transfer on the `Jobs` tab.
