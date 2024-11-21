@@ -5,9 +5,9 @@ number-sections: true
 
 **Quick start: Choose the resources you need from the links below and login using your Feide credentials.**
 
- * **[Standard](https://hub-standard.seabee.sigma2.no)**. *1 CPU, 1 GB memory*. The default machine, suitable for basic data analysis such as processing ground truth data, annotation, simple statistics & visualisation etc. Also good for deploying orthorectification tasks to NodeODM.
+ * **[Standard](https://hub-small.seabee.sigma2.no)**. *1 CPU, 1 GB memory*. The default machine, suitable for basic data analysis such as processing ground truth data, annotation, simple statistics & visualisation etc. Also good for deploying orthorectification tasks to NodeODM.
  
- * **[High memory](https://hub-highmem.seabee.sigma2.no)**. *4 CPUs, 32 GB memory*. Well suited to raster processing, such as manipulating image mosaics.
+ * **[High memory](https://hub-large.seabee.sigma2.no)**. *4 CPUs, 32 GB memory*. Well suited to raster processing, such as manipulating image mosaics.
  
  * **[GPU-enabled](https://hub-gpu.seabee.sigma2.no)**. *4 CPUs, 16 GB memory, 1 Tesla V100-PCIE-16GB GPU*. Suitable for machine learning.
  
