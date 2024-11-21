@@ -27,4 +27,12 @@ This will allow you to load a list of available SeaBee data layers and add them 
 
 ## Registered users {#sec-registered-users}
 
-SeaBee data is available to everyone, but registered users can create their own maps and adjust layer styling etc. Click the `Register` button at the top-right of the [GeoNode home page](https://geonode.seabee.sigma2.no/#/) to create an account.
+SeaBee data is available to everyone, but registered users can download data products for their own use, and they can also create, style and share their own maps by combining multiple SeaBee datasets. Click the `Register` button at the top-right of the [GeoNode home page](https://geonode.seabee.sigma2.no/#/) to create an account.
+
+## Data licensing {#sec-licensing}
+
+The SeaBee platform supports licensing on a per-dataset basis. By default, SeaBee datasets are published under a **CC-BY-4.0** licence, which permits sharing, extending and adapting the data (including for commercial purposes), as long as SeaBee is credited as the data source. See [here](https://creativecommons.org/licenses/by/4.0/) for details.
+
+::: {.callout-important}
+Some SeaBee datasets **do not** use the `CC-BY-4.0` licence. Please check the `Licence` and `Licence link` attributes in the dataset abstract to find the correct licence.
+:::

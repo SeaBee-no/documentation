@@ -111,7 +111,7 @@ organisation: NINA                    # Responsible organisation
 mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
 classify: true                        # Whether to classify the orthomosaic using machine learning (true or false)
 publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
-theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat') 
+theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals', 'Habitat' or 'Water quality') 
 ```
 
 The `nfiles` attribute is important, as it is used to determine whether data upload has completed successfully before starting any further processing. For example, before attempting to mosaic any images using NodeODM, the processing script will first check that the number of files in the `images` subfolder matches the `nfiles` attribute in `config.seabee.yaml`. If it does, it is assumed that upload is complete and the flight is ready to be processed; if it does not, the flight is skipped and checked again later.
@@ -121,39 +121,43 @@ In addition to the mandatory attributes above, `config.seabee.yaml` can contain 
 For further explanation of `odm_options`, see the documentation [here](https://docs.opendronemap.org/arguments/). If `mosaic` is `true` and `odm_options` are omitted, default options defined [here](https://github.com/SeaBee-no/seabeepy/blob/ba0dbe99b9406ae5e1794a1e35fbcd67f12de53e/seabeepy/ortho.py#L161) will be used instead. Similarly, if `classify` is `true` but `ml_options` is omitted, the machine learning step will default to attempting object detection using the most recent algorithm available.
 
 ``` yaml
-grouping: gronningen                  # General identifier linking this flight to related flights
-area: agder                           # Name of specific location
-datetime: '202305230830'              # 'yyyymmddHHMM' or 'yyyymmdd'. Note that quotes are required
-nfiles: 290                           # Total number of files in the 'images' folder
-organisation: NINA                    # Responsible organisation
-mosaic: true                          # Whether to mosaic the raw images using ODM (true or false)
-classify: true                        # Whether to classify the orthomosaic using machine learning (true or false)
-publish: true                         # Whether to publish the orthophoto to GeoNode (true or false)
-theme: Seabirds                       # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
-spectrum_type: RGB                    # [Optional]. Sensor type ('RGB', 'MSI' or 'HSI')
-elevation: 40                         # [Optional]. Flight elevation (integer > 0 in metres)
-creator_name: Sindre Molværsmyr       # [Optional]. Data collector/pilot
-project: Seabirds2023                 # [Optional]. Name of project
-odm_options:                          # [Optional]. Overrides default orthorectification settings
-  dsm: true                           # [Optional]. true or false
-  dtm: true                           # [Optional]. true or false
-  cog: true                           # [Optional]. true or false
-  orthophoto-compression: LZW         # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE
-  orthophoto-resolution: 0.1          # [Optional]. Float. cm/pixel
-  dem-resolution: 0.1                 # [Optional]. Float. cm/pixel
-  max-concurrency: 16                 # [Optional]. Int
-  auto-boundary: true                 # [Optional]. true or false
-  use-3dmesh: true                    # [Optional]. true or false
-  fast-orthophoto: false              # [Optional]. true or false
-  pc-rectify: false                   # [Optional]. Bool
-  split: 999999                       # [Optional]. Int
-  split-overlap: 150                  # [Optional]. Int
-  crop: 3                             # [Optional]. Int or Float (>= 0)
-  pc-quality: high                    # [Optional]. ultra, high, medium, low, lowest
-  feature-quality: high               # [Optional]. ultra, high, medium, low, lowest
-ml_options:                           # [Optional]. Overrides default machine learning settings
-  task:                               # [Optional]. detection, segmentation
-  model:                              # [Optional]. Name/version of machine learning model to use
+grouping: gronningen                                             # General identifier linking this flight to related flights
+area: agder                                                      # Name of specific location
+datetime: '202305230830'                                         # 'yyyymmddHHMM' or 'yyyymmdd'. Note that quotes are required
+nfiles: 290                                                      # Total number of files in the 'images' folder
+organisation: NINA                                               # Responsible organisation
+mosaic: true                                                     # Whether to mosaic the raw images using ODM (true or false)
+classify: true                                                   # Whether to classify the orthomosaic using machine learning (true or false)
+publish: true                                                    # Whether to publish the orthophoto to GeoNode (true or false)
+theme: Seabirds                                                  # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
+spectrum_type: RGB                                               # [Optional]. Sensor type ('RGB', 'MSI' or 'HSI')
+elevation: 40                                                    # [Optional]. Flight elevation (integer > 0 in metres)
+creator_name: Sindre Molværsmyr                                  # [Optional]. Data collector/pilot
+project: Seabirds2023                                            # [Optional]. Name of project
+vehicle: DJI-M350                                                # [Optional]. Name of vehicle/drone
+sensor: DJI-P1                                                   # [Optional]. Name of camera/sensor
+licence: CC-BY-4                                                 # [Optional]. Name of licence
+licence_link: https://creativecommons.org/licenses/by/4.0/       # [Optional]. Link to licence details
+odm_options:                                                     # [Optional]. Overrides default orthorectification settings
+  dsm: true                                                      # [Optional]. true or false
+  dtm: true                                                      # [Optional]. true or false
+  cog: true                                                      # [Optional]. true or false
+  orthophoto-compression: LZW                                    # [Optional]. JPEG, LZW, PACKBITS, DEFLATE, LZMA or NONE
+  orthophoto-resolution: 0.1                                     # [Optional]. Float. cm/pixel
+  dem-resolution: 0.1                                            # [Optional]. Float. cm/pixel
+  max-concurrency: 16                                            # [Optional]. Int
+  auto-boundary: true                                            # [Optional]. true or false
+  use-3dmesh: true                                               # [Optional]. true or false
+  fast-orthophoto: false                                         # [Optional]. true or false
+  pc-rectify: false                                              # [Optional]. Bool
+  split: 999999                                                  # [Optional]. Int
+  split-overlap: 150                                             # [Optional]. Int
+  crop: 3                                                        # [Optional]. Int or Float (>= 0)
+  pc-quality: high                                               # [Optional]. ultra, high, medium, low, lowest
+  feature-quality: high                                          # [Optional]. ultra, high, medium, low, lowest
+ml_options:                                                      # [Optional]. Overrides default machine learning settings
+  task:                                                          # [Optional]. detection, segmentation
+  model:                                                         # [Optional]. Name/version of machine learning model to use
 ```
 
 ::: {.callout-important}
@@ -162,6 +166,10 @@ Mosaic datasets created and published to GeoNode will be named by combining info
     grouping_area_datetime_[spectrum_type]_[elevation]m
 
 where `grouping`, `area` and `datetime` are mandatory and `spectrum_type` and `elevation` will be included if provided. **It is important to ensure that this name is unique** to avoid conflicts with other datasets. For this reason, it is strongly recommended to include hours and minutes in the `datetime` attribute when filling in `config.seabee.yaml`.
+:::
+
+::: {.callout-note}
+By default, SeaBee datasets are published under a `CC-BY-4.0` licence (details [here](https://creativecommons.org/licenses/by/4.0/)). If `publish` is `True` and the `licence` and `licence_link` options are not provided, the default values will be set automatically during the publishing step.
 :::
 
 ## Data upload {#sec-upload}
