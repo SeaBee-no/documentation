@@ -130,7 +130,7 @@ mosaic: true                                                     # Whether to mo
 classify: true                                                   # Whether to classify the orthomosaic using machine learning (true or false)
 publish: true                                                    # Whether to publish the orthophoto to GeoNode (true or false)
 theme: Seabirds                                                  # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
-spectrum_type: RGB                                               # [Optional]. Sensor type ('RGB', 'MSI' or 'HSI')
+spectrum_type: RGB                                               # [Optional]. Sensor type ('RGB', 'MSI', 'HSI', 'Thermal')
 elevation: 40                                                    # [Optional]. Flight elevation (integer > 0 in metres)
 creator_name: Sindre Molværsmyr                                  # [Optional]. Data collector/pilot
 project: Seabirds2023                                            # [Optional]. Name of project
