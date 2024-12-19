@@ -78,7 +78,7 @@ The purpose of each subfolder or file is as follows:
 
  * `dem` (optional). Contains elevation datasets generated during orthorectification (DSMs and DTMs etc.). This folder and its contents will be generated automatically if orthorectification is performed on the platform using ODM, but it should be explicitly provided if orthorectification has been done elsewhere (e.g. using Pix4D).
 
- * `gcp` (optional). Folder containing ground control points in a standard text format. The format used by ODM is different to that used by Pix4D, so **please specify which format has been used in the filename**, as shown above. Ground control points are usually not necessary if you are flying with differential GPS (RTK etc.), in which case this folder can be omitted..
+ * `gcp` (optional). Folder containing ground control points in a standard text format. The format used by ODM is different to that used by Pix4D, so **please specify which format has been used in the filename**, as shown above. Ground control points are usually not necessary if you are flying with differential GPS (RTK etc.), in which case this folder can be omitted.
  
  * `ground_truth` (optional). Ground truth data, if available.
 
@@ -155,6 +155,7 @@ odm_options:                                                     # [Optional]. O
   crop: 3                                                        # [Optional]. Int or Float (>= 0)
   pc-quality: high                                               # [Optional]. ultra, high, medium, low, lowest
   feature-quality: high                                          # [Optional]. ultra, high, medium, low, lowest
+  radiometric-calibration: camera                                # [Optional]. 'camera', 'camera+sun' or None
 ml_options:                                                      # [Optional]. Overrides default machine learning settings
   task:                                                          # [Optional]. detection, segmentation
   model:                                                         # [Optional]. Name/version of machine learning model to use
@@ -191,7 +192,7 @@ config.seabee.yaml
 
 These folders were synchronised to the SeaBee platform overnight using Rclone, which typically involved batch-uploading data from between 20 and 40 flights per day. Around 5 TB of data were uploaded during the first two weeks.
 
-A script running every hour on the SeaBee platform compared the number of files in each `images` folder to the value specified in `config.seabee.yaml` to determine when flights were ready for processing. Complete datasets were then submitted as jobs to NodeODM, which ran continuously processing data from four missions in parallel. 
+A script running every hour on the SeaBee platform compared the number of files in each `images` folder to the value specified in `config.seabee.yaml` to determine when flights were ready for processing. Complete datasets were then submitted as jobs to NodeODM, which ran continuously processing data from several missions in parallel. 
 
 Completed orthomosaics were optimised for viewing online and then automatically published to the SeaBee GeoNode - usually within a few hours of the data upload completing. This made it possible for the survey team to check their data while still in the field, which is something we have never previously achieved at this scale.
 :::

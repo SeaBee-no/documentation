@@ -19,14 +19,14 @@ There are several options for interacting with files stored on MinIO.
 
 ### MinIO web interface {#sec-minio-ui}
  
- The minio console located at <https://minio.seabee.sigma2.no/login> provides a graphical interface to browse, upload and download files (@fig-minio-console-window). 
+ The MinIO console located at <https://minio.seabee.sigma2.no/login> provides a graphical interface to browse, upload and download files (@fig-minio-console-window). 
  
  ![MinIO Console.](./images/minio_console_window.png){#fig-minio-console-window}
 
  To upload data, navigate to the location you wish to add data to, click `Upload`, then select either `Upload Folder` or `Upload File`. To download, mark the desired folder/files using the checkboxes and click `Download`.
  
 ::: {.callout-note}
-The MinIO web interface suitable for browsing SeaBee files and up/downloading small datasets. It is not designed to transfer large volumes of data, such as high resolution orthomosaics. To move large datasets to/from the SeaBee platform, you should use dedicated software designed for managing files hosted in the cloud. See the sections below for suggestions. 
+The MinIO web interface is suitable for browsing SeaBee files and up/downloading small datasets. It is not designed to transfer large volumes of data, such as high resolution orthomosaics. To move large datasets to/from the SeaBee platform, you should use dedicated software designed for managing files hosted in the cloud. See the sections below for suggestions. 
 ::: 
 
 ### Machine Access {#sec-machine-access}

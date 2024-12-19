@@ -21,7 +21,7 @@ Typical data products from the machine learning include both **image segmentatio
 
 ## Sigma2 {#sec-sigma2}
 
-As far as possible, data handling for the SeaBee project is hosted by Sigma2 on [NIRD](https://documentation.sigma2.no/files_storage/nird.html), the National Infrastructure for Research Data. The SeaBee project has its own [Kubernetes](https://kubernetes.io/) namespace on Sigma2. A high-level schematic of the current configuration is shown in @fig-sigma2-outline.
+Data handling for the SeaBee project is hosted by Sigma2 on [NIRD](https://documentation.sigma2.no/files_storage/nird.html), the National Infrastructure for Research Data. All SeaBee datasets are stored in the Sigma2 data centre at [Lefdal Mine](https://www.lefdalmine.com/) in Nordfjord, one of the greenest data centres in Europe. The SeaBee project has its own [Kubernetes](https://kubernetes.io/) namespace at Lefdal Mine. A high-level schematic of the current configuration is shown in @fig-sigma2-outline.
 
 ![Simplified Sigma2 architecture.](./images/sigma2_outline_2023-01-06.png){#fig-sigma2-outline}
 

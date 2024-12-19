@@ -13,7 +13,7 @@ SeaBee data products are made publicly available via the [SeaBee GeoNode](https:
  
  * **[Documents](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=document)**. Relevant non-spatial datasets, such as reports, documentation, etc.
  
- * **[GeoStories](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=geostory)**. Web pages that combine geospatial visualisations with descriptive text to create a story on a particular theme.
+ * **[GeoStories](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=geostory)**. Web pages that combine geospatial visualisations with descriptive text and other media to create a story on a particular theme.
  
  * **[Dashboards](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=dashboard)**. Interactive applications allowing users to explore, visualise and analyse SeaBee datasets.
 
@@ -23,15 +23,15 @@ All datasets hosted on SeaBee's GeoNode are exposed as Web Mapping Services (WMS
 
  <https://geonode.seabee.sigma2.no/geoserver/geonode/wms?version=1.1.1>
  
-This will allow you to load a list of available SeaBee data layers and add them to your map. 
+This will allow you to load a list of available SeaBee data layers and add them to your map. The WMSs can also be used to build third-party applications that incorporate SeaBee data products.
 
 ## Registered users {#sec-registered-users}
 
-SeaBee data is available to everyone, but registered users can download data products for their own use, and they can also create, style and share their own maps by combining multiple SeaBee datasets. Click the `Register` button at the top-right of the [GeoNode home page](https://geonode.seabee.sigma2.no/#/) to create an account.
+SeaBee data is available to everyone, but registered users can download data products for their own use. They can also create, style and share their own maps by combining multiple SeaBee datasets. Click the `Register` button at the top-right of the [GeoNode home page](https://geonode.seabee.sigma2.no/#/) to create an account.
 
 ## Data licensing {#sec-licensing}
 
-The SeaBee platform supports licensing on a per-dataset basis. By default, SeaBee datasets are published under a **CC-BY-4.0** licence, which permits sharing, extending and adapting the data (including for commercial purposes), as long as SeaBee is credited as the data source. See [here](https://creativecommons.org/licenses/by/4.0/) for details.
+The SeaBee platform supports licensing on a per-dataset basis. By default, SeaBee datasets are published under a **CC-BY-4.0** licence, which permits sharing and adapting the data (including for commercial purposes), as long as SeaBee is credited as the data source. See [here](https://creativecommons.org/licenses/by/4.0/) for details.
 
 ::: {.callout-important}
 Some SeaBee datasets **do not** use the `CC-BY-4.0` licence. Please check the `Licence` and `Licence link` attributes in the dataset abstract to find the correct licence.

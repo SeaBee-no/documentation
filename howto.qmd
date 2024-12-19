@@ -11,7 +11,7 @@ You need to create a Feide account and then request access to the resources you 
 
 ## Upload or download files {#sec-file-transfer}
 
-The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider either the [MinIO web interface](https://minio.seabee.sigma2.no/) or the [SeaBee data upload portal](https://geonode.seabee.sigma2.no/ddc/#step-1). For larger volumes of data (e.g. raw imagery for whole missions), dedicated software such as **Rclone** and **RcloneBrowser** are preferable. See [Uploading and downloading files](./storage.qmd#uploading-and-downloading-files) for details.
+The best option will depend on your level of technical expertise and the volume of data you wish to transfer. Non-technical users with smaller data volumes should consider the [MinIO web interface](https://minio.seabee.sigma2.no/). For larger volumes of data (e.g. raw imagery for whole missions), dedicated software such as **Rclone** and **RcloneBrowser** are preferable. See [Uploading and downloading files](./storage.qmd#uploading-and-downloading-files) for details.
 
 ## Mosaic geotagged raw images to georeferenced mosaics {#sec-orthorectification}
 
@@ -27,4 +27,4 @@ Orthomosaics from aerial drones and data products from machine learning are avai
 
 ## Create shareable maps combining multiple datasets {#sec-share-maps}
 
-You first need to **register** as a user of the GeoNode (click the button near the top-right of [this](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=dataset) page). Once signed in, you can use the `Add resource` button to create a new `Map`, where you can choose which layers to add and then adjust their styling etc. Maps you create are linked to your username and will become visible on the [Maps](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=map) page. All user-generated maps are public and can be shared online.
+You first need to **register** as a user of the GeoNode (click the button near the top-right of the [map page](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=dataset)). Once signed in, you can use the `Add resource` button to create a new `Map`, where you can choose which layers to add and adjust their styling etc. Maps you create are linked to your username and will become visible on the [Maps](https://geonode.seabee.sigma2.no/catalogue/#/search/?f=map) page. All user-generated maps are public and can be shared online.
