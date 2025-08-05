@@ -129,7 +129,7 @@ organisation: NINA                                               # Responsible o
 mosaic: true                                                     # Whether to mosaic the raw images using ODM (true or false)
 classify: true                                                   # Whether to classify the orthomosaic using machine learning (true or false)
 publish: true                                                    # Whether to publish the orthophoto to GeoNode (true or false)
-theme: Seabirds                                                  # SeaBee "theme" ('Seabirds', 'Mammals' or 'Habitat')
+theme: Seabirds                                                  # SeaBee "theme" ('Seabirds', 'Mammals', 'Habitat' or 'Water quality')
 spectrum_type: RGB                                               # [Optional]. Sensor type ('RGB', 'MSI', 'HSI', 'Thermal')
 elevation: 40                                                    # [Optional]. Flight elevation (integer > 0 in metres)
 creator_name: Sindre Molværsmyr                                  # [Optional]. Data collector/pilot
@@ -153,6 +153,8 @@ odm_options:                                                     # [Optional]. O
   split: 999999                                                  # [Optional]. Int
   split-overlap: 150                                             # [Optional]. Int
   crop: 3                                                        # [Optional]. Int or Float (>= 0)
+  matcher-neighbors: 0                                           # [Optional]. Int (>= 0)
+  min-num-features: 10000                                        # [Optional]. Int (> 0)
   pc-quality: high                                               # [Optional]. ultra, high, medium, low, lowest
   feature-quality: high                                          # [Optional]. ultra, high, medium, low, lowest
   radiometric-calibration: camera                                # [Optional]. 'camera', 'camera+sun' or None
